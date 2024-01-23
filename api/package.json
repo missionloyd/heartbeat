@@ -1,0 +1,28 @@
+{
+  "name": "heartbeat-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app/index",
+    "start-server": "nodemon index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "express": "^4.17.1",
+    "express-rate-limit": "^6.7.0",
+    "express-slow-down": "^1.5.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20",
+    "pg": "^8.5.1",
+    "pg-format": "^1.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-querybuilder": "^3.9.9"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}

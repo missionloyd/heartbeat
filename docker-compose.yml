@@ -1,0 +1,53 @@
+version: "3.7"
+
+services:
+  hb-pg-db:
+    container_name: hb-pg-db
+    build: ./db
+    ports:
+      - "5433:5432" # Expose Ports - HOST:CONTAINER
+    environment:
+      # List of supported environment variables found here:
+      # https://hub.docker.com/_/postgres
+      - POSTGRES_DB=${PG_DB}
+      - POSTGRES_USER=${PG_DB_USER}
+      - POSTGRES_PASSWORD=${PG_DB_PASSWORD}
+    volumes:
+      - ./data:/data
+    healthcheck:
+      # An exit code of 0 will be sent after the container is successfully up and running.
+      test: exit 0
+  # Go to localhost:5050 in a browser, and connect to the server with host "hb-pg-db" and port 5432.
+  hb-pg-admin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    depends_on:
+      - hb-pg-db
+    links:
+      - hb-pg-db
+    tty: true
+  hb-api:
+    container_name: hb-api
+    build: ./api
+    # Volumes mount a directory inside a container so that modifications to code are possible without having to rebuild the image.
+    volumes:
+      - "./api:/usr/src/app"
+      - "./api/package.json:/usr/src/package.json"
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    environment:
+      # postgres://<user>:<password>@hb-pg-db:5432/<pg_db_name>
+      - DATABASE_URL=postgres://${PG_DB_USER}:${PG_DB_PASSWORD}@hb-pg-db:5432/${PG_DB}
+      - CLIENT_APP_URL=${API_CLIENT_APP_URL}
+      - PORT=${API_PORT}
+      - DEV_MODE=${API_DEV_MODE}
+    # `depends_on` specifies the order in which services are started. `nycsc-api` must wait for `hb-pg-db` to fire up successfully before it starts.
+    depends_on:
+      - hb-pg-db
+    # Link to services running in other containers. The API code will be able to access the database via `hb-pg-db:5432`
+    links:
+      - hb-pg-db
