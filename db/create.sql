@@ -38,7 +38,6 @@ CREATE TABLE spaces (
 \copy spaces FROM '/data/Fine_Arts_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Gateway_Center_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/General_Storage_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
-\copy spaces FROM '/data/HAPC_RAC_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/High_Bay_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Indoor_Practice_Facility_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Information_Technology_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
@@ -62,11 +61,12 @@ CREATE TABLE spaces (
 \copy spaces FROM '/data/EERB_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Energy_Innovation_Center_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Engineering_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
-\copy spaces FROM '/data/Enzi_STEM_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
+\copy spaces FROM '/data/Enzi-STEM_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Geological_Survey_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Geology_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Half_Acre_Gym_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
-\copy spaces FROM '/data/Health_Science_Pharmacy_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
+\copy spaces FROM '/data/HAPC_and_RAC_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
+\copy spaces FROM '/data/Health_Science_and_Pharmacy_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Hoyt_Hall_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Knight_Hall_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/McWhinnie_Hall_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
@@ -79,7 +79,7 @@ CREATE TABLE spaces (
 \copy spaces FROM '/data/Student_Union_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Vet_Lab_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Williams_Conservatory_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
-\copy spaces FROM '/data/WRI_Bureau_of_Mines_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
+\copy spaces FROM '/data/WRI_and_Bureau_of_Mines_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 \copy spaces FROM '/data/Wyoming_Hall_Data.csv' DELIMITER ',' CSV HEADER NULL AS '';
 
 commit;

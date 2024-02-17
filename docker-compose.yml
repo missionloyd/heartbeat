@@ -32,7 +32,11 @@ services:
     tty: true
   hb-api:
     container_name: hb-api
-    build: ./api
+    build: 
+      context: ./api
+      dockerfile: Dockerfile # Use a Dockerfile that sets up nodemon for development
+      args:
+        - DEV_MODE=${API_DEV_MODE}
     # Volumes mount a directory inside a container so that modifications to code are possible without having to rebuild the image.
     volumes:
       - "./api:/usr/src/app"

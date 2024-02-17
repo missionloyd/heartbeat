@@ -33,8 +33,8 @@ PGADMIN_PASSWORD=pgadmin_password # Replace "pgadmin_password" with a strong pas
 Run the multi-container Docker application:
 
 ```shell
-$ export DOCKER_COMPOSE_ENV_FILE=./.env.development
-$ docker-compose --env-file $DOCKER_COMPOSE_ENV_FILE build --force-rm --no-cache && docker-compose --env-file $DOCKER_COMPOSE_ENV_FILE up --detach && docker-compose --env-file $DOCKER_COMPOSE_ENV_FILE logs --follow
+export DOCKER_COMPOSE_ENV_FILE=./.env.development
+docker-compose --env-file $DOCKER_COMPOSE_ENV_FILE build --force-rm --no-cache && docker-compose --env-file $DOCKER_COMPOSE_ENV_FILE up --detach && docker-compose --env-file $DOCKER_COMPOSE_ENV_FILE logs --follow
 ```
 
 Verify that the application is properly running by navigating to `localhost:<API_PORT>/tables` within your browser. 
