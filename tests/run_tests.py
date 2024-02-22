@@ -1,7 +1,7 @@
 import requests
 import json
 
-HOST_PORT = 8000
+HOST_PORT = 8080
 
 # Base URL of your API
 base_url = f"http://localhost:{HOST_PORT}/api/space"
