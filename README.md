@@ -19,9 +19,9 @@ API_CLIENT_APP_URL=http://localhost:3000 # Or whatever domain the create-react-a
 API_DEV_MODE=true # Set this to `true` to disable TLS/SSL connections to the PostgreSQL database.
 
 # Environment Variables for the PostgreSQL Database
-PG_DB=heartbeat-api
-PG_DB_USER=postgres_user # Replace "postgres_user" with a unique username.
-PG_DB_PASSWORD=postgres_password # Replace "postgres_password" with a strong password. 
+PG_DB=heartbeat
+PG_DB_USER=admin # Replace "postgres_user" with a unique username.
+PG_DB_PASSWORD=admin # Replace "postgres_password" with a strong password. 
 
 # Environment Variables for pgAdmin
 PGADMIN_EMAIL=emailaddress@service.com # Replace "emailaddress@service.com" with your e-mail address.
