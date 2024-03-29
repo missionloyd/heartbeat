@@ -8,14 +8,10 @@ base_url = f"http://localhost:{HOST_PORT}/api/space"
 
 # Define a common payload for testing
 payload = {
-    "commodity": "electricity",
-    "bldgname": "Engineering",
-    "timeSteps": [0, 23],
-    "datelevel": "hour",
-    "table": "spaces",
-    "context": "",
-    "startDate": "1/1/23",
-    "endDate": "1/2/23",
+    "assetName": "Coe Library",
+    "dateLevel": "HOUR",
+    "startingDate": "10/26/19",
+    "endingDate": "10/28/19",
 }
 
 # Headers to indicate that the body is JSON

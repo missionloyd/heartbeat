@@ -1,41 +1,20 @@
-const express = require("express");
-const db = require("../../lib/db");
-// import { checkCache, setCache } from '../../middleware/Cache';
+const { Router } = require('express');
+const { getLatestData } = require('../../utils/get_latest_data');
 
-const router = express.Router();
+const latestRouter = Router();
 
-// get data from the last 24 hours
-function spaceLatestRouter(cache, cacheTTL) {
-  router.get("/", async (_req, res) => {
+// Get the latest data in the past 24 hours
+latestRouter.post('/', async (request, response) => {
 
-    let data = []
-  
-    const selectQuery = `
-      SELECT * from (
-        SELECT *, ROW_NUMBER() OVER (PARTITION BY bldgname ORDER BY ts DESC) r
-        FROM spaces
-      ) T
-      WHERE T.r=1
-    `
-    
-    try {
-      data = (await db.query(selectQuery)).rows
-    } catch (error) {
-      console.log(error);
-      return res.json({ 
-        data: [], 
-        status: 500,
-        message: error
-      });
-    }
-  
-    return res.json({
-      data,
-      status: 'ok',
-    });
-  });
+    const { assetName, commodityType } = request.body;
 
-  return router;
-};
+    const latestData = await getLatestData(assetName, commodityType);
 
-module.exports = { spaceLatestRouter };
+    // *********
+    // TODO : Error-handling.
+    // *********
+
+    response.json(latestData);
+});
+
+module.exports = latestRouter;
