@@ -1,4 +1,5 @@
 const db = require('../lib/db');
+const { buildMeasurementQuery } = require('./build_measurement_query');
 
 // Inputs :
 //  - Name of Asset (STRING)
@@ -15,42 +16,45 @@ async function getAvgSummary(assetName, startingDate, endingDate, dateLevel) {
     // $2 : assetName
     // $3 : startingDate
     // $4 : endingDate
-    const unpivotedQuery = `
-        SELECT DATE_TRUNC($1, measurement.ts) as timestamp, commodity.type, SUM(measurement.value) FROM measurement
-        JOIN asset ON asset.id = measurement.asset_id
-        JOIN commodity ON commodity.id = measurement.commodity_id
-        WHERE asset.name = $2 AND
-        measurement.ts >= $3 AND measurement.ts <= $4     
-        GROUP BY asset.name, commodity.type, timestamp
+
+    const commoditiesQuery = `
+        SELECT type FROM commodity
     `;
 
-    const pivotedQuery = `
-        SELECT
-        timestamp,
-        CASE WHEN type = 'present_elec_kwh' THEN sum END AS present_elec_kwh,
-        CASE WHEN type = 'present_co2_tonh' THEN sum END AS present_co2_tonh,
-        CASE WHEN type = 'present_htwt_mmbtuh' THEN sum END AS present_htwt_mmbtuh,
-        CASE WHEN type = 'present_wtr_usgal' THEN sum END AS present_wtr_usgal,
-        CASE WHEN type = 'present_chll_tonh' THEN sum END AS present_chll_tonh
-        FROM 
-        (
-            ${unpivotedQuery}
-        )
-        AS unpivoted_asset_measurement_table
-    `;
+    const commodotiesQueryResult = await db.query(commoditiesQuery);
+
+    const commoditiesRows = commodotiesQueryResult.rows;
+
+    const measurementQuery = buildMeasurementQuery(commoditiesRows);
+
+    let columnStatements = "";
+    for(i = 0; i < commoditiesRows.length; i++) {
+
+        const commodityType = commoditiesRows[i]['type'];
+
+        const presentColumnString = `AVG(${commodityType}) AS avg_${commodityType},`;
+
+        let historicalColumnString = "";
+
+        if(i == commoditiesRows.length - 1) {
+            historicalColumnString = `AVG(historical_${commodityType}) AS avg_historical_${commodityType}`;
+        } else {
+            historicalColumnString = `AVG(historical_${commodityType}) AS avg_historical_${commodityType},`;
+        }
+
+        
+        columnStatements += presentColumnString;
+        columnStatements += historicalColumnString;
+    }
 
     const summaryQuery = `
         SELECT
-        AVG(present_elec_kwh) AS avg_present_elec_kwh,
-        AVG(present_co2_tonh) AS avg_present_co2_tonh,
-        AVG(present_htwt_mmbtuh) AS avg_present_htwt_mmbtuh,
-        AVG(present_wtr_usgal) AS avg_present_wtr_usgal,
-        AVG(present_chll_tonh) AS avg_present_chll_tonh
+        ${columnStatements}
         FROM
         (
-            ${pivotedQuery}
+            ${measurementQuery}
         )
-        AS pivoted_asset_measurement_table
+        AS pivoted_measurement_table
     `;
 
     const queryResult = await db.query(summaryQuery, [dateLevel, assetName, startingDate, endingDate]);

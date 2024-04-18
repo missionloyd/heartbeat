@@ -1,0 +1,572 @@
+id|active|name|short_name|tree_id|lft|rght|
+582|t|San Antonio|San Antonio|42|1|4
+790|f|Texas Biomedical Research Institute|Texas Biomedical Research|42|2|3
+585|t|Niobrara County|Niobrara County|45|1|4
+927|f|Niobrara County Fairgrounds Building|Niobrara County Fairgroun|45|2|3
+592|t|Crook County|Crook County|52|1|6
+946|f|Crook County Courthouse|Crook County Courthouse|52|4|5
+954|f|KUWR Radio (Sundance) Building|KUWR Radio (Sundance) Bld|52|2|3
+595|t|Big Horn County|Big Horn County|55|1|4
+961|f|Big Horn County CES Office|Big Horn County CES Offic|55|2|3
+587|t|Lincoln|Lincoln|47|1|8
+929|f|Lincoln County CES Office|Lincoln County CES Office|47|6|7
+981|f|KRSV Radio LVP&L Building|KRSV Radio LVP&L Bldg|47|4|5
+996|f|Afton Lincoln Cnty Civic Ctr|Afton Lincoln Cnty Civic |47|2|3
+597|t|Gardiner|Gardiner|57|1|4
+1008|f|495 Jardine Road (WYCOOP) Residence|495 Jardine Road (WYCOOP)|57|2|3
+593|t|Johnson County|Johnson County|53|1|12
+959|f|KUWK Radio (Kaycee) Building|KUWK Radio Bldg|53|10|11
+968|f|137 Western Avenue|137 Western Ave.|53|8|9
+978|f|WYCOOP Buffalo Building|WYCOOP Buffalo Bldg|53|6|7
+992|f|KBUW Radio (Buffalo) Building|KBUW Radio (Buffalo) Bldg|53|4|5
+1015|f|Johnson Cnty CES Office|Johnson Cnty CES Office|53|2|3
+581|t|Sweetwater County|Sweetwater County|41|1|14
+734|f|Wells Fargo Bank Building|Wells Fargo Bank Building|41|12|13
+837|f|KUWZ Radio (Rock Springs) Building|KUWZ Radio (Rock Springs)|41|10|11
+950|f|Rock Springs Chamber of Commerce|Rock Springs Chamber of C|41|8|9
+982|f|2280 Cumorah Way #1|2280 Cumorah Way #1|41|6|7
+1043|f|WWCC Green River Center Building|WWCC Green River Center B|41|4|5
+1044|f|Western Wyo Com College Building|Western Wyo Com College B|41|2|3
+590|t|Weston County|Weston County|50|1|8
+936|f|USDA USFS Building|USDA USFS Bldg|50|6|7
+990|f|Newcastle High School|Newcastle High School|50|4|5
+1061|f|KUWN  Radio (Newcastle) Building|KUWN  Radio (Newcastle) B|50|2|3
+594|t|Converse County|Converse County|54|1|12
+960|f|Tower Hill Communications Building, Douglas|Tower Hill Communications|54|10|11
+962|f|KDUW Radio (Douglas) Building|KDUW Radio (Douglas) Bldg|54|8|9
+972|f|Converse County CES Office|Converse County CES Offic|54|6|7
+973|f|Douglas EWC Branch Campus|Douglas EWC Branch Campus|54|4|5
+1076|f|Unit 56 at 435 Brownfield Road|Unit 56 at 435 Brownfield Road|54|2|3
+601|t|Alaska|Alaska|61|1|4
+1081|f|1112A Narwhale Court|1112A Narwhale Court|61|2|3
+589|t|Uinta County|Uinta County|49|1|10
+934|f|Uinta County CES Office|Uinta County CES Office|49|8|9
+971|f|1575 South Hwy 150, Suite A|1575 S. Hwy 150, Suite A|49|6|7
+995|f|Uinta B.O.C.E.S. Education Center|Uinta B.O.C.E.S. Educatio|49|4|5
+1083|f|KUWR Radio (Evanston) Building|KUWR Radio (Evanston) Bld|49|2|3
+598|t|Platte County|Platte County|58|1|6
+1027|f|Wheatland HS|Wheatland HS|58|4|5
+1095|f|Platte County CES Office|Platte County CES Office|58|2|3
+577|t|Park County|Park County|37|1|50
+667|f|PREC Haz Mat Storage|PREC Haz Mat Storage|37|48|49
+687|f|PREC Garage #2|PREC Garage #2|37|46|47
+688|f|PREC Office Building & Seed Lab|PREC Office Bldg & Seed L|37|44|45
+717|f|PREC Foreman|PREC Foreman|37|42|43
+749|f|PREC Well House|PREC Well House|37|40|41
+770|f|PREC Seed Cleaning Facility|PREC Seed Cleaning Facili|37|38|39
+866|f|PREC Garage #1|PREC Garage #1|37|36|37
+869|f|PREC Animal Shelter/Storage|PREC Animal Shelter/Stora|37|34|35
+882|f|PREC Maintenance Facility 1997|PREC Maintenance Facility|37|32|33
+886|f|PREC Lab & Seed Cert Lab|PREC Lab & Seed Cert Lab|37|30|31
+891|f|PREC Superintendent Garage|PREC Superintendent Garag|37|28|29
+892|f|PREC Superintendent Residence|PREC Superintendent Resid|37|26|27
+911|f|PREC Greenhouse|PREC Greenhouse|37|24|25
+919|f|Park County Courthouse|Park County Courthouse|37|22|23
+921|f|NWC Orendorff Building|NWC Orendorff Bldg|37|20|21
+923|f|Park County Outreach Building|Park County Outreach Bldg|37|18|19
+938|f|Powell Valley Chamber of Commerce Building|Powell Valley Chamber of |37|16|17
+989|f|Powell NW College ORB|Powell NW College ORB|37|14|15
+1026|f|2825 Lincoln Avenue|2825 Lincoln Avenue|37|12|13
+1041|f|WPR Building|KUWP Radio (Cody) Bldg|37|10|11
+1047|f|312 West 6th Street Building|312 W. 6th St Bldg|37|8|9
+1070|f|WSBDC Region 2 Office|WSBDC Region 2 Office|37|6|7
+1094|f|1210 16th Street Building|1210 16th St Bldg|37|4|5
+1112|f|KUWP Radio (Cody) Building|KUWP Radio (Cody) Bldg|37|2|3
+602|t|Washakie County|Washakie County|62|1|4
+1113|f|Washakie County CES Office|Washakie County CES Offic|62|2|3
+599|t|Hot Springs County|Hot Springs County|59|1|8
+1028|f|Real Estate Center Building|Real Estate Center Bldg|59|6|7
+1058|f|KUWT Radio (Thermopolis) Building|KUWT Radio (Thermopolis) |59|4|5
+1114|f|Hot Springs CES Office|Hot Springs CES Office|59|2|3
+576|t|Goshen County|Goshen County|36|1|72
+715|f|SAREC TH Scale|SAREC TH Scale|36|68|69
+740|f|SAREC Gillaspie Residence|SAREC Gillaspie Residence|36|62|63
+666|f|SAREC Gillaspie Grain Bin (large) west|SAREC Gillaspie Grain Bin|36|70|71
+727|f|SAREC TH Grain Bin (small) south|SAREC TH Grain Bin (small|36|66|67
+735|f|SAREC TH Hazmat Chem Storage #1 north|SAREC TH Hazmat Chem Stor|36|64|65
+755|f|SAREC TH Grain Bin (large) north|SAREC TH Grain Bin (large|36|60|61
+756|f|SAREC Gillaspie Shop|SAREC Gillaspie Shop|36|58|59
+763|f|SAREC TH Office Lab Addition|SAREC TH Office Lab Addit|36|56|57
+778|f|KUWV Radio WPR (Teakettle) Equipment Building|KUWV Radio WPR (Teakettle|36|54|55
+780|f|SAREC Gillaspie Grain Bin (large) east|SAREC Gillaspie Grain Bin|36|52|53
+783|f|SAREC TH Hazmat Chem Storage #2 south|SAREC TH Hazmat Chem Stor|36|50|51
+785|f|SAREC TH Shop|SAREC TH Shop|36|48|49
+791|f|SAREC TH Office|SAREC TH Office|36|46|47
+792|f|SAREC TH Grain Bin (large) south|SAREC TH Grain Bin (large|36|44|45
+796|f|SAREC Gillaspie Well House|SAREC Gillaspie Well Hous|36|42|43
+798|f|Lincoln Center Complex (Torrington Town Center)|Lincoln Center Complex (T|36|40|41
+802|f|SAREC TH Holding Pens|SAREC TH Holding Pens|36|38|39
+805|f|SAREC TH Garage/Shop|SAREC TH Garage/Shop|36|36|37
+817|f|SAREC TH Grain Bin (large) northeast|SAREC TH Grain Bin (large|36|34|35
+828|f|KUWR Radio (Torrington) Building|KUWR Radio (Torrington) B|36|32|33
+830|f|SAREC Gillaspie Grain Bin (large) central|SAREC Gillaspie Grain Bin|36|30|31
+838|f|SAREC TH Congregate Residence|SAREC TH Congregate Resid|36|28|29
+855|f|SAREC Gillaspie Grain Bin (small)|SAREC Gillaspie Grain Bin|36|26|27
+877|f|SAREC Gillaspie Garage|SAREC Gillaspie Garage|36|24|25
+880|f|SAREC TH Barn|SAREC TH Barn|36|22|23
+897|f|SAREC TH Scale House|SAREC TH Scale House|36|20|21
+900|f|SAREC TH Livestock Handling|SAREC TH Livestock Handli|36|18|19
+901|f|SAREC TH Grain Bin (small) north|SAREC TH Grain Bin (small|36|16|17
+906|f|SAREC TH Hazmat Fuel Storage|SAREC TH Hazmat Fuel Stor|36|14|15
+910|f|SAREC TH High Tunnel|SAREC TH High Tunnel|36|12|13
+932|f|KEUW Radio (Trrington) Building|KEUW Radio Bldg|36|10|11
+953|f|EWC Tebbet Building (Torrington)|EWC Tebbet Bldg (Torringt|36|8|9
+1005|f|Goshen County CES Office|Goshen County CES Office|36|6|7
+1084|f|EWC Admin Building|EWC Admin Bldg|36|4|5
+1115|f|2221 East I, Apt. #4|2221 East I, Apt. #4|36|2|3
+600|t|Idaho|Idaho|60|1|6
+1066|f|KUWR Radio (Driggs) Building|KUWR Radio (Driggs) Bldg|60|4|5
+1117|f|Center for Advanced Energy Studies|Center for Advanced Energ|60|2|3
+579|t|Carbon County|Carbon County|39|1|28
+670|f|Elk Mountain Obs Septic Treatment Building|Elk Mtn Obs Septic Treatm|39|26|27
+713|f|Elk Mountain Obs Tucker Building|Elk Mtn Obs Tucker Bldg|39|24|25
+721|f|Elk Mountain Observatory Building|Elk Mtn Observatory Build|39|22|23
+725|f|Elk Mountain Obs Water Storage Building|Elk Mtn Obs Water Storage|39|20|21
+759|f|Elk Mountain Weather Station Building|Elk Mtn Weather Station B|39|18|19
+769|f|Carbon County Higher Educ Ctr|Carbon County Higher Educ|39|16|17
+812|f|Elk Mountain Obs Well House|Elk Mtn Obs Well House|39|14|15
+924|f|Wapiti Wallow Cabin|Wapiti Wallow Cabin|39|12|13
+955|f|Carbon County CES Office|Carbon County CES Office|39|10|11
+1010|f|Grouse House Cabin |Grouse House Cabin |39|8|9
+1072|f|211 8th Street Building|211 8th St Bldg|39|6|7
+1102|f|Rainbow Teton Enetrpreneur Center|Rawlins Downtown Dev Auth|39|4|5
+1119|f|KUWR Radio (Rawlins) Building|KUWR Radio (Rawlins) Bldg|39|2|3
+584|t|Laramie County|Laramie County|44|1|26
+907|f|Family Medicine Residency Program Cheyenne Building|Family Medicine Residency|44|24|25
+918|f|Tri-County Medical Services|Tri-County Medical Servic|44|22|23
+958|f|LCSD Storey Gym Admin Building Annex|LCSD Storey Gym Admin Bld|44|20|21
+964|f|Laramie County CES Office Building|Laramie County CES Office|44|18|19
+965|f|Clark School Admin Building Annex|Clark School Admin Bldg A|44|16|17
+1001|f|LCCC Auto Body Building|LCCC Auto Body Bldg|44|14|15
+1009|f|LCCC Clay Pathfinder Building|LCCC Clay Pathfinder Bldg|44|12|13
+1038|f|Wyoming State Capitol|Wyoming State Capitol|44|10|11
+1042|f|Laramie County Public Health|Laramie County Public Hea|44|8|9
+1046|f|109 East 29th, Apt 6 Building|109 E 29th, Apt 6 Buildin|44|6|7
+1118|f|1603 Capitol Avenue., Suite 213|1603 Capitol Ave., Ste 21|44|4|5
+1120|f|Cheyenne SEO-ETS|Cheyenne SEO-ETS|44|2|3
+591|t|Sublette County|Sublette County|51|1|18
+941|f|WYCOOP Pinedale Building|WYCOOP Pinedale Bldg|51|16|17
+944|f|515 Moose Street Building|515 Moose Street Bldg|51|14|15
+1018|f|KUWX Radio (Pinedale) Building|KUWX Radio (Pinedale) Bld|51|12|13
+1035|f|Sublette County Extension UW|Sublette County Extension UW|51|10|11
+1065|f|9 Hill View Street Building|9 Hill View St Bldg|51|8|9
+1071|f|Sublette County CES Office|Sublette County CES Offic|51|6|7
+1111|f|#2 Skyview Drive|#2 Skyview Drive|51|4|5
+1121|f|104 Rearing Station Rd.|104 Rearing Station Rd.|51|2|3
+586|t|Teton County|Teton County|46|1|44
+928|f|215 West Gill Avenue SBDC|215 W. Gill Avenue SBDC|46|42|43
+933|f|Center for the Arts (Jackson)|Center for the Arts (Jack|46|40|41
+949|f|AMK Ranch Shop Cabin|AMK Ranch Shop Cabin|46|38|39
+951|f|AMK Ranch Boise-Cascade|AMK Ranch Boise-Cascade|46|36|37
+956|f|AMK Ranch Sunroom Cabin|AMK Ranch Sunroom Cabin|46|34|35
+967|f|AMK Ranch Well / Powerhouse|AMK Ranch Well / Powerhou|46|32|33
+986|f|AMK Ranch Berol Lodge|AMK Ranch Berol Lodge|46|30|31
+987|f|AMK Ranch Johnson Lodge|AMK Ranch Johnson Lodge|46|28|29
+993|f|AMK Ranch Boathouse and Ramp|AMK Ranch Boathouse and R|46|26|27
+1016|f|AMK Ranch Johnson Garage |AMK Ranch Johnson Garage |46|24|25
+1029|f|AMK Ranch Director's Cabin|AMK Ranch Director's Cabi|46|22|23
+1045|f|AMK Ranch Chicken House|AMK Ranch Chicken House|46|20|21
+1049|f|AMK Ranch Two-Room Cabin (Double Cabin)|AMK Ranch Two-Room Cabin |46|18|19
+1053|f|AMK Ranch Lawrence House|AMK Ranch Lawrence House|46|16|17
+1055|f|Teton County CES Office|Teton County CES Office|46|14|15
+1067|f|KUWJ Radio (Jackson) Building|KUWJ Radio (Jackson) Bldg|46|12|13
+1078|f|AMK Ranch Smokehouse|AMK Ranch Smokehouse|46|10|11
+1096|f|AMK Ranch Barn|AMK Ranch Barn|46|8|9
+1103|f|AMK Ranch Tack Cabin|AMK Ranch Tack Cabin|46|6|7
+1105|f|AMK Ranch Outhouse|AMK Ranch Outhouse|46|4|5
+1122|f|AMK Ranch Woodshed|AMK Ranch Woodshed|46|2|3
+580|t|Natrona County|Natrona County|40|1|44
+698|f|Family Medicine Residency Program Casper Building|Family Medicine Residency|40|42|43
+926|f|Casper WTBC|Casper WTBC|40|40|41
+930|f|Casper College Saunders Health Science Center|CC Saunders Health Scienc|40|38|39
+939|f|Casper College Music Building|CC Music Building|40|36|37
+942|f|Casper College Skelton Energy Insitute|CC Skelton Energy Insitut|40|34|35
+974|f|Casper College Aley Hall|Casper College Aley Hall|40|32|33
+994|f|Natrona County Fair Admin Building|Natrona County Fair Admin|40|30|31
+1014|f|Bank of the West Building|Bank of the West Bldg|40|28|29
+1017|f|Casper College Liesinger Hall (was Admin Building)|CC Liesinger Hall (was Ad|40|26|27
+1031|f|Casper College Student Union-UW Casper Center|CC Student Union-UW Caspe|40|24|25
+1033|f|Casper College Goodstein Visual Arts Center|CC Goodstein Visual Arts |40|22|23
+1037|f|Casper College Krampert Theater|CC Krampert Theater|40|20|21
+1039|f|Casper College Gateway |CC Gateway |40|18|19
+1040|f|Casper College Wold Physical Science Center|CC Wold Physical Science |40|16|17
+1048|f|WY Medicine Residency Program of Casper in Utah|WY Medicine Residency Pro|40|14|15
+1064|f|KUWC Radio (Casper) Building|KUWC Radio (Casper) Bldg|40|12|13
+1075|f|Casper College Tate Geological Museum|CC Tate Geological Museum|40|10|11
+1080|f|Casper College Werner Technical Center|CC Werner Technical Cente|40|8|9
+1101|f|Casper College Loftin Life Science Center|CC Loftin Life Science Ce|40|6|7
+1108|f|Casper College Thorson Institute of Business|CC Thorson Institute of B|40|4|5
+1126|f|Family Medicine Residency Program Casper Site in Spokane,WA|1227 S Division St.|40|2|3
+583|t|Fremont County|Fremont County|43|1|30
+871|f|WPR (Copper Mountain) North Building|WPR (Copper Mountain) Nor|43|28|29
+912|f|Wind River Indian CES Office|Wind River Indian CES Off|43|26|27
+985|f|Fremont County Fair Building |Fremont County Fair Building |43|24|25
+997|f|Riverton Chamber of Commerce|Riverton Chamber Bldg|43|22|23
+1022|f|Intertribal Education and Community Center|Intertribal Education and|43|20|21
+1032|f|KUWR Radio (Dubois) Building|KUWR Radio (Dubois) Bldg|43|18|19
+1068|f|840 Jefferson Street|840 Jefferson St|43|16|17
+1085|f|Outreach West Central Building|Outreach West Central Bld|43|14|15
+1087|f|Frank B. Wise Business Plaza|Frank B. Wise Business Pl|43|12|13
+1089|f|560 South 2nd Street, Unit 215|560 S. 2nd St., Unit 215|43|10|11
+1093|f|Fremont County Courthouse|Fremont County Courthouse|43|8|9
+1107|f|Lander CWC Center|Lander CWC Center|43|6|7
+1116|f|Community Entry Services Building|Community Entry Services |43|4|5
+1128|f|2255 Brunton Court|2255 Brunton Court|43|2|3
+578|t|Sheridan County|Sheridan County|38|1|44
+668|f|SREC Office & Laboratory|SREC Office & Laboratory|38|42|43
+671|f|SREC Grainery East|SREC Grainery East|38|40|41
+676|f|SREC Grainery West|SREC Grainery West|38|38|39
+696|f|SREC House, Laborer|SREC House, Laborer|38|36|37
+766|f|SREC Garage|SREC Garage|38|34|35
+811|f|SREC Gas House|SREC Gas House|38|32|33
+831|f|SREC Well House South|SREC Well House South|38|30|31
+834|f|SREC Residence, Superintendent|SREC Residence, Superinte|38|28|29
+852|f|SREC Garage - Superintendent's|SREC Garage - Superintend|38|26|27
+857|f|Watt Agriculture Center Building|Watt Agriculture Center B|38|24|25
+865|f|SREC Well House North|SREC Well House North|38|22|23
+870|f|ORECS Greenhouse Facility|ORECS Greenhouse Facility|38|20|21
+893|f|SREC Haz Mat Storage Building|SREC Haz Mat Storage Bldg|38|18|19
+920|f|KSUW Radio (Sheridan) Building|KSUW Radio (Sheridan) Bld|38|16|17
+945|f|Sheridan College Whitney Building|Sheridan College Whitney |38|14|15
+999|f|Unit A, 1981 Double Eagle Drive, WTBC-SA Incubator|Unit A, 1981 Double Eagle|38|12|13
+1020|f|Sheridan County CES Office|Sheridan County CES Offic|38|10|11
+1092|f|Northern Wyoming Community College|Northern Wyoming Communit|38|8|9
+1100|f|Whitney Community Vocational Center|Whitney Community Vocatio|38|6|7
+1124|f|Bosin Rock Communications WPR|Bosin Rock Communications|38|4|5
+1134|f|SREC Shop and Shed|SREC Shed Northwest|38|2|3
+572|t|UW East Campus|UW East Campus|32|1|282
+636|t|Corbett|Corbett|32|256|257
+1062|f|Movie Palace 10-11|Movie Palace 10-11|32|20|21
+738|f|Orr Hall|Orr|32|186|187
+745|f|Tobin House|Tobin|32|178|179
+854|f|Wyoming Conservation Corps|WCC|32|88|89
+979|f|Sigma Nu Fraternity|Sigma Nu|32|32|33
+878|f|Crane Hall|Crane Hall|32|72|73
+768|f|River Village Apts 700-705|River Village Apts 700-70|32|158|159
+860|f|Hill Hall|Hill Hall|32|84|85
+653|t|Arena Auditorium|Arena Auditorium|32|242|243
+637|t|Law|Law|32|254|255
+844|f|Honors House|Honors|32|100|101
+629|f|Fieldhouse North|Fieldhouse North|32|260|261
+647|t|Centennial Complex|Centennial|32|246|247
+664|f|McIntyre Hall|McIntyre|32|236|237
+879|f|AES Chemical Storage|AES Chemical Storage|32|70|71
+823|f|Armory Building|Armory|32|118|119
+752|f|Downey Hall|Downey|32|168|169
+709|f|Washakie Center|Washakie|32|204|205
+603|t|Wyoming Technology Business Center|WTBC|32|280|281
+606|t|Visual Arts|Visual Arts|32|278|279
+617|t|Information Technology|IT|32|274|275
+618|t|Indoor Practice Facility|IPF|32|272|273
+611|t|Regulated Materials Mgmt Ctr|Regulated Materials Mgmt |32|276|277
+620|t|High Bay Research Facility|High Bay|32|270|271
+622|f|High Altitude Performance Center (RAC)|HAPC|32|268|269
+626|t|General Storage Addition|General Storage Addition|32|266|267
+649|f|Beta House|Beta House|32|244|245
+627|f|Marian H. Rochelle Gateway Center|Gateway|32|264|265
+714|f|White Hall|White|32|202|203
+645|f|Telecomm (Centrex)|Centrex|32|250|251
+628|t|Buchanan Center for the Performing Arts|Buchanan|32|262|263
+630|t|Memorial Fieldhouse|Memorial Fieldhouse|32|258|259
+643|f|Early Care & Education Center|Early Care & Education Ce|32|252|253
+646|f|Central Energy Plant Main|CEP|32|248|249
+656|f|Animal Science and Molecular Biology|Animal Science|32|240|241
+659|f|UW Mountain View Medical Park|Medical Park|32|238|239
+665|f|River Village Apts 706-709|River Village Apts 706-70|32|234|235
+672|f|Landmark Village Apts 453-460 Building|Landmark Village Apts 453|32|232|233
+674|f|River Village Apts 510-513|River Village Apts 510-51|32|230|231
+820|f|River Village Apts 508-509|River Village Apts 508-50|32|124|125
+675|f|Louis South Madrid Sports Complex Garage 1 (South)|Louis S. Madrid Sports Co|32|228|229
+678|f|River Village Apts 740-748|River Village Apts 740-74|32|226|227
+680|f|Ticket Facility Cowboy Field|Ticket Facility Cowboy Fi|32|224|225
+682|f|Ivinson Home for Ladies |Ivinson Home for Ladies |32|222|223
+697|f|Jacoby Golf Course Maint Building|Jacoby Golf Course Maint |32|214|215
+684|f|Landmark Village Apts 397-404 Building|Landmark Village Apts 397|32|220|221
+692|f|Bison Run Village Building Apts 65-69|Bison Run Village Bldg Ap|32|218|219
+694|f|Landmark Village Apts 421-428 Building|Landmark Village Apts 421|32|216|217
+719|f|Spanish Walk Apts Building D|Spanish Walk Apts Building D|32|198|199
+699|f|Bison Run Village Building Apts 70-74|Bison Run Village Bldg Ap|32|212|213
+701|f|River Village Apts 610-618|River Village Apts 610-61|32|210|211
+750|f|Campus Greenhouse Equip Shop|Campus Greenhouse Equip S|32|170|171
+703|f|Landmark Village Apts 461-468 Building|Landmark Village Apts 461|32|208|209
+704|f|Bison Run Village Building Apts 01-05|Bison Run Village Bldg Ap|32|206|207
+804|f|Campus Greenhouse Main|Greenhouse|32|138|139
+716|f|Bison Run Village Building Apts 38-41|Bison Run Village Bldg Ap|32|200|201
+724|f|Bison Run Village Building Apts 42-47|Bison Run Village Bldg Ap|32|196|197
+779|f|River Village Apts 730-735|River Village Apts 730-73|32|146|147
+726|f|Bison Run Village Building Apts 48-52|Bison Run Village Bldg Ap|32|194|195
+731|f|Indoor Tennis Complex|Indoor Tennis Complex|32|192|193
+733|f|Bison Run Village Community Center|Bison Run Village Communi|32|190|191
+827|f|Spanish Walk Apts Building E|Spanish Walk Apts Building E|32|114|115
+737|f|Ron R. Richardson Golf Performance Center|Ron R. Richardson Golf Pe|32|188|189
+739|f|River Village Apts 736-739|River Village Apts 736-73|32|184|185
+742|f|Bison Run Village Building Apts 24-30|Bison Run Village Bldg Ap|32|182|183
+743|f|Bison Run Village Building Apts 53-57|Bison Run Village Bldg Ap|32|180|181
+746|f|River Village Apts 710-711|River Village Apts 710-71|32|176|177
+747|f|Landmark Village Apts 429-436 Building|Landmark Village Apts 429|32|174|175
+748|f|Bison Run Village Building Apts 17-23|Bison Run Village Bldg Ap|32|172|173
+757|f|Bison Run Village Building Apts 58-64|Bison Run Village Bldg Ap|32|166|167
+774|f|Crane Hill Cafeteria|Crane Hill Cafeteria|32|152|153
+758|f|Spanish Walk Apts Maint. Building|Spanish Walk Apts Maint. |32|164|165
+761|f|Bison Run Village Building Apts 31-37|Bison Run Village Bldg Ap|32|162|163
+764|f|Landmark Village Apts 437-444 Building|Landmark Village Apts 437|32|160|161
+772|f|Bison Run Village Building Apts 10-16|Bison Run Village Bldg Ap|32|156|157
+773|f|Jacoby Golf Course Superintendent office|Jacoby Golf Course Superi|32|154|155
+776|f|River Village Apts 530-534|River Village Apts 530-53|32|150|151
+777|f|Landmark Village Apts 413-420 Building|Landmark Village Apts 413|32|148|149
+794|f|Central Energy Plant Bag House|Central Energy Plant Bag |32|144|145
+801|f|Pumphouse Recreation Area|Pumphouse Recreation Area|32|142|143
+803|f|River Village Apts 712-721|River Village Apts 712-72|32|140|141
+808|f|Landmark Village Apts 381-388 Building|Landmark Village Apts 381|32|136|137
+810|f|Louis South Madrid Sports Complex Garage 3 (North)|Louis S. Madrid Sports Co|32|134|135
+813|f|River Village Apts 624-629|River Village Apts 624-62|32|132|133
+814|f|Bison Run Village Grill Shelter|Bison Run Village Grill S|32|130|131
+818|f|Field Maintenance Shop (FMS)|WYARNG Field Maintenance |32|128|129
+819|f|Ticket Facility Memorial 8 Track Stadium|Ticket Facility Memorial |32|126|127
+821|f|River Village Apts 603-609|River Village Apts 603-60|32|122|123
+822|f|River Village Apts 619-623|River Village Apts 619-62|32|120|121
+825|f|River Village Apts 600-602|River Village Apts 600-60|32|116|117
+835|f|EHS Storage and Wireless Units|EHS Storage and Wireless |32|112|113
+836|f|Central Energy Plant Ash Silo|Central Energy Plant Ash |32|110|111
+839|f|Spanish Walk Apts Building C|Spanish Walk Apts Building C|32|108|109
+840|f|Bison Run Village Building Apts 06-09|Bison Run Village Bldg Ap|32|106|107
+842|f|Jacoby Golf Course Pump House|Jacoby Golf Course Pump H|32|104|105
+843|f|Louis South Madrid Sports Complex Garage 2 (East)|Louis S. Madrid Sports Co|32|102|103
+845|f|River Village Apts 528-529|River Village Apts 528-52|32|98|99
+847|f|Bison Run Village Building Apts 75-79|Bison Run Village Bldg Ap|32|96|97
+848|f|Landmark Village Apts 373-380 Building|Landmark Village Apts 373|32|94|95
+850|f|Bison Run Village Building Apts 80-84|Bison Run Village Bldg Ap|32|92|93
+853|f|Spanish Walk Apts Building A|Spanish Walk Apts Building A|32|90|91
+858|f|River Village Apts 722-729|River Village Apts 722-72|32|86|87
+861|f|River Village Apts 500-507|River Village Apts 500-50|32|82|83
+863|f|Spanish Walk Apts Building B|Spanish Walk Apts Building B|32|80|81
+890|f|Roofing Warehouse Bull Pen|Roofing Warehouse Bull Pe|32|66|67
+867|f|Landmark Village Apts 405-412 Building|Landmark Village Apts 405|32|78|79
+873|f|River Village Apts 514-522|River Village Apts 514-52|32|76|77
+876|f|Education and Conference Center|Conference Center |32|74|75
+884|f|Jacoby Golf Course Club House|Jacoby Golf Course Club H|32|68|69
+894|f|Landmark Village Apts 445-452 Building|Landmark Village Apts 445|32|64|65
+896|f|River Village Apts 523-527|River Village Apts 523-52|32|62|63
+898|f|Sigma Phi Epsilon House|Sigma Phi Epsilon|32|60|61
+899|f|Admin Office Annex Building|Office Annex|32|58|59
+904|f|General Storage|General Storage|32|56|57
+908|f|AES Greenhouse Facility|AES Greenhouse|32|54|55
+909|f|Landmark Village Apts 389-396 Building|Landmark Village Apts 389|32|52|53
+922|f|UW Plaza Building 8|UW Plaza Building 8|32|50|51
+935|f|UW Plaza Building 5|UW Plaza Building 5|32|48|49
+943|f|Wyoming's Rib and Chop House |Wyoming's Rib and Chop Ho|32|46|47
+948|f|Kappa Kappa Gamma Sorority|Kappa Kappa Gamma Sororit|32|44|45
+952|f|UW Plaza Building 9 Garage East|UW Plaza Building 9 Garag|32|42|43
+957|f|UW Plaza Building 9 Garage West|UW Plaza Building 9 Garag|32|40|41
+969|f|Delta Delta Delta Sorority|Delta Delta Delta Sororit|32|38|39
+975|f|Hilton Garden Inn|Hilton Garden Inn|32|36|37
+977|f|Jacoby City of Laramie Waterwell|Jacoby City of Laramie Wa|32|34|35
+980|f|2020 Grand Avenue Building|2020 Grand Ave. Bldg|32|30|31
+983|f|UW Plaza Building 3|UW Plaza Building 3|32|28|29
+1021|f|UW Plaza Building 6|UW Plaza Building 6|32|26|27
+1030|f|Pi Kappa Alpha Fraternity|Alpha Tau|32|24|25
+1060|f|Cowboy Condos University Plaza, LLC|Cowboy Condos University |32|22|23
+1063|f|Ivinson Memorial Hospital Building|Ivinson Memorial Hospital|32|18|19
+1074|f|Chi Omega Sorority|Chi Omega Sorority|32|16|17
+1077|f|Sigma Chi Fraternity|Sigma Chi|32|14|15
+1090|f|Sandy Aragon Softball Complex Crows Nest|Sandy Aragon Softball Com|32|12|13
+1099|f|UW Plaza Building 7|UW Plaza Building 7|32|10|11
+1106|f|UW Plaza Building 4|UW Plaza Building 4|32|8|9
+1110|f|Sigma Alpha Epsilon Fraternity|SAE|32|6|7
+1135|f|High Bay Research Facility #131|Building #131|32|4|5
+1136|f|Pilot Hill Well House|Pilot Hill Well House|32|2|3
+575|t|Albany County|Albany County|35|1|102
+679|f|WIRO Cat House|WIRO Cat House|35|90|91
+661|f|LREC Feed Mill Building|LREC Feed Mill Bldg|35|100|101
+662|f|LREC Multipurpose Building|LREC Multipurpose Bldg|35|98|99
+663|f|LREC Sheep Shelter #2|LREC Sheep Shelter #2|35|96|97
+673|f|Creekside Cabin|Creekside Cabin|35|94|95
+677|f|LREC Hansen Livestock Teaching Arena|LREC Hansen Livestock Tea|35|92|93
+683|f|Red Buttes Pole Barn|Red Buttes Pole Barn|35|88|89
+685|f|LREC Sheep Confinement Barn|LREC Sheep Confinement Ba|35|86|87
+686|f|LREC Wool Lab|LREC Wool Lab|35|84|85
+690|f|Horseshoe Haven Cabin|Horseshoe Haven Cabin|35|82|83
+705|f|Red Buttes Residence Supt|Red Buttes Residence Supt|35|80|81
+711|f|LREC Sheep Shelter #3|LREC Sheep Shelter #3|35|78|79
+712|f|WIRO Observatory Building|WIRO Observatory Bldg|35|76|77
+722|f|LREC Sheep Shelter #1|LREC Sheep Shelter #1|35|74|75
+723|f|LREC Residence|LREC Residence|35|72|73
+728|f|LREC Sheep Handling & Shearing|LREC Sheep Handling & She|35|70|71
+729|f|LREC Swine Barn Building|LREC Swine Barn Bldg|35|68|69
+730|f|LREC Forage Storage Building|LREC Forage Storage Bldg|35|66|67
+732|f|Paradise Farm Storage Building|Paradise Farm Storage Bld|35|64|65
+765|f|Red Buttes Shop & Storage Building|Red Buttes Shop & Storage|35|62|63
+767|f|KUWR (Pilot Hill) Building|KUWR (Pilot Hill) Bldg|35|60|61
+793|f|Mountain View Cabin|Mountain View Cabin|35|58|59
+807|f|Carol #1 Wellhouse|Carol #1 Wellhouse|35|56|57
+816|f|LREC Grain Storage Building|LREC Grain Storage Bldg|35|54|55
+829|f|LREC Beef Shelter|LREC Beef Shelter|35|52|53
+846|f|LREC Sheep Feeding Barn|LREC Sheep Feeding Barn|35|50|51
+862|f|Red Buttes Research Lab|Red Buttes Research Lab|35|48|49
+868|f|Red Buttes Storage Building|Red Buttes Storage Bldg|35|46|47
+874|f|High Meadows Cabin|High Meadows Cabin|35|44|45
+895|f|LREC Lambing Barn|LREC Lambing Barn|35|42|43
+903|f|Paradise Farm Goat Barn|Paradise Farm Goat Barn|35|40|41
+905|f|Red Buttes Physics Telescope Building|Red Buttes Physics Telesc|35|38|39
+914|f|LREC Horse Boarding #1|LREC Horse Boarding?�#1|35|36|37
+915|f|LREC Horse Boarding #2|LREC Horse Boarding?�#2|35|34|35
+916|f|LREC Horse Boarding #3|LREC Horse Boarding?�#3|35|32|33
+937|f|Skyline Self Storage Unit BB11|Skyline Self Storage Unit|35|30|31
+963|f|Skyline Self Storage Unit  C-64/65|Skyline Self Storage Unit|35|28|29
+966|f|Skyline Self Storage Unit  001D|Skyline Self Storage Unit|35|26|27
+1000|f|Skyline Self Storage Unit 001B|Skyline Self Storage Unit|35|24|25
+1003|f|Skyline Self Storage Unit  001C|Skyline Self Storage Unit|35|22|23
+1013|f|Skyline Self Storage Unit  I-39|Skyline Self Storage Unit|35|20|21
+1023|f|Vern's Self  Storage Unit D-14|Vern's Self  Storage Unit|35|18|19
+1036|f|Skyline Self Storage Unit BB56|Skyline Self Storage Unit|35|16|17
+1056|f|Med Bow Ski Area - Snowy Range|Med Bow Ski Area - Snowy |35|14|15
+1059|f|Skyline Self Storage Unit  A-38|Skyline Self Storage Unit|35|12|13
+1069|f|Skyline Self Storage Unit 001I|Skyline Self Storage Unit|35|10|11
+1091|f|54 2nd Street Building|54 2nd St Bldg|35|8|9
+1098|f|Skyline Self Storage Unit B-30|Skyline Self Storage Unit|35|6|7
+1133|f|Red Buttes Physics Telescope B|Red Buttes Physics Telescope B|35|4|5
+1137|f|Red Buttes Coyote Shed|Coyote Shed|35|2|3
+573|t|Campus|Campus|33|1|98
+610|f|Ross Hall|Ross|33|86|87
+604|t|Bureau of Mines|Mines|33|96|97
+605|t|Williams Conservatory|Conservatory|33|94|95
+607|t|Wyoming Union|Wyoming Union|33|92|93
+608|t|Service Building (Physical Plant)|Service Building|33|90|91
+612|t|Physical Sciences|Physical Sciences|33|84|85
+609|t|Science Initiative Building|Science Initiative|33|88|89
+613|t|Old Main|Old Main|33|82|83
+614|f|Merica Hall|Merica Hall|33|80|81
+615|f|McWhinnie Hall|McWhinnie|33|78|79
+616|t|Knight Hall|Knight|33|76|77
+619|t|Hoyt Hall|Hoyt|33|74|75
+621|f|Health Sciences Center|Health Sciences|33|72|73
+623|t|Half Acre Gymnasium|Half Acre|33|70|71
+624|t|Geology|Geology|33|68|69
+625|t|Wyoming State Geological Survey|Wyoming State Geological |33|66|67
+631|t|Michael B. Enzi STEM Undergraduate Lab Facility|STEM|33|64|65
+632|t|Engineering|Engineering|33|62|63
+633|t|Energy Innovation Center|Energy Innovation Center|33|60|61
+635|t|Earth Sciences|Earth Sciences|33|56|57
+634|t|Engineering Education & Research Building|EERB|33|58|59
+638|t|Education|Education|33|54|55
+639|t|Business|Business |33|52|53
+640|f|Agriculture (C)|Agriculture|33|50|51
+641|t|Coe Library|Coe Library|33|48|49
+642|t|Classroom Building|Classroom|33|46|47
+644|t|Cheney International Center and Student Health|Cheney|33|44|45
+650|f|Berry Center|Berry|33|40|41
+648|t|Biological Sciences|Biological Sciences|33|42|43
+651|t|Aven Nelson|Aven Nelson|33|38|39
+652|t|Arts & Sciences|Arts & Sciences|33|36|37
+654|t|Anthropology (AARF)|Anthro|33|34|35
+655|t|Library Annex (Science)|Library Annex|33|32|33
+691|f|Jenkins House Garage (1120 Ivinson)|Jenkins House Garage|33|30|31
+744|f|Wellhouse Willet and 15th|Wellhouse Willet and 15th|33|28|29
+762|f|Jenkins House (1120 Ivinson)|Jenkins House|33|26|27
+771|f|Cooper Carriage House|Cooper Carriage House|33|24|25
+775|f|Alumni House|Alumni|33|22|23
+781|f|Wyoming Council for the Humanities Building|Wyoming Council for the Humanities Building|33|20|21
+795|f|Guthrie House Garage|Guthrie House Garage|33|18|19
+797|f|Cooper House|Cooper|33|16|17
+815|f|Education Classroom and Literacy Center|Literacy Center|33|14|15
+826|f|History|History|33|12|13
+849|f|Bim Kendall House|Bim Kendall|33|10|11
+851|f|Native American Education, Research, & Cultural Center|Native American Indian Ed|33|8|9
+883|f|Guthrie House|Guthrie House|33|6|7
+913|f|West Campus Satellite Energy Plant (WCSEP)|WCSEP|33|4|5
+1138|f|Ivinson Parking Garage/Police Facility|Ivinson Parking/UWPD|33|2|3
+588|t|Colorado|Colorado|48|1|8
+931|f|717 Emerson Street building|717 Emerson St. building|48|6|7
+1051|f|700 Writer Square Building|700 Writer Square Bldg|48|4|5
+1139|f|Suite #202|Suite #202|48|2|3
+596|t|Campbell County|Campbell County|56|1|12
+1002|f|West Lakeway Office Building|West Lakeway Office Bldg|56|10|11
+1019|f|NWCCD Gillette Campus Main Building|NWCCD Gillette Campus Mai|56|8|9
+1079|f|Campbell County CES Office|Campbell County CES Offic|56|6|7
+1082|f|KUWG Radio (Gillette) Building|KUWG Radio (Gillette) Bld|56|4|5
+1141|f|345 Sinclair Avenue|345 Sinclair Avenue|56|2|3
+574|t|Laramie|Laramie|34|1|170
+841|f|Flittie House|Flittie House|34|98|99
+754|f|State Vet Lab Shop|State Vet Lab Shop|34|128|129
+702|f|Beef Unit Residence #1|Beef Unit Residence #1|34|150|151
+660|f|Agronomy Storage Building|Agronomy Storage Building|34|164|165
+657|f|Agronomy Farm Greenhouse Storage Building|Agronomy Farm Greenhouse |34|168|169
+707|f|Agronomy Shop Building|Agronomy Shop Building|34|146|147
+658|f|Agronomy Farm Round Storage Building 3|Agronomy Farm Round Storage Building 3|34|166|167
+669|f|Beef Unit Animal Shelter|Beef Unit Animal Shelter|34|162|163
+695|f|Vet Sciences Record Storage|Vet Sciences Record Stora|34|154|155
+681|f|State Vet Lab (Addition + BSL3)|State Vet Lab (Addition +|34|160|161
+689|f|Agronomy Fenced in Building|Agronomy Fenced in Building|34|158|159
+693|f|Agronomy Farm Outhouse Storage Building|Agronomy Farm Outhouse St|34|156|157
+700|f|Agronomy Farm Restroom Building|Agronomy Farm Restroom Bl|34|152|153
+706|f|Balloon Launch Physics Storage|Balloon Launch Physics St|34|148|149
+708|f|Agronomy Farm Residence (Foreman)|Agronomy Farm Residence (|34|144|145
+710|f|Beef Unit Residence Herdsman|Beef Unit Residence Herds|34|142|143
+718|f|Vet Med Res Ctr Isolation Building|Vet Med Res Ctr Isolation|34|140|141
+720|f|355 North 5th Street Building|355 N 5th St Bldg|34|138|139
+736|f|Agronomy Farm Residence (Superintendent)|Agronomy Farm Residence (|34|136|137
+741|f|Agronomy Farm Round Storage Building 1|Agronomy Farm Round Storage Building 1|34|134|135
+751|f|357 North 5th Street Building|357 N 5th St Bldg|34|132|133
+753|f|Agronomy Farm Plant Sciences Storage Building|Agronomy Farm Poultry Bld|34|130|131
+889|f|Lutz Building|Lutz Bldg|34|78|79
+760|f|Vet Medicine Shop and Garage|Vet Medicine Shop and Gar|34|126|127
+782|f|Beef Unit Beef Loafing Barn|Beef Unit Beef Loafing Ba|34|124|125
+784|f|Bus Transit Maintenance |Bus Transit Maintenance |34|122|123
+786|f|State Vet Lab Large Animal Isolation Facility|State Vet Lab Large Anima|34|120|121
+787|f|UW Veal Research Flight Center Building|UW Veal Research Flight C|34|118|119
+788|f|Agronomy Farm Shop Building|Agronomy Farm Shop Bldg|34|116|117
+789|f|Agronomy Farm Picnic Shelter|Agronomy Farm Picnic Shel|34|114|115
+859|f|Bill Nye Avenue Building|Bill Nye Avenue Bldg|34|94|95
+799|f|Agronomy Farm Horse Barn|Agronomy Farm Horse Barn|34|112|113
+800|f|Gas Research Laboratory Building|Gas Research Laboratory B|34|110|111
+806|f|Fleet Services Building |Fleet Services Building |34|108|109
+809|f|Balloon Launch Facility|Balloon Launch Facility|34|106|107
+824|f|Beef Unit Residence Storage Garage|Beef Unit Residence Stora|34|104|105
+832|f|LREC Lab Animal Facility (former USDA Insectory)|LREC Lab Animal Facility |34|102|103
+976|f|Cowboy Storage|Cowboy Storage|34|64|65
+833|f|Beef Unit Residence Asst. Herdsman|Beef Unit Residence Asst.|34|100|101
+991|f|217 South 1st Street Building|217 S. 1st St Bldg|34|58|59
+856|f|Agronomy Farm Lumber Storage Building|Agronomy Farm Lumber Stor|34|96|97
+864|f|Beef Unit Calf Barn|Beef Unit Calf Barn|34|92|93
+872|f|Agronomy Farm Storage|Agronomy Farm Cattle Shed|34|90|91
+875|f|Agronomy Outbuilding 1 |Agronomy Outbuilding 1 |34|88|89
+881|f|Agronomy Farm Garage/Tool Building|Agronomy Farm Garage/Tool|34|86|87
+885|f|State Vet Lab (Round Building)|State Vet Lab (Round Buil|34|84|85
+887|f|Agronomy Farm Carriage House|Agronomy Farm Carriage Ho|34|82|83
+888|f|359 North 5th Street Building|359 N 5th St Bldg|34|80|81
+902|f|Agronomy Farm Round Storage Building 2|Agronomy Farm Round Storage Building 2|34|76|77
+917|f|Antelope Meadows Unit B-12|Antelope Meadows Unit B12|34|74|75
+925|f|Antelope Meadows Unit D-30|Antelope Meadows Unit D30|34|72|73
+940|f|ARNG Buildng1 (Readiness Center)|ARNG Buildng1 (Readiness |34|70|71
+947|f|1856 Snowy Range Road Building|1856 Snowy Range Rd. Bldg|34|68|69
+1004|f|321 South 2nd Street|321 South 2nd St.|34|54|55
+970|f|Laramie Moose Lodge #390 Building|Laramie Moose Lodge #390 |34|66|67
+984|f|WYARNG Field Maintenance Shop (FMS) 2|WYARNG Field Maintenance |34|62|63
+988|f|Laramie Plains Civic Ctr Building|Laramie Plains Civic Ctr |34|60|61
+998|f|Antelope Meadows Unit D-48|Antelope Meadows Unit D48|34|56|57
+1006|f|Northgate Building|Northgate Bldg|34|52|53
+1007|f|Home Bakery Building|Home Bakery Bldg|34|50|51
+1011|f|1010 Symons Street Building|1010 Symons St Bldg|34|48|49
+1012|f|Albany Community Health Clinic|1174 N 22nd St Building|34|46|47
+1025|f|WyoCARE Office|WyoCARE Office|34|42|43
+1024|f|Fleet Rental Services |Fleet Rental Services |34|44|45
+1034|f|4-H Building, Albany Cnty Fairgnds|4-H Bldg, Albany Cnty Fai|34|40|41
+1050|f|First Interstate Bank Building|First Interstate Bank Bld|34|38|39
+1052|f|ARNG Buildng2 (Unheated Vehicle Storage Building)|ARNG Buildng2 (Unheated V|34|36|37
+1054|f|821 Skyline Road Building|821 Skyline Road Bldg|34|34|35
+1057|f|1130 Bill Nye Avenue Building|1130 Bill Nye Ave. Bldg|34|32|33
+1073|f|Laramie Community Health Center (920 Sheridan)|Laramie Community Health |34|30|31
+1086|f|Laramie High School|Laramie High School|34|28|29
+1088|f|1720-C South 13TH Street|1720-C S. 13TH St|34|26|27
+1097|f|Poledna Storage Building|Poledna Storage Bldg|34|24|25
+1104|f|435 East Mitchell Street Building|435 E Mitchell St Bldg|34|22|23
+1109|f|City of Laramie Water Pump Station|City of Laramie Water Pum|34|20|21
+1123|f|Nichols President's Residency |Nichols President's Resid|34|18|19
+1125|f|Spring Creek Self Storage Unit B131|Skyline Self Storage Unit|34|16|17
+1127|f|Antelope Meadows Unit M-15|Antelope Meadows Unit M15|34|14|15
+1129|f|Antelope Meadows Unit M-54|Antelope Meadows Unit M54|34|12|13
+1130|f|Antelope Meadows Unit D-02|Antelope Meadows Unit D2|34|10|11
+1131|f|Antelope Meadows Unit F-19|Antelope Meadows Unit F19|34|8|9
+1132|f|Spring Creek Self Storage Unit C16|Skyline Self Storage C16|34|6|7
+1140|f|Spring Creek Self Storage Unit A131|Skyline Self Storage Unit|34|4|5
+1142|f|Antelope Meadows Unit G-9|Antelope Meadows Unit G9|34|2|3
