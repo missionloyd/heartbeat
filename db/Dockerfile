@@ -12,10 +12,9 @@ RUN apt-get -y install postgis
 # Additional initialization for an image derived from the postgres image.
 
 
-COPY all_init_database.sql /docker-entrypoint-initdb.d 
 
+# The "docker-entrypoint-initdb.d" directory will automatically run these scripts:
 
-# COPY init_database.sql /docker-entrypoint-initdb.d
-# COPY create_procedures.sql /docker-entrypoint-initdb.d
-# COPY create_tables.sql /docker-entrypoint-initdb.d
-# COPY populate_tables.sql /docker-entrypoint-initdb.d
+COPY create_procedures.sql /docker-entrypoint-initdb.d
+COPY create_tables.sql /docker-entrypoint-initdb.d
+COPY populate_tables.sql /docker-entrypoint-initdb.d

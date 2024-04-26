@@ -3,7 +3,7 @@
 -- Name: insert_child_assets(text[]); Type: PROCEDURE; Schema: public; Owner: -
 --
 
-CREATE PROCEDURE public.insert_child_assets(IN assets text[])
+CREATE OR REPLACE PROCEDURE public.insert_child_assets(IN assets text[])
     LANGUAGE plpgsql
     AS $$
 DECLARE
@@ -56,7 +56,7 @@ $$;
 -- Name: insert_into_measurement(); Type: PROCEDURE; Schema: public; Owner: -
 --
 
-CREATE PROCEDURE public.insert_into_measurement()
+CREATE OR REPLACE PROCEDURE public.insert_into_measurement()
     LANGUAGE plpgsql
     AS $$
 BEGIN
@@ -75,7 +75,7 @@ $$;
 -- Name: insert_parent_assets(text[]); Type: PROCEDURE; Schema: public; Owner: -
 --
 
-CREATE PROCEDURE public.insert_parent_assets(IN assets text[])
+CREATE OR REPLACE PROCEDURE public.insert_parent_assets(IN assets text[])
     LANGUAGE plpgsql
     AS $$
 DECLARE
@@ -109,7 +109,7 @@ $$;
 -- Name: update_measurement_foreign_keys(); Type: PROCEDURE; Schema: public; Owner: -
 --
 
-CREATE PROCEDURE public.update_measurement_foreign_keys()
+CREATE OR REPLACE PROCEDURE public.update_measurement_foreign_keys()
     LANGUAGE plpgsql
     AS $$
 BEGIN

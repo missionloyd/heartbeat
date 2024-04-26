@@ -22,7 +22,7 @@ async function getAssets(parentAsset){
             ORDER BY child.name
         `;
 
-        const queryResult = await pool.query(parentAssetQuery, [parentAsset]);
+        const queryResult = await db.query(parentAssetQuery, [parentAsset]);
 
         assets = queryResult.rows;
 
