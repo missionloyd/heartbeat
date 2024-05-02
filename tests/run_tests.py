@@ -7,12 +7,14 @@ HOST_PORT = 8080
 base_url = f"http://localhost:{HOST_PORT}/api/space"
 
 # Define a common payload for testing
-payload = {
-    "assetName": "Coe Library",
-    "dateLevel": "HOUR",
-    "startingDate": "10/26/19",
-    "endingDate": "10/28/19",
-}
+# payload = {
+#     "assetName": "Coe Library",
+#     "dateLevel": "DAY",
+#     "startingDate": "10/26/19",
+#     "endingDate": "10/28/19",
+# }
+
+payload = {"parentAsset": "San Antonio"}
 
 # Headers to indicate that the body is JSON
 headers = {"Content-Type": "application/json"}
@@ -33,7 +35,8 @@ def test_post_request(route, payload):
 
 
 # List of routes to test
-routes = ["points", "summary"]
+# routes = ["points", "summary"]
+routes = ["assets"]
 
 # Test each route
 results = [test_post_request(route, payload) for route in routes]

@@ -1,4 +1,5 @@
 const db = require('../lib/db');
+const { buildMeasurementQuery } = require('./build_measurement_query');
 
 // Inputs :
 //  - Name of Asset (STRING)
@@ -17,36 +18,18 @@ async function getPoints(assetName, startingDate, endingDate, dateLevel) {
     // $2 : assetName
     // $3 : startingDate
     // $4 : endingDate
-    const unpivotedQuery = `
-        SELECT DATE_TRUNC($1, measurement.ts) as timestamp, commodity.type, SUM(measurement.value) FROM measurement
-        JOIN asset ON asset.id = measurement.asset_id
-        JOIN commodity ON commodity.id = measurement.commodity_id
-        WHERE asset.name = $2 AND
-        measurement.ts >= $3 AND measurement.ts <= $4     
-        GROUP BY asset.name, commodity.type, timestamp
-    `;
 
-    // *****************************************************
-    // TODO : Commodity types are hard-coded into the query;
-    //      : Automate the insertion of the commodity types.
-    // *****************************************************
+    const commoditiesQuery = `
+        SELECT type FROM commodity
+    `
 
-    const pivotedQuery = `
-        SELECT
-        timestamp,
-        CASE WHEN type = 'present_elec_kwh' THEN sum END AS present_elec_kwh,
-        CASE WHEN type = 'present_co2_tonh' THEN sum END AS present_co2_tonh,
-        CASE WHEN type = 'present_htwt_mmbtuh' THEN sum END AS present_htwt_mmbtuh,
-        CASE WHEN type = 'present_wtr_usgal' THEN sum END AS present_wtr_usgal,
-        CASE WHEN type = 'present_chll_tonh' THEN sum END AS present_chll_tonh
-        FROM 
-        (
-            ${unpivotedQuery}
-        )
-        AS unpivoted_asset_measurement_table
-    `;
+    const commodotiesQueryResult = await db.query(commoditiesQuery);
 
-    const queryResult = await db.query(pivotedQuery, [dateLevel, assetName, startingDate, endingDate]);
+    const commoditiesRows = commodotiesQueryResult.rows;
+
+    const measurementQuery = buildMeasurementQuery(commoditiesRows);
+
+    const queryResult = await db.query(measurementQuery, [dateLevel, assetName, startingDate, endingDate]);
 
     const points = queryResult.rows;
 

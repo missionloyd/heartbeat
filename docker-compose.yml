@@ -14,6 +14,7 @@ services:
       - POSTGRES_PASSWORD=${PG_DB_PASSWORD}
     volumes:
       - ./data:/data
+      - ./db_data:/db_data
     healthcheck:
       # An exit code of 0 will be sent after the container is successfully up and running.
       test: exit 0

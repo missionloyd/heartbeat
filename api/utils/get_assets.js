@@ -18,10 +18,11 @@ async function getAssets(parentAsset){
             WHERE child.lft BETWEEN parent.lft AND parent.rght
             AND parent.name = $1
             AND child.name != $1
+            AND child.tree_id = parent.tree_id
             ORDER BY child.name
         `;
 
-        const queryResult = await pool.query(parentAssetQuery, [parentAsset]);
+        const queryResult = await db.query(parentAssetQuery, [parentAsset]);
 
         assets = queryResult.rows;
 
