@@ -9,21 +9,32 @@ summaryRouter.post('/', async (request, response) => {
 
     const { assetName, startingDate, endingDate, dateLevel } = request.body;
 
-    const averageSummary = await getAvgSummary(assetName, startingDate, endingDate, dateLevel);
-    const sumSummary = await getSumSummary(assetName, startingDate, endingDate, dateLevel);
-    const standardDeviationSummary = await getStandardDeviationSummary(assetName, startingDate, endingDate, dateLevel);
+    let data;
 
-    const summary = {
-        "averages" : averageSummary,
-        "sums" : sumSummary,
-        "standard deviations" : standardDeviationSummary
-    };
+    try {
 
-    // *********
-    // TODO : Error-handling.
-    // *********
+      data = {
+        averages: await getAvgSummary(assetName, startingDate, endingDate, dateLevel),
+        sums: await getSumSummary(assetName, startingDate, endingDate, dateLevel),
+        stddevs: await getStandardDeviationSummary(assetName, startingDate, endingDate, dateLevel),
+      };
 
-    response.json(summary);
+    } catch (error) {
+
+      console.log(error);
+      return response.json({
+        data: [],
+        status: 500,
+        message: error,
+      });
+
+    }
+
+    return response.json({
+      data,
+      status: "ok",
+    });
+    
 });
 
 module.exports = summaryRouter;

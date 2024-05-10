@@ -7,13 +7,31 @@ assetsRouter.post('/', async (request, response) => {
 
     const { parentAsset } = request.body;
 
-    const assets = await getAssets(parentAsset);
+    let data;
 
-    // *********
-    // TODO : Error-handling.
-    // *********
+    try {
 
-    response.json(assets);
+      data = {
+        assets: await getAssets(parentAsset),
+      };
+
+    } catch (error) {
+
+      console.log(error);
+
+      return response.json({
+        data: [],
+        status: 500,
+        message: error,
+      });
+
+    }
+
+    return response.json({
+      data,
+      status: "ok",
+    });
+
 });
 
 module.exports = assetsRouter;

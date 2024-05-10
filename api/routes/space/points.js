@@ -8,13 +8,31 @@ pointsRouter.post('/', async (request, response) => {
 
     const { assetName, startingDate, endingDate, dateLevel } = request.body;
 
-    const points = await getPoints(assetName, startingDate, endingDate, dateLevel,);
+    let data;
 
-    // *********
-    // TODO : Error-handling.
-    // *********
+    try {
 
-    response.json(points);
+      data = {
+        points: await getPoints(assetName, startingDate, endingDate, dateLevel,),
+      };
+
+    } catch (error) {
+
+      console.log(error);
+
+      return response.json({
+        data: [],
+        status: 500,
+        message: error,
+      });
+
+    }
+
+    return response.json({
+      data,
+      status: "ok",
+    });
+
 });
 
 module.exports = pointsRouter;
