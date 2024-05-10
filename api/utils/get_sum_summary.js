@@ -1,4 +1,5 @@
 const db = require('../lib/db');
+const { commodityTranslations } = require('../constants/commodity_translations');
 const { buildMeasurementQuery } = require('./build_measurement_query');
 
 // Inputs :
@@ -27,29 +28,34 @@ async function getSumSummary(assetName, startingDate, endingDate, dateLevel) {
 
     const measurementQuery = buildMeasurementQuery(commoditiesRows);
 
-    let columnStatements = "";
-    for(i = 0; i < commoditiesRows.length; i++) {
+    // ------------------------------------------------------
+    
+    const commodityColumnPrefixes = ["", "historical_"];
 
-        const commodityType = commoditiesRows[i]['type'];
+    let sumColumns = "";
+    for(let prefix of commodityColumnPrefixes) {
 
-        const presentColumnString = `SUM(${commodityType}) AS sum_${commodityType},`;
+        for(let i = 0; i < commoditiesRows.length; i++) {
 
-        let historicalColumnString = "";
+            const commodityType = commoditiesRows[i]['type'];
 
-        if(i == commoditiesRows.length - 1) {
-            historicalColumnString = `SUM(historical_${commodityType}) AS sum_historical_${commodityType}`;
-        } else {
-            historicalColumnString = `SUM(historical_${commodityType}) AS sum_historical_${commodityType},`;
+            const commodity = commodityTranslations[commodityType];
+
+            const sumColumnString = `SUM(${prefix}${commodity}) AS sum_${prefix}${commodity},`;
+
+            sumColumns += sumColumnString;
         }
 
-        
-        columnStatements += presentColumnString;
-        columnStatements += historicalColumnString;
     }
+
+    // Remove the comma for the last column; this is for proper SQL syntax:
+    sumColumns = sumColumns.substring(0, sumColumns.length - 1);
+
+    // ------------------------------------------------------
 
      const summaryQuery = `
         SELECT
-        ${columnStatements}
+        ${sumColumns}
         FROM
         (
             ${measurementQuery}

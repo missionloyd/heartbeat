@@ -1,4 +1,5 @@
 const db = require('../lib/db');
+const { commodityTranslations } = require('../constants/commodity_translations');
 const { buildMeasurementQuery } = require('./build_measurement_query');
 
 // Inputs :
@@ -27,29 +28,34 @@ async function getStandardDeviationSummary(assetName, startingDate, endingDate, 
 
     const measurementQuery = buildMeasurementQuery(commoditiesRows);
 
-    let columnStatements = "";
-    for(i = 0; i < commoditiesRows.length; i++) {
+    // ------------------------------------------------------
+    
+    const commodityColumnPrefixes = ["", "historical_"];
 
-        const commodityType = commoditiesRows[i]['type'];
+    let stddevColumns = "";
+    for(let prefix of commodityColumnPrefixes) {
 
-        const presentColumnString = `STDDEV(${commodityType}) AS stddev_${commodityType},`;
+        for(let i = 0; i < commoditiesRows.length; i++) {
 
-        let historicalColumnString = "";
+            const commodityType = commoditiesRows[i]['type'];
 
-        if(i == commoditiesRows.length - 1) {
-            historicalColumnString = `STDDEV(historical_${commodityType}) AS stddev_historical_${commodityType}`;
-        } else {
-            historicalColumnString = `STDDEV(historical_${commodityType}) AS stddev_historical_${commodityType},`;
+            const commodity = commodityTranslations[commodityType];
+
+            const stddevColumnString = `STDDEV(${prefix}${commodity}) AS stddev_${prefix}${commodity},`;
+
+            stddevColumns += stddevColumnString;
         }
 
-        
-        columnStatements += presentColumnString;
-        columnStatements += historicalColumnString;
     }
+
+    // Remove the comma for the last column; this is for proper SQL syntax:
+    stddevColumns = stddevColumns.substring(0, stddevColumns.length - 1);
+
+    // ------------------------------------------------------
 
     const summaryQuery = `
         SELECT
-        ${columnStatements}
+        ${stddevColumns}
         FROM
         (
             ${measurementQuery}

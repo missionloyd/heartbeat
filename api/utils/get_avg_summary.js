@@ -1,4 +1,5 @@
 const db = require('../lib/db');
+const { commodityTranslations } = require('../constants/commodity_translations');
 const { buildMeasurementQuery } = require('./build_measurement_query');
 
 // Inputs :
@@ -27,34 +28,40 @@ async function getAvgSummary(assetName, startingDate, endingDate, dateLevel) {
 
     const measurementQuery = buildMeasurementQuery(commoditiesRows);
 
-    let columnStatements = "";
-    for(i = 0; i < commoditiesRows.length; i++) {
 
-        const commodityType = commoditiesRows[i]['type'];
+    // ------------------------------------------------------
+    
+    const commodityColumnPrefixes = ["", "historical_"];
 
-        const presentColumnString = `AVG(${commodityType}) AS avg_${commodityType},`;
+    let avgColumns = "";
+    for(let prefix of commodityColumnPrefixes) {
 
-        let historicalColumnString = "";
+        for(let i = 0; i < commoditiesRows.length; i++) {
 
-        if(i == commoditiesRows.length - 1) {
-            historicalColumnString = `AVG(historical_${commodityType}) AS avg_historical_${commodityType}`;
-        } else {
-            historicalColumnString = `AVG(historical_${commodityType}) AS avg_historical_${commodityType},`;
+            const commodityType = commoditiesRows[i]['type'];
+
+            const commodity = commodityTranslations[commodityType];
+
+            const avgColumnString = `AVG(${prefix}${commodity}) AS avg_${prefix}${commodity},`;
+
+            avgColumns += avgColumnString;
         }
 
-        
-        columnStatements += presentColumnString;
-        columnStatements += historicalColumnString;
     }
+
+    // Remove the comma for the last column; this is for proper SQL syntax:
+    avgColumns = avgColumns.substring(0, avgColumns.length - 1);
+
+    // ------------------------------------------------------
 
     const summaryQuery = `
         SELECT
-        ${columnStatements}
+        ${avgColumns}
         FROM
         (
             ${measurementQuery}
         )
-        AS pivoted_measurement_table
+        AS pivoted_avg_measurement_table
     `;
 
     const queryResult = await db.query(summaryQuery, [dateLevel, assetName, startingDate, endingDate]);
