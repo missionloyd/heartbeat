@@ -1,38 +1,45 @@
-const express = require("express");
-const { formatQuery } = require("react-querybuilder");
-const db = require("../lib/db");
-const { processSQL } = require('../utils/processSQL');
+const { Router } = require("express");
+const { getRecords } = require("../get_routes/get_records");
+const {
+  createRecordsMaterializedView,
+} = require("../utils/create_records_materialized_view");
+const router = Router();
 
-const router = express.Router();
-
-// main react-querybuilder function (links to query page)
+// Get data, queried by an input user query, from a normalized measurement table.
 function recordsRouter(cache, cacheTTL) {
   router.post("/", async (req, res) => {
-    const { query, table } = req.body;
-  
-    const { sql, params } = formatQuery(query, {
-      format: "parameterized",
-    });
-    
-    const whereClause = processSQL(sql);
-    const selectRawData = `SELECT * FROM ${table} WHERE ${whereClause}`;
-  
+    const { parentAssetName, userQuery } = req.body;
+
     let data = [];
-  
-    try {
-      data = (await db.query(selectRawData, params)).rows;
-    } catch (error) {
-      console.log(error);
-      return res.json({ 
-        data: [], 
-        status: 500,
-        message: error
+
+    if (!parentAssetName || !userQuery) {
+      console.log("*** Missing Data (/records) ***");
+      return res.json({
+        data,
+        status: "bad",
+        message: "missing data",
       });
     }
-  
+
+    try {
+      const recordsViewAlias = "records";
+
+      await createRecordsMaterializedView(parentAssetName, recordsViewAlias);
+
+      data = await getRecords(userQuery, recordsViewAlias);
+    } catch (error) {
+      console.log(error);
+
+      return res.json({
+        data: [],
+        status: 500,
+        message: error,
+      });
+    }
+
     return res.json({
       data,
-      status: 'ok',
+      status: "ok",
     });
   });
 

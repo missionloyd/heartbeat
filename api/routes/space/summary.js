@@ -1,40 +1,98 @@
-const { Router } = require('express');
-const { getAvgSummary } = require('../../utils/get_avg_summary');
-const { getSumSummary } = require('../../utils/get_sum_summary');
-const { getStandardDeviationSummary } = require('../../utils/get_standard_deviation_summary');
+const { Router } = require("express");
+const { getSummary } = require("../../get_routes/get_summary");
+const {
+  measurementQueryTypes,
+} = require("../../constants/measurement_query_types");
 
-const summaryRouter = Router();
+const router = Router();
 
-summaryRouter.post('/', async (request, response) => {
+function summaryRouter(cache, cacheTTL) {
+  router.post("/", async (req, res) => {
+    const { assetName, startingDate, endingDate, dateLevel } = req.body;
 
-    const { assetName, startingDate, endingDate, dateLevel } = request.body;
+    let data = [];
 
-    let data;
+    if (!assetName || !startingDate || !endingDate || !dateLevel) {
+      console.log("*** Missing Data (/summary) ***");
+      return res.json({
+        data,
+        status: "bad",
+        message: "missing data",
+      });
+    }
 
     try {
-
       data = {
-        averages: await getAvgSummary(assetName, startingDate, endingDate, dateLevel),
-        sums: await getSumSummary(assetName, startingDate, endingDate, dateLevel),
-        stddevs: await getStandardDeviationSummary(assetName, startingDate, endingDate, dateLevel),
+        averages: {
+          space: await getSummary(
+            assetName,
+            startingDate,
+            endingDate,
+            dateLevel,
+            "AVG",
+            measurementQueryTypes.Asset.value
+          ),
+          campus: await getSummary(
+            assetName,
+            startingDate,
+            endingDate,
+            dateLevel,
+            "AVG",
+            measurementQueryTypes.AssetComplementary.value
+          ),
+        },
+        sums: {
+          space: await getSummary(
+            assetName,
+            startingDate,
+            endingDate,
+            dateLevel,
+            "SUM",
+            measurementQueryTypes.Asset.value
+          ),
+          campus: await getSummary(
+            assetName,
+            startingDate,
+            endingDate,
+            dateLevel,
+            "SUM",
+            measurementQueryTypes.AssetComplementary.value
+          ),
+        },
+        stddevs: {
+          space: await getSummary(
+            assetName,
+            startingDate,
+            endingDate,
+            dateLevel,
+            "STDDEV",
+            measurementQueryTypes.Asset.value
+          ),
+          campus: await getSummary(
+            assetName,
+            startingDate,
+            endingDate,
+            dateLevel,
+            "STDDEV",
+            measurementQueryTypes.AssetComplementary.value
+          ),
+        },
       };
-
     } catch (error) {
-
       console.log(error);
-      return response.json({
+      return res.json({
         data: [],
         status: 500,
         message: error,
       });
-
     }
 
-    return response.json({
+    return res.json({
       data,
       status: "ok",
     });
-    
-});
+  });
+  return router;
+}
 
-module.exports = summaryRouter;
+module.exports = { summaryRouter };
