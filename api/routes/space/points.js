@@ -6,11 +6,11 @@ const router = Router();
 // Get Data points for an asset (default in days)
 function pointsRouter(cache, cacheTTL) {
   router.post("/", async (req, res) => {
-    const { assetName, startingDate, endingDate, dateLevel } = req.body;
+    const { assetName, startDate, endDate, dateLevel } = req.body;
 
     let data = [];
 
-    if (!assetName || !startingDate || !endingDate || !dateLevel) {
+    if (!assetName || !startDate || !endDate || !dateLevel) {
       console.log("*** Missing Data (/points) ***");
       return res.json({
         data,
@@ -21,7 +21,7 @@ function pointsRouter(cache, cacheTTL) {
 
     try {
       data = {
-        points: await getPoints(assetName, startingDate, endingDate, dateLevel),
+        points: await getPoints(assetName, startDate, endDate, dateLevel),
       };
     } catch (error) {
       console.log(error);

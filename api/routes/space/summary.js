@@ -8,11 +8,11 @@ const router = Router();
 
 function summaryRouter(cache, cacheTTL) {
   router.post("/", async (req, res) => {
-    const { assetName, startingDate, endingDate, dateLevel } = req.body;
+    const { assetName, startDate, endDate, dateLevel } = req.body;
 
     let data = [];
 
-    if (!assetName || !startingDate || !endingDate || !dateLevel) {
+    if (!assetName || !startDate || !endDate || !dateLevel) {
       console.log("*** Missing Data (/summary) ***");
       return res.json({
         data,
@@ -26,16 +26,16 @@ function summaryRouter(cache, cacheTTL) {
         averages: {
           space: await getSummary(
             assetName,
-            startingDate,
-            endingDate,
+            startDate,
+            endDate,
             dateLevel,
             "AVG",
             measurementQueryTypes.Asset.value
           ),
           campus: await getSummary(
             assetName,
-            startingDate,
-            endingDate,
+            startDate,
+            endDate,
             dateLevel,
             "AVG",
             measurementQueryTypes.AssetComplementary.value
@@ -44,16 +44,16 @@ function summaryRouter(cache, cacheTTL) {
         sums: {
           space: await getSummary(
             assetName,
-            startingDate,
-            endingDate,
+            startDate,
+            endDate,
             dateLevel,
             "SUM",
             measurementQueryTypes.Asset.value
           ),
           campus: await getSummary(
             assetName,
-            startingDate,
-            endingDate,
+            startDate,
+            endDate,
             dateLevel,
             "SUM",
             measurementQueryTypes.AssetComplementary.value
@@ -62,16 +62,16 @@ function summaryRouter(cache, cacheTTL) {
         stddevs: {
           space: await getSummary(
             assetName,
-            startingDate,
-            endingDate,
+            startDate,
+            endDate,
             dateLevel,
             "STDDEV",
             measurementQueryTypes.Asset.value
           ),
           campus: await getSummary(
             assetName,
-            startingDate,
-            endingDate,
+            startDate,
+            endDate,
             dateLevel,
             "STDDEV",
             measurementQueryTypes.AssetComplementary.value

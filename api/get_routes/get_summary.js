@@ -19,16 +19,16 @@ const { buildMeasurementQuery } = require("../utils/build_measurement_query");
 
 async function getSummary(
   assetName,
-  startingDate,
-  endingDate,
+  startDate,
+  endDate,
   dateLevel,
   sqlAggregateFunction,
   measurementQueryType
 ) {
   // $1 : dateLevel
   // $2 : assetName
-  // $3 : startingDate
-  // $4 : endingDate
+  // $3 : startDate
+  // $4 : endDate
 
   const commoditiesQuery = `
         SELECT type FROM commodity
@@ -85,8 +85,8 @@ async function getSummary(
   const queryResult = await db.query(aggregateSummaryQuery, [
     dateLevel,
     assetName,
-    startingDate,
-    endingDate,
+    startDate,
+    endDate,
   ]);
 
   const summary = queryResult.rows;

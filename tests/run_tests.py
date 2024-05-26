@@ -10,8 +10,8 @@ base_url = f"http://localhost:{HOST_PORT}/api/space"
 payload = {
     "assetName": "Engineering",
     "dateLevel": "HOUR",
-    "startingDate": "1/1/22",
-    "endingDate": "1/2/22",
+    "startDate": "1/1/22",
+    "endDate": "1/2/22",
 }
 
 # payload = {"parentAsset": "San Antonio"}
