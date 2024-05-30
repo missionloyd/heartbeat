@@ -4,10 +4,7 @@ const {
   commodityTranslations,
 } = require("../constants/commodity_translations");
 
-async function createRecordsMaterializedView(
-  parentAssetName,
-  recordsViewAlias
-) {
+async function createRecordsView(parentAssetName, recordsViewAlias) {
   const commoditiesQuery = `
         SELECT type FROM commodity
     `;
@@ -32,9 +29,6 @@ async function createRecordsMaterializedView(
 
   // ---------------------------------------------------
 
-  // There should not be any chance of an SQL Injection here as the "parentAssetName"
-  // should be passed in by the front-end.
-  // TODO : Materialized Views dont allow parameterized queries; try using FORMAT().
   const unpivotedRecordsTableQuery = format(
     `
     SELECT
@@ -129,15 +123,14 @@ async function createRecordsMaterializedView(
     ORDER BY timestamp ASC
   `;
 
-  const materializedViewQuery = `
-    CREATE MATERIALIZED VIEW IF NOT EXISTS
+  const viewQuery = `
+    CREATE OR REPLACE VIEW
     ${recordsViewAlias}
     AS
     ${finalRecordsMeasurementTableQuery}
-    WITH DATA
   `;
 
-  await db.query(materializedViewQuery);
+  await db.query(viewQuery);
 }
 
-module.exports = { createRecordsMaterializedView };
+module.exports = { createRecordsView };

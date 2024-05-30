@@ -8,10 +8,11 @@ base_url = f"http://localhost:{HOST_PORT}/api/space"
 
 # Define a common payload for testing
 payload = {
-    "assetName": "Engineering",
-    "dateLevel": "HOUR",
-    "startDate": "1/1/22",
-    "endDate": "1/2/22",
+    "assetName": "Arena Auditorium",
+    "commodityName": "elec_kwh",
+    "dateLevel": "MONTH",
+    "startDate": "2019-09-19",
+    "endDate": "2022-07-16",
 }
 
 # payload = {"parentAsset": "San Antonio"}
@@ -35,7 +36,8 @@ def test_post_request(route, payload):
 
 
 # List of routes to test
-routes = ["points", "summary"]
+# routes = ["points", "summary"]
+routes = ["deviation"]
 # routes = ["assets"]
 
 # Test each route

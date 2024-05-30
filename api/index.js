@@ -10,6 +10,8 @@ const { recordsRouter } = require("./routes/records");
 const { latestRouter } = require("./routes/space/latest");
 const { pointsRouter } = require("./routes/space/points");
 const { summaryRouter } = require("./routes/space/summary");
+const { deviationRouter } = require("./routes/space/deviation");
+// -------------------------------------------------------------
 
 const app = express();
 const PORT = process.env.PORT || 9000;
@@ -56,6 +58,7 @@ app.use("/api/assets", assetsRouter(cache, cacheTTL));
 app.use("/api/space/latest", latestRouter(cache, cacheTTL));
 app.use("/api/space/points", pointsRouter(cache, cacheTTL));
 app.use("/api/space/summary", summaryRouter(cache, cacheTTL));
+app.use("/api/space/deviation", deviationRouter(cache, cacheTTL));
 
 app.listen(PORT, () => {
   console.log(`LISTENING ON PORT : ${PORT}`);
