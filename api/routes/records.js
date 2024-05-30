@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const { getRecords } = require("../get_routes/get_records");
 const {
-  createRecordsMaterializedView,
-} = require("../utils/create_records_materialized_view");
+  createRecordsView,
+} = require("../utils/create_records_view");
 const router = Router();
 
 // Get data, queried by an input user query, from a normalized measurement table.
@@ -24,7 +24,7 @@ function recordsRouter(cache, cacheTTL) {
     try {
       const recordsViewAlias = "records";
 
-      await createRecordsMaterializedView(parentAssetName, recordsViewAlias);
+      await createRecordsView(parentAssetName, recordsViewAlias);
 
       data = await getRecords(userQuery, recordsViewAlias);
     } catch (error) {

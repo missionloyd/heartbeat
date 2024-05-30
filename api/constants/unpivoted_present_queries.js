@@ -88,32 +88,6 @@ const assetComplementary = `
 // *****************************************************
 // *****************************************************
 
-// const assetComplementary = `
-//   SELECT
-//     DATE_TRUNC($1, measurement.ts) as timestamp,
-//     commodity.type,
-//     SUM(measurement.value) FROM measurement
-//   JOIN
-//     asset ON asset.id = measurement.asset_id
-//   JOIN
-//     commodity ON commodity.id = measurement.commodity_id
-//   WHERE
-//     asset.tree_id = (SELECT tree_id FROM asset WHERE name = $2)
-//     AND
-//     asset.name != $2
-//     AND
-//     measurement.ts >= $3
-//     AND
-//     measurement.ts <= $4
-//   GROUP BY
-//     asset.name,
-//     commodity.type,
-//     timestamp
-// `;
-
-// *****************************************************
-// *****************************************************
-
 const latest = `
     SELECT
       DATE_TRUNC('HOUR', measurement.ts) as timestamp,
