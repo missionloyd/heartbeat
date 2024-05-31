@@ -34,16 +34,16 @@ const unpivotedMeasurementQuery = `
     )
 `;
 
-const avgStddevLatestUnpivotedQuery = `
-    avg_stddev_latest_unpivoted_measurement AS (
+const tableWithStats = `
+    table_with_stats AS (
         SELECT
             id,
             name,
             latitude,
             longitude,
             commodity,
-            AVG(sum_value) AS avg_sum,
-            STDDEV_POP(sum_value) AS std_dev_sum,
+            AVG(sum_value) AS average,
+            STDDEV_POP(sum_value) AS standard_deviation,
             (
                 SELECT
                     sum_value
@@ -63,7 +63,7 @@ const avgStddevLatestUnpivotedQuery = `
                 t2.name = t1.name
                 AND
                 t2.commodity = t1.commodity
-            ) AS latest_sum
+            ) AS latest_value
         FROM
             unpivoted_measurement AS t1
         GROUP BY
@@ -75,26 +75,46 @@ const avgStddevLatestUnpivotedQuery = `
     )
 `;
 
+const tableWithColor = `
+    table_with_color AS (
+        SELECT
+            *,
+            generate_hex_using_score(
+                (latest_value - average) / standard_deviation
+            ) AS hex_color
+        FROM
+            table_with_stats
+    )
+`;
+
 const deviationQuery = `
-              WITH
-              ${unpivotedMeasurementQuery},
-              ${avgStddevLatestUnpivotedQuery}
-          SELECT
-            avg_stddev_latest_unpivoted_measurement.*,
-            JSON_AGG(ST_AsGeoJSON(asset_geometry.data)) AS geometry
-          FROM
-              avg_stddev_latest_unpivoted_measurement
-          JOIN
-              asset_geometry ON asset_geometry.asset_id = avg_stddev_latest_unpivoted_measurement.id
-          GROUP BY
-              avg_stddev_latest_unpivoted_measurement.id,
-              avg_stddev_latest_unpivoted_measurement.name,
-              avg_stddev_latest_unpivoted_measurement.latitude,
-              avg_stddev_latest_unpivoted_measurement.longitude,
-              avg_stddev_latest_unpivoted_measurement.commodity,
-              avg_stddev_latest_unpivoted_measurement.avg_sum,
-              avg_stddev_latest_unpivoted_measurement.std_dev_sum,
-              avg_stddev_latest_unpivoted_measurement.latest_sum
-      `;
+    WITH
+        ${unpivotedMeasurementQuery},
+        ${tableWithStats},
+        ${tableWithColor}
+    SELECT
+        table_with_color.name,
+        table_with_color.latitude,
+        table_with_color.longitude,
+        table_with_color.commodity,
+        table_with_color.average,
+        table_with_color.standard_deviation,
+        table_with_color.latest_value,
+        table_with_color.hex_color,
+        JSON_AGG(ST_AsGeoJSON(asset_geometry.data)) AS geometry
+    FROM
+        table_with_color
+    JOIN
+        asset_geometry ON asset_geometry.asset_id = table_with_color.id
+    GROUP BY
+        table_with_color.name,
+        table_with_color.latitude,
+        table_with_color.longitude,
+        table_with_color.commodity,
+        table_with_color.average,
+        table_with_color.standard_deviation,
+        table_with_color.latest_value,
+        table_with_color.hex_color
+`;
 
 module.exports = { deviationQuery };

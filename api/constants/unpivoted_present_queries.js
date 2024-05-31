@@ -61,8 +61,6 @@ const assetComplementary = `
       AND
       asset.tree_id = (SELECT tree_id FROM asset WHERE name = $2)
       AND
-      asset.lft != 1
-      AND
       measurement.ts >= $3
       AND
       measurement.ts <= $4
