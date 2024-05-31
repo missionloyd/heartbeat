@@ -16,6 +16,7 @@ RUN apt-get -y install postgis
 # The "docker-entrypoint-initdb.d" directory will automatically run these scripts:
 COPY 01_create_extensions.sql /docker-entrypoint-initdb.d/
 COPY 02_create_procedures.sql /docker-entrypoint-initdb.d/
-COPY 03_create_tables.sql /docker-entrypoint-initdb.d/
-COPY 04_populate_tables.sql /docker-entrypoint-initdb.d/
-COPY 05_populate_asset_geometry.sql /docker-entrypoint-initdb.d/
+COPY 03_create_functions.sql /docker-entrypoint-initdb.d/
+COPY 04_create_tables.sql /docker-entrypoint-initdb.d/
+COPY 05_populate_tables.sql /docker-entrypoint-initdb.d/
+COPY 06_populate_asset_geometry.sql /docker-entrypoint-initdb.d/
