@@ -2,17 +2,16 @@ FROM node:latest
 
 # Set working directory.
 RUN mkdir /usr/src/app
-WORKDIR /usr/src
+WORKDIR /usr/src/app
 
-COPY index.js /usr/src/app/index.js
-COPY lib /usr/src/app/lib
-COPY middleware /usr/src/app/middleware
-COPY routes /usr/src/app/routes
-COPY utils /usr/src/app/utils
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-# Install and cache dependencies.
-COPY package.json /usr/src/package.json
-COPY package-lock.json /usr/src/package-lock.json
+# Install dependencies
 RUN npm install --no-progress
 
+# Copy application code
+COPY . .
+
+# Start the application
 CMD ["npm", "start"]
