@@ -13,8 +13,8 @@ services:
       - POSTGRES_USER=${PG_DB_USER}
       - POSTGRES_PASSWORD=${PG_DB_PASSWORD}
     volumes:
+      - ./db:/db
       - ./data:/data
-      - ./db_data:/db_data
     healthcheck:
       # An exit code of 0 will be sent after the container is successfully up and running.
       test: exit 0
@@ -41,7 +41,7 @@ services:
     # Volumes mount a directory inside a container so that modifications to code are possible without having to rebuild the image.
     volumes:
       - "./api:/usr/src/app"
-      - "./api/package.json:/usr/src/package.json"
+      - "/usr/src/app/node_modules"
     ports:
       - "${API_PORT}:${API_PORT}"
     environment:

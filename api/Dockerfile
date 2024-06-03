@@ -2,20 +2,16 @@
 FROM node:latest
 
 # Set working directory
-RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
 # Argument to determine mode (development or production)
 ARG DEV_MODE
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy application code
+COPY . .
 
 # Install dependencies
 RUN npm install --no-progress
-
-# Copy application code
-COPY . .
 
 # Install nodemon globally if DEV_MODE is true
 RUN if [ "$DEV_MODE" = "true" ]; then npm install -g nodemon; fi

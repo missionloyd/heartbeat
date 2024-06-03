@@ -40,4 +40,20 @@ chmod u+x run_docker.sh
 Verify that the application is properly running by navigating to `localhost:<API_PORT>/tables` within your browser. 
 
 # Publishing the Database
-git subtree push --prefix api/ heroku master
+```shell
+heroku login
+heroku container:login
+heroku create heartbeat-db
+heroku git:remote -a heartbeat-db
+heroku stack:set container
+heroku buildpacks:set heroku/nodejs
+heroku addons:create heroku-postgresql:standard-0
+git subtree push --prefix api/ heroku main
+heroku pg:psql
+\i db/index.sql
+```
+
+# Updating the API Code
+```shell
+git subtree push --prefix api/ heroku main
+```

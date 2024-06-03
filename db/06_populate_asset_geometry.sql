@@ -1,6 +1,6 @@
 CREATE TEMP TABLE temp_jsonb (data JSONB);
 
-\copy temp_jsonb FROM '/data/asset_geometry.geojson';
+\copy temp_jsonb FROM 'data/asset_geometry.geojson';
 
   INSERT INTO public.asset_geometry (asset_id, polygons, properties)
   SELECT
