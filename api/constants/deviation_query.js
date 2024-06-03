@@ -94,7 +94,7 @@ const deviationQuery = `
             'geometry', JSON_AGG(ST_AsGeoJSON(asset_geometry.polygons)),
             'properties', JSON_AGG(asset_geometry.properties)
         ) AS geodata,
-        metadata
+        metadata.data AS metadata
     FROM
         table_with_color
     JOIN
@@ -107,7 +107,7 @@ const deviationQuery = `
         table_with_color.average,
         table_with_color.latest,
         table_with_color.color,
-        metadata
+        metadata.data
 `;
 
 module.exports = { deviationQuery };
