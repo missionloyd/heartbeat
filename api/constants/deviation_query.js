@@ -17,7 +17,9 @@ const unpivotedMeasurementQuery = `
             AND
             measurement.ts <= $3
             AND
-            asset.name = $4 OR $4 = '%'
+            (
+                asset.name = $4 OR $4 = '%'
+            )
             AND
             commodity.type = $5
         GROUP BY
