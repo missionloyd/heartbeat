@@ -11,7 +11,7 @@ function deviationRouter(cache, cacheTTL) {
     let data = [];
 
     if (!assetName || !commodityName || !startDate || !endDate || !dateLevel) {
-      console.log("*** Missing Data (/points) ***");
+      console.log("*** Missing Data (/deviation) ***");
       return res.json({
         data,
         status: "bad",
@@ -20,15 +20,16 @@ function deviationRouter(cache, cacheTTL) {
     }
 
     try {
-      data = {
-        deviation: await getDeviation(
-          assetName,
-          commodityName,
-          startDate,
-          endDate,
-          dateLevel
-        ),
-      };
+      const deviation = await getDeviation(
+        assetName,
+        commodityName,
+        startDate,
+        endDate,
+        dateLevel
+      );
+
+      data = [...deviation];
+      
     } catch (error) {
       console.log(error);
 

@@ -31,7 +31,7 @@ async function getSummary(
   // $4 : endDate
 
   const commoditiesQuery = `
-        SELECT type FROM commodity
+      SELECT type FROM commodity;
     `;
 
   const commodotiesQueryResult = await db.query(commoditiesQuery);

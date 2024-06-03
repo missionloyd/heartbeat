@@ -3,7 +3,7 @@ FROM node:latest
 
 # Set working directory
 RUN mkdir /usr/src/app
-WORKDIR /usr/src
+WORKDIR /usr/src/app
 
 # Argument to determine mode (development or production)
 ARG DEV_MODE
