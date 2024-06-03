@@ -8,8 +8,8 @@ base_url = f"http://localhost:{HOST_PORT}/api/space"
 
 # Define a common payload for testing
 payload = {
-    "assetName": "%",
-    # "assetName": "Student Union",
+    # "assetName": "%",
+    "assetName": "Student Union",
     "commodityName": "electricity",
     "dateLevel": "Day",
     "startDate": "2019-09-19",
@@ -19,26 +19,29 @@ payload = {
 # Headers to indicate that the body is JSON
 headers = {"Content-Type": "application/json"}
 
+
 # Function to send POST request and collect response
-def test_post_request(route, payload, fields='*'):
+def test_post_request(route, payload, fields="*"):
     response = requests.post(
         f"{base_url}/{route}",
         data=json.dumps(payload),
         headers=headers,
     )
     # Parse the JSON response
-    data = response.json()['data']
-    
+    data = response.json()["data"]
+
     # Function to extract fields based on the list or wildcard
     def extract_fields(item, fields):
-        if fields == '*':
+        if fields == "*":
             return item  # Return the whole item if wildcard is used
         else:
-            return {field: item.get(field) for field in fields}  # Extract specified fields
+            return {
+                field: item.get(field) for field in fields
+            }  # Extract specified fields
 
     # Initialize an empty list to store specific data from each item
     specific_data = []
-    
+
     # Check if 'data' is a list of items
     if isinstance(data, list):
         # Process each item in the list
@@ -47,18 +50,19 @@ def test_post_request(route, payload, fields='*'):
     else:
         # Handle the case where 'data' is a single JSON object
         specific_data.append(extract_fields(data, fields))
-    
+
     return {
         "route": route,
         "status_code": response.status_code,
         "specific_data": specific_data,
     }
 
+
 # List of routes to test
 routes = ["deviation"]
 
 # Fields to extract (can be a list of field names or '*' for all fields)
-fields_to_extract = ['name', 'average', 'latest']  # Example specific fields
+fields_to_extract = ["name", "average", "latest"]  # Example specific fields
 # fields_to_extract = '*'  # Uncomment this to return all fields
 
 # Test each route with specified fields

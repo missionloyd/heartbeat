@@ -102,14 +102,21 @@ $$;
 -- ----------------------------------------------------------
 -- 
 
-CREATE PROCEDURE public.insert_into_measurement()
-    LANGUAGE plpgsql
-    AS $$
+CREATE PROCEDURE
+    public.insert_into_measurement()
+LANGUAGE plpgsql
+AS $$
 BEGIN
+
+    -- DISTINCT ON removes duplicates pre-copy.
+    -- ON CONFLICT would upsert the latest insertion.
 
     INSERT INTO measurement
     (asset_id, commodity_id, ts, value)
-    SELECT asset_id, commodity_id, ts, value FROM measurement_copy;
+    SELECT DISTINCT ON (asset_id, commodity_id, ts)
+    asset_id, commodity_id, ts, value
+    FROM measurement_copy
+    ON CONFLICT (asset_id, commodity_id, ts) DO UPDATE SET value = EXCLUDED.value;
 
 END;
 $$;
