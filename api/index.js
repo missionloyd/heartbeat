@@ -13,12 +13,13 @@ const { summaryRouter } = require("./routes/space/summary");
 const { deviationRouter } = require("./routes/space/deviation");
 // -------------------------------------------------------------
 
+const db = require("./lib/db");
 const app = express();
 const PORT = process.env.PORT || 9000;
 
 // In-memory cache
 const cache = {};
-const cacheTTL = 365 * 24 * 60 * 60 * 1000; // 1 year
+const cacheTTL = 60 * 60 * 1000; // 1 hour
 
 app.set("trust proxy", 1);
 app.use(express.json());
@@ -50,6 +51,15 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept, Authorization, Role"
   );
   next();
+});
+
+// check if api is running
+app.get("/tables", async (_req, res) => {
+  const data = await db.getAllTables();
+
+  res.writeHead(200, { "Content-Type": "application/json" });
+
+  return res.end(JSON.stringify({ data }));
 });
 
 app.use("/tables", tablesRouter);
