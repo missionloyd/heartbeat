@@ -1,13 +1,20 @@
+# Use the latest Node.js image
 FROM node:latest
 
-# Set working directory.
+# Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy application code
+# Create an additional 'app' directory to match the expected structure
+WORKDIR /usr/src/app/app
+
+# Copy all project files into the newly created 'app' directory
 COPY . .
 
-# Install dependencies
+# Go back to the parent directory to handle npm installation
+WORKDIR /usr/src/app
+
+# Install dependencies, avoiding npm progress log for clearer output
 RUN npm install --no-progress
 
-# Start the application
+# Define the command to run your app, using the correct directory
 CMD ["npm", "start"]
