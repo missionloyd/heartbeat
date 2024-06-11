@@ -10,9 +10,8 @@ const { buildMeasurementQuery } = require("../utils/build_measurement_query");
 //  - Ending Date (STRING)
 //  - Date Level (STRING) such as hour, day, month
 //  - sqlAggregateFunction (STRING) such as "sum", "avg", "stddev"
-//  - isAssetComplementary (BOOLEAN): get measurements for the asset (FALSE) OR
-//    get all other assets in same tree and on same depth, except for the asset passed in as input;
-//    this is needed for the summary API route which compares the asset measurements with other assets in same tree and depth.
+//  - measurementQueryType (ENUM VALUE)
+//  - isHistoricalIncluded (BOOLEAN)
 // ~~~~~~~~~~~~~~~~
 // Outputs (Table Columns) :
 //  - Aggregate, of some input SQL aggregate function, of all commodity type columns.
@@ -23,7 +22,8 @@ async function getSummary(
   endDate,
   dateLevel,
   sqlAggregateFunction,
-  measurementQueryType
+  measurementQueryType,
+  isHistoricalIncluded
 ) {
   // $1 : dateLevel
   // $2 : assetName
@@ -38,17 +38,15 @@ async function getSummary(
 
   const commoditiesRows = commodotiesQueryResult.rows;
 
-  const includeHistoricalColumns = false;
-
   const measurementQuery = buildMeasurementQuery(
     commoditiesRows,
     measurementQueryType,
-    includeHistoricalColumns
+    isHistoricalIncluded
   );
 
   // ------------------------------------------------------
   let commodityColumnPrefixes;
-  if (includeHistoricalColumns) {
+  if (isHistoricalIncluded) {
     commodityColumnPrefixes = ["", "historical_"];
   } else {
     commodityColumnPrefixes = [""];

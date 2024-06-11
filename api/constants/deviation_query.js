@@ -13,15 +13,24 @@ const unpivotedMeasurementQuery = `
         JOIN
             commodity ON commodity.id = measurement.commodity_id
         WHERE
-            measurement.ts >= $2
-            AND
-            measurement.ts <= $3
+            EXISTS (
+                SELECT 
+                    asset_id
+                FROM 
+                    asset_geometry 
+                WHERE
+                    asset.id = asset_geometry.asset_id
+            )
             AND
             (
                 asset.name = $4 OR $4 = '%'
             )
             AND
             commodity.type = $5
+            AND
+            measurement.ts >= $2
+            AND
+            measurement.ts <= $3
         GROUP BY
             asset.id,
             asset.name,
