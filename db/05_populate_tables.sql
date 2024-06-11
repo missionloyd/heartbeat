@@ -7,6 +7,10 @@ CREATE INDEX name_index ON public.asset USING btree (name);
 
 -- -----------------------------------------------------------------------------------------------------
 
+\copy public.asset_geometry FROM 'data/asset_geometry.csv' QUOTE '^' DELIMITER '|' CSV HEADER NULL AS '';
+
+-- -----------------------------------------------------------------------------------------------------
+
 \copy public.commodity FROM 'data/commodity.csv' DELIMITER '|' CSV HEADER NULL AS '';
 
 -- -----------------------------------------------------------------------------------------------------

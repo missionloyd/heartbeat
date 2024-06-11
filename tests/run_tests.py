@@ -14,6 +14,7 @@ payload = {
     "dateLevel": "Day",
     "startDate": "2019-09-19",
     "endDate": "2023-02-05",
+    # "isHistoricalIncluded": "tRuE",  # comment out to get default behavior (default = false)
 }
 
 # Headers to indicate that the body is JSON
@@ -59,11 +60,12 @@ def test_post_request(route, payload, fields="*"):
 
 
 # List of routes to test
-routes = ["deviation"]
+# routes = ["points"]
+routes = ["summary"]
 
 # Fields to extract (can be a list of field names or '*' for all fields)
-fields_to_extract = ["name", "average", "latest"]  # Example specific fields
-# fields_to_extract = '*'  # Uncomment this to return all fields
+# fields_to_extract = ["name", "average", "latest"]  # Example specific fields
+fields_to_extract = "*"  # Uncomment this to return all fields
 
 # Test each route with specified fields
 results = [test_post_request(route, payload, fields_to_extract) for route in routes]
