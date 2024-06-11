@@ -13,15 +13,24 @@ DECLARE
     hex_color TEXT;
 BEGIN
 
+    -- Color-blind friendly & divergent color scheme:
+    -- https://colorbrewer2.org/#type=diverging&scheme=RdBu&n=5
+
+    -- HIGH (RGB) : (202 0 32) -> RED
+    -- MID (RGB) : (204 204 204) -> GREY
+    -- LOW (RGB) : (5 113 176) -> BLUE
+
     IF score = 0 THEN
-        normal_score := 0.5 - 0.001;
+        r := 204;
+        g := 204;
+        b := 204;
     ELSE
         normal_score := 1 / (1 + EXP(-score));
-    END IF;
 
-    r := ROUND(normal_score * 255)::INTEGER;
-    g := ROUND(255 - normal_score * 255)::INTEGER;
-    b := 0;
+        r := ROUND(normal_score * 197)::INTEGER + 5;
+        g := ROUND(113 - normal_score * 113)::INTEGER;
+        b := ROUND(144 - normal_score * 144)::INTEGER + 32;
+    END IF;
 
     r_hex := TO_HEX(r)::TEXT;
     g_hex := TO_HEX(g)::TEXT;

@@ -19,8 +19,9 @@ CREATE TABLE IF NOT EXISTS public.measurement(
   asset_id INTEGER NOT NULL,
   commodity_id INTEGER NOT NULL,
   ts timestamp without time zone default (now() at time zone 'utc'),
+  is_prediction BOOLEAN NOT NULL,
   value NUMERIC NOT NULL,
-  UNIQUE(asset_id, commodity_id, ts),
+  UNIQUE(asset_id, commodity_id, ts, is_prediction),
   FOREIGN KEY(asset_id) REFERENCES asset(id),
   FOREIGN KEY(commodity_id) REFERENCES commodity(id)
 );
