@@ -8,7 +8,7 @@ const router = Router();
 
 function summaryRouter(cache, cacheTTL) {
   router.post("/", async (req, res) => {
-    const { assetName, startDate, endDate, dateLevel } = req.body;
+    const { assetName, startDate, endDate, dateLevel, isHistoricalIncluded } = req.body;
 
     let data = [];
 
@@ -21,6 +21,41 @@ function summaryRouter(cache, cacheTTL) {
       });
     }
 
+    let historicalFlag;
+
+    const errorMessage =
+      "Value passed in for historical flag is not a boolean string.";
+
+    try {
+      const flag = !isHistoricalIncluded
+        ? isHistoricalIncluded
+        : isHistoricalIncluded.toLowerCase();
+
+      historicalFlag = eval(flag);
+
+      // After evaluating, outcomes include:
+      //  - true/false (YES)
+      //  - null/undefined (YES, convert to false)
+      //  - evaluatable (NO, throw error)
+      //  - unevaluatable (NO, error will be thrown automatically)
+
+      if (historicalFlag === undefined || historicalFlag === null) {
+        historicalFlag = false;
+      } else if (historicalFlag === true || historicalFlag === false) {
+        // GOOD TO GO...
+      } else {
+        throw errorMessage;
+      }
+    } catch (error) {
+      console.log(errorMessage);
+
+      return res.json({
+        data,
+        status: "bad",
+        message: errorMessage,
+      });
+    }
+
     try {
       data = {
         averages: {
@@ -30,7 +65,8 @@ function summaryRouter(cache, cacheTTL) {
             endDate,
             dateLevel,
             "AVG",
-            measurementQueryTypes.Asset.value
+            measurementQueryTypes.Asset.value,
+            historicalFlag
           ),
           campus: await getSummary(
             assetName,
@@ -38,7 +74,8 @@ function summaryRouter(cache, cacheTTL) {
             endDate,
             dateLevel,
             "AVG",
-            measurementQueryTypes.AssetComplementary.value
+            measurementQueryTypes.AssetComplementary.value,
+            historicalFlag
           ),
         },
         sums: {
@@ -48,7 +85,8 @@ function summaryRouter(cache, cacheTTL) {
             endDate,
             dateLevel,
             "SUM",
-            measurementQueryTypes.Asset.value
+            measurementQueryTypes.Asset.value,
+            historicalFlag
           ),
           campus: await getSummary(
             assetName,
@@ -56,7 +94,8 @@ function summaryRouter(cache, cacheTTL) {
             endDate,
             dateLevel,
             "SUM",
-            measurementQueryTypes.AssetComplementary.value
+            measurementQueryTypes.AssetComplementary.value,
+            historicalFlag
           ),
         },
         stddevs: {
@@ -66,7 +105,8 @@ function summaryRouter(cache, cacheTTL) {
             endDate,
             dateLevel,
             "STDDEV",
-            measurementQueryTypes.Asset.value
+            measurementQueryTypes.Asset.value,
+            historicalFlag
           ),
           campus: await getSummary(
             assetName,
@@ -74,7 +114,8 @@ function summaryRouter(cache, cacheTTL) {
             endDate,
             dateLevel,
             "STDDEV",
-            measurementQueryTypes.AssetComplementary.value
+            measurementQueryTypes.AssetComplementary.value,
+            historicalFlag
           ),
         },
       };
