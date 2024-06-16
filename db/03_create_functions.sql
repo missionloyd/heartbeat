@@ -65,3 +65,43 @@ BEGIN
 
 END;
 $$;
+
+-- 
+-- -------------------------------------------------------------------
+-- 
+
+CREATE OR REPLACE FUNCTION public.generate_tree_json(id_value INTEGER)
+RETURNS JSONB[]
+LANGUAGE plpgsql AS
+$$
+DECLARE
+   parent_lft INTEGER;
+   parent_rght INTEGER;
+BEGIN
+
+    -------------------------------------------------------
+    -- Recursively generate a tree JSON from a PARENT ID --
+    -------------------------------------------------------
+
+    RETURN (
+        COALESCE (
+            (
+                SELECT
+                    ARRAY_AGG(
+                        JSON_BUILD_OBJECT(
+                            'id', tree_view.child_id,
+                            'name', tree_view.child_name,
+                            'children', generate_tree_json(tree_view.child_id)
+                        )
+                    )
+                FROM
+                    tree_view
+                WHERE
+                    tree_view.parent_id = id_value
+            ),
+            ARRAY[]::JSON[]
+        )
+    );
+
+END;
+$$;
