@@ -1,11 +1,12 @@
 const { Router } = require("express");
 const { getLatest } = require("../../get_routes/get_latest");
+const { returnOrErrorFlag } = require("../../utils/return_or_error_flag");
 const router = Router();
 
 // Get the latest data in the past 24 hours
 function latestRouter(cache, cacheTTL) {
   router.post("/", async (req, res) => {
-    const { assetName, isHistoricalIncluded } = req.body;
+    const { assetName, isHistoricalIncluded, isMeasurementPrediction } = req.body;
 
     let data = [];
 
@@ -19,29 +20,11 @@ function latestRouter(cache, cacheTTL) {
     }
 
     let historicalFlag;
-
-    const errorMessage = "Value passed in for historical flag is not a boolean string.";
+    let predictionFlag;
 
     try {
-      const flag = !isHistoricalIncluded
-        ? isHistoricalIncluded
-        : isHistoricalIncluded.toLowerCase();
-
-      historicalFlag = eval(flag);
-
-      // After evaluating, outcomes include:
-      //  - true/false (YES)
-      //  - null/undefined (YES, convert to false)
-      //  - evaluatable (NO, throw error)
-      //  - unevaluatable (NO, error will be thrown automatically)
-
-      if (historicalFlag === undefined || historicalFlag === null) {
-        historicalFlag = false;
-      } else if (historicalFlag === true || historicalFlag === false) {
-        // GOOD TO GO...
-      } else {
-        throw errorMessage;
-      }
+      historicalFlag = returnOrErrorFlag(isHistoricalIncluded);
+      predictionFlag = returnOrErrorFlag(isMeasurementPrediction);
     } catch (error) {
       console.log(errorMessage);
 
@@ -53,7 +36,7 @@ function latestRouter(cache, cacheTTL) {
     }
 
     try {
-      data = await getLatest(assetName, historicalFlag);
+      data = await getLatest(assetName, historicalFlag, predictionFlag);
     } catch (error) {
       console.log(error);
 

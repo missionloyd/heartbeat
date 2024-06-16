@@ -4,24 +4,25 @@ import json
 HOST_PORT = 8080
 
 # Base URL of your API
-# base_url = f"http://localhost:{HOST_PORT}/api/space"
-base_url = f"http://localhost:{HOST_PORT}/api"
+base_url = f"http://localhost:{HOST_PORT}/api/space"
+# base_url = f"http://localhost:{HOST_PORT}/api"
 
 # Define a common payload for testing
-# payload = {
-#     # "assetName": "%",
-#     "assetName": "Student Union",
-#     "commodityName": "electricity",
-#     "dateLevel": "Day",
-#     "startDate": "2019-09-19",
-#     "endDate": "2023-02-05",
-#     # "isHistoricalIncluded": "tRuE",  # comment out to get default behavior (default = false)
-# }
+payload = {
+    # "assetName": "%",
+    "assetName": "Student Union",
+    "commodityName": "electricity",
+    "dateLevel": "Day",
+    "startDate": "2019-09-19",
+    "endDate": "2023-02-05",
+    "isHistoricalIncluded": "tRuE",  # comment out to get default behavior (default = false),
+    # "isMeasurementPrediction": "true",  # comment out to get default behavior (default = false)
+}
 
-# 32 -> UWYO (asset)
-# 1 -> East (asset)
-# 2 -> West (asset)
-payload = {"parentId": "32"}
+# # 32 -> UWYO (asset)
+# # 1 -> East (asset)
+# # 2 -> West (asset)
+# payload = {"parentId": "32"}
 
 # Headers to indicate that the body is JSON
 headers = {"Content-Type": "application/json"}
@@ -69,9 +70,12 @@ def test_post_request(route, payload, fields="*"):
 
 
 # List of routes to test
-# routes = ["points"]
+# routes = ["deviation"]
+routes = ["points"]
 # routes = ["summary"]
-routes = ["tree"]
+
+# To use this route, modify the API path above.
+# routes = ["tree"]
 
 # Fields to extract (can be a list of field names or '*' for all fields)
 # fields_to_extract = ["name", "average", "latest"]  # Example specific fields

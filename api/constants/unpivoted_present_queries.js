@@ -15,6 +15,8 @@ const asset = `
       measurement.ts >= $3 
       AND 
       measurement.ts <= $4
+      AND
+      measurement.is_prediction = $5
     GROUP BY
       commodity.type, 
       timestamp
@@ -61,10 +63,6 @@ const assetComplementary = `
       AND
       asset.tree_id = (SELECT tree_id FROM asset WHERE name = $2)
       AND
-      measurement.ts >= $3
-      AND
-      measurement.ts <= $4
-      AND
       asset.depth =
       (
         SELECT
@@ -78,6 +76,12 @@ const assetComplementary = `
         WHERE
           asset_depth_table.name = $2
       )
+      AND
+      measurement.ts >= $3
+      AND
+      measurement.ts <= $4
+      AND
+      measurement.is_prediction = $5
     GROUP BY
       commodity.type,
       timestamp
@@ -99,6 +103,8 @@ const latest = `
       commodity ON commodity.id = measurement.commodity_id
     WHERE 
       asset.name = $1
+      AND
+      measurement.is_prediction = $2
       AND
       AGE( NOW(), measurement.ts ) < INTERVAL '24 HOURS'
     GROUP BY

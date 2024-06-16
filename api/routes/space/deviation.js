@@ -20,12 +20,16 @@ function deviationRouter(cache, cacheTTL) {
     }
 
     try {
+
+      const isMeasurementPrediction = false;
+
       const deviation = await getDeviation(
         assetName,
         commodityName,
         startDate,
         endDate,
-        dateLevel
+        dateLevel,
+        isMeasurementPrediction
       );
 
       data = [...deviation];

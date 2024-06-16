@@ -12,6 +12,7 @@ const { buildMeasurementQuery } = require("../utils/build_measurement_query");
 //  - sqlAggregateFunction (STRING) such as "sum", "avg", "stddev"
 //  - measurementQueryType (ENUM VALUE)
 //  - isHistoricalIncluded (BOOLEAN)
+//  - isMeasurementPrediction (BOOLEAN)
 // ~~~~~~~~~~~~~~~~
 // Outputs (Table Columns) :
 //  - Aggregate, of some input SQL aggregate function, of all commodity type columns.
@@ -23,12 +24,14 @@ async function getSummary(
   dateLevel,
   sqlAggregateFunction,
   measurementQueryType,
-  isHistoricalIncluded
+  isHistoricalIncluded,
+  isMeasurementPrediction
 ) {
   // $1 : dateLevel
   // $2 : assetName
   // $3 : startDate
   // $4 : endDate
+  // $5 : isMeasurementPrediction
 
   const commoditiesQuery = `
       SELECT type FROM commodity;
@@ -85,6 +88,7 @@ async function getSummary(
     assetName,
     startDate,
     endDate,
+    isMeasurementPrediction
   ]);
 
   const summary = queryResult.rows;
