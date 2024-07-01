@@ -28,6 +28,8 @@ const unpivotedMeasurementQuery = `
             AND
             commodity.type = $5
             AND
+            measurement.is_prediction = $6
+            AND
             measurement.ts >= $2
             AND
             measurement.ts <= $3

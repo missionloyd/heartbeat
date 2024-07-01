@@ -16,11 +16,12 @@ const { buildMeasurementQuery } = require("../utils/build_measurement_query");
 //  - type of commodity
 //  - sum of commodity measurement during that timestamp datelevel.
 
-async function getPoints(assetName, startDate, endDate, dateLevel, isHistoricalIncluded) {
+async function getPoints(assetName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction) {
   // $1 : dateLevel
   // $2 : assetName
   // $3 : startDate
   // $4 : endDate
+  // $5 : isMeasurementPrediction
 
   const commoditiesQuery = `
         SELECT type FROM commodity
@@ -41,6 +42,7 @@ async function getPoints(assetName, startDate, endDate, dateLevel, isHistoricalI
     assetName,
     startDate,
     endDate,
+    isMeasurementPrediction
   ]);
 
   const points = queryResult.rows;

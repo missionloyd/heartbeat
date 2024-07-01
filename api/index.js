@@ -6,6 +6,7 @@ const rateSpeedLimiter = require("express-slow-down");
 // -------------------------------------------------------------
 const tablesRouter = require("./routes/tables");
 const { assetsRouter } = require("./routes/assets");
+const { treeRouter } = require("./routes/tree");
 const { recordsRouter } = require("./routes/records");
 const { latestRouter } = require("./routes/space/latest");
 const { pointsRouter } = require("./routes/space/points");
@@ -65,6 +66,7 @@ app.get("/tables", async (_req, res) => {
 app.use("/tables", tablesRouter);
 app.use("/api/records", recordsRouter(cache, cacheTTL));
 app.use("/api/assets", assetsRouter(cache, cacheTTL));
+app.use("/api/tree", treeRouter(cache, cacheTTL));
 app.use("/api/space/latest", latestRouter(cache, cacheTTL));
 app.use("/api/space/points", pointsRouter(cache, cacheTTL));
 app.use("/api/space/summary", summaryRouter(cache, cacheTTL));

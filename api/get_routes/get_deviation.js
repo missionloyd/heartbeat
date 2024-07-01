@@ -10,7 +10,8 @@ async function getDeviation(
   commodityName,
   startDate,
   endDate,
-  dateLevel
+  dateLevel,
+  isMeasurementPrediction
 ) {
   const queryResult = await db.query(deviationQuery, [
     dateLevel,
@@ -18,6 +19,7 @@ async function getDeviation(
     endDate,
     assetName,
     reversedCommodityTranslations[commodityName],
+    isMeasurementPrediction
   ]);
 
   const rows = [];

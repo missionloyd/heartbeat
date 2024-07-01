@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { getSummary } = require("../../get_routes/get_summary");
+const { returnOrErrorFlag } = require("../../utils/return_or_error_flag");
 const {
   measurementQueryTypes,
 } = require("../../constants/measurement_query_types");
@@ -8,7 +9,7 @@ const router = Router();
 
 function summaryRouter(cache, cacheTTL) {
   router.post("/", async (req, res) => {
-    const { assetName, startDate, endDate, dateLevel, isHistoricalIncluded } = req.body;
+    const { assetName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
 
     let data = [];
 
@@ -22,30 +23,11 @@ function summaryRouter(cache, cacheTTL) {
     }
 
     let historicalFlag;
-
-    const errorMessage =
-      "Value passed in for historical flag is not a boolean string.";
+    let predictionFlag;
 
     try {
-      const flag = !isHistoricalIncluded
-        ? isHistoricalIncluded
-        : isHistoricalIncluded.toLowerCase();
-
-      historicalFlag = eval(flag);
-
-      // After evaluating, outcomes include:
-      //  - true/false (YES)
-      //  - null/undefined (YES, convert to false)
-      //  - evaluatable (NO, throw error)
-      //  - unevaluatable (NO, error will be thrown automatically)
-
-      if (historicalFlag === undefined || historicalFlag === null) {
-        historicalFlag = false;
-      } else if (historicalFlag === true || historicalFlag === false) {
-        // GOOD TO GO...
-      } else {
-        throw errorMessage;
-      }
+      historicalFlag = returnOrErrorFlag(isHistoricalIncluded);
+      predictionFlag = returnOrErrorFlag(isMeasurementPrediction);
     } catch (error) {
       console.log(errorMessage);
 
@@ -66,7 +48,8 @@ function summaryRouter(cache, cacheTTL) {
             dateLevel,
             "AVG",
             measurementQueryTypes.Asset.value,
-            historicalFlag
+            historicalFlag,
+            predictionFlag
           ),
           campus: await getSummary(
             assetName,
@@ -75,7 +58,8 @@ function summaryRouter(cache, cacheTTL) {
             dateLevel,
             "AVG",
             measurementQueryTypes.AssetComplementary.value,
-            historicalFlag
+            historicalFlag,
+            predictionFlag
           ),
         },
         sums: {
@@ -86,7 +70,8 @@ function summaryRouter(cache, cacheTTL) {
             dateLevel,
             "SUM",
             measurementQueryTypes.Asset.value,
-            historicalFlag
+            historicalFlag,
+            predictionFlag
           ),
           campus: await getSummary(
             assetName,
@@ -95,7 +80,8 @@ function summaryRouter(cache, cacheTTL) {
             dateLevel,
             "SUM",
             measurementQueryTypes.AssetComplementary.value,
-            historicalFlag
+            historicalFlag,
+            predictionFlag
           ),
         },
         stddevs: {
@@ -106,7 +92,8 @@ function summaryRouter(cache, cacheTTL) {
             dateLevel,
             "STDDEV",
             measurementQueryTypes.Asset.value,
-            historicalFlag
+            historicalFlag,
+            predictionFlag
           ),
           campus: await getSummary(
             assetName,
@@ -115,7 +102,8 @@ function summaryRouter(cache, cacheTTL) {
             dateLevel,
             "STDDEV",
             measurementQueryTypes.AssetComplementary.value,
-            historicalFlag
+            historicalFlag,
+            predictionFlag
           ),
         },
       };

@@ -11,6 +11,8 @@ const asset = `
     commodity ON commodity.id = measurement.commodity_id
   WHERE 
     asset.name = $2
+    AND
+    measurement.is_prediction = $5
   GROUP BY
     commodity.type, 
     timestamp
@@ -69,6 +71,8 @@ const assetComplementary = `
       WHERE
         asset_depth_table.name = $2
     )
+    AND
+    measurement.is_prediction = $5
   GROUP BY
     commodity.type,
     timestamp
@@ -90,6 +94,8 @@ const latest = `
     commodity ON commodity.id = measurement.commodity_id
   WHERE 
     asset.name = $1
+    AND
+    measurement.is_prediction = $2
   GROUP BY
     commodity.type, 
     timestamp
