@@ -28,36 +28,10 @@ function buildHistoricalMeasurementTableQuery(
   const unpivotedHistoricalQuery =
     unpivotedHistoricalQueries[measurementQueryType];
 
-  // let unpivotedHistoricalQuery;
-
-  // if (isComplementQuery) {
-  //   unpivotedHistoricalQuery = `
-  //             SELECT
-  //             DATE_TRUNC($1, measurement.ts) as timestamp,
-  //             commodity.type,
-  //             SUM(measurement.value) FROM measurement
-  //             JOIN asset ON asset.id = measurement.asset_id
-  //             JOIN commodity ON commodity.id = measurement.commodity_id
-  //             WHERE asset.name != $2 AND
-  //             asset.tree_id = (SELECT tree_id FROM asset WHERE name = $2) AND
-  //             asset.lft != 1
-  //             GROUP BY asset.name, commodity.type, timestamp
-  //         `;
-  // } else {
-  //   unpivotedHistoricalQuery = `
-  //             SELECT
-  //             DATE_TRUNC($1, measurement.ts) as timestamp,
-  //             commodity.type,
-  //             SUM(measurement.value) FROM measurement
-  //             JOIN asset ON asset.id = measurement.asset_id
-  //             JOIN commodity ON commodity.id = measurement.commodity_id
-  //             WHERE asset.name = $2
-  //             GROUP BY asset.name, commodity.type, timestamp
-  //         `;
-  // }
-
   const pivotedHistoricalQuery = `
         SELECT
+        id,
+        name,
         timestamp,
         ${historicalCaseStatements}
         FROM 
@@ -90,6 +64,8 @@ function buildHistoricalMeasurementTableQuery(
 
   const pivotedHistoricalTableQuery = `
         SELECT
+        id,
+        name,
         timestamp,
         ${historicalSumStatements}
         FROM 
@@ -97,7 +73,10 @@ function buildHistoricalMeasurementTableQuery(
             ${pivotedHistoricalQuery}
         )
         AS ${pivotedHistoricalAlias}
-        GROUP BY timestamp
+        GROUP BY
+          id,
+          name, 
+          timestamp
     `;
 
   return pivotedHistoricalTableQuery;

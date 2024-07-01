@@ -1,5 +1,7 @@
 const asset = `
     SELECT
+      asset.id,
+      asset.name,
       DATE_TRUNC($1, measurement.ts) as timestamp,
       commodity.type,
       SUM(measurement.value) 
@@ -10,7 +12,11 @@ const asset = `
     JOIN 
       commodity ON commodity.id = measurement.commodity_id
     WHERE 
-      asset.name = $2 
+      (
+          asset.name = $2 
+          OR 
+          $2 = '%'
+      ) 
       AND
       measurement.ts >= $3 
       AND 
@@ -18,6 +24,8 @@ const asset = `
       AND
       measurement.is_prediction = $5
     GROUP BY
+      asset.id,
+      asset.name,
       commodity.type, 
       timestamp
 `;
@@ -45,6 +53,8 @@ const assetTableWithDepth = `
 
 const assetComplementary = `
     SELECT
+      asset.id,
+      asset.name,
       DATE_TRUNC($1, measurement.ts) as timestamp,
       commodity.type,
       SUM(measurement.value)
@@ -83,6 +93,8 @@ const assetComplementary = `
       AND
       measurement.is_prediction = $5
     GROUP BY
+      asset.id,
+      asset.name,
       commodity.type,
       timestamp
 `;
