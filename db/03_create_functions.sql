@@ -1,70 +1,39 @@
-CREATE FUNCTION public.generate_hex_using_score(score NUMERIC)
-    RETURNS TEXT
-    LANGUAGE plpgsql
-    AS $$
+CREATE OR REPLACE FUNCTION generate_hex_using_score(score DOUBLE PRECISION)
+RETURNS TEXT AS $$
 DECLARE
-    normal_score NUMERIC;
-    r INTEGER;
-    g INTEGER;
-    b INTEGER;
-    r_hex TEXT;
-    g_hex TEXT;
-    b_hex TEXT;
-    hex_color TEXT;
+    norm_score DOUBLE PRECISION;
+    interpolated_color INTEGER[];
+    low_color CONSTANT INTEGER[] := ARRAY[5, 113, 176];     -- RGB for #0571B0
+    mid_color CONSTANT INTEGER[] := ARRAY[204, 204, 204];   -- RGB for #CCCCCC
+    high_color CONSTANT INTEGER[] := ARRAY[202, 0, 32];     -- RGB for #CA0020
 BEGIN
+    -- Normalize the score using a sigmoid function
+    norm_score := 2 / (1 + exp(-score)) - 1;
 
-    -- Color-blind friendly & divergent color scheme:
-    -- https://colorbrewer2.org/#type=diverging&scheme=RdBu&n=5
-
-    -- HIGH (RGB) : (202 0 32) -> RED
-    -- MID (RGB) : (204 204 204) -> GREY
-    -- LOW (RGB) : (5 113 176) -> BLUE
-
-    IF score = 0 THEN
-        r := 204;
-        g := 204;
-        b := 204;
+    -- Determine the color by interpolating based on the normalized score
+    IF norm_score < 0 THEN
+        interpolated_color := ARRAY[
+            (low_color[1] + ((mid_color[1] - low_color[1]) * (norm_score + 1)))::INTEGER,
+            (low_color[2] + ((mid_color[2] - low_color[2]) * (norm_score + 1)))::INTEGER,
+            (low_color[3] + ((mid_color[3] - low_color[3]) * (norm_score + 1)))::INTEGER
+        ];
+    ELSIF norm_score > 0 THEN
+        interpolated_color := ARRAY[
+            (mid_color[1] + ((high_color[1] - mid_color[1]) * norm_score))::INTEGER,
+            (mid_color[2] + ((high_color[2] - mid_color[2]) * norm_score))::INTEGER,
+            (mid_color[3] + ((high_color[3] - mid_color[3]) * norm_score))::INTEGER
+        ];
     ELSE
-        normal_score := 1 / (1 + EXP(-score));
-
-        r := ROUND(normal_score * 197)::INTEGER + 5;
-        g := ROUND(113 - normal_score * 113)::INTEGER;
-        b := ROUND(144 - normal_score * 144)::INTEGER + 32;
+        interpolated_color := mid_color;
     END IF;
 
-    r_hex := TO_HEX(r)::TEXT;
-    g_hex := TO_HEX(g)::TEXT;
-    b_hex := TO_HEX(b)::TEXT;
-
-    -- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    -- Pad the hex strings with a '0' to ensure a length of 2 always:
-    -- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    IF LENGTH(r_hex) = 1 THEN
-        r_hex := CONCAT('0', r_hex);
-    END IF;
-
-    IF LENGTH(g_hex) = 1 THEN
-        g_hex := CONCAT('0', g_hex);
-    END IF;
-
-    IF LENGTH(b_hex) = 1 THEN
-        b_hex := CONCAT('0', b_hex);
-    END IF;
-
-    -- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    hex_color := CONCAT(
-        '#',
-        r_hex,
-        g_hex,
-        b_hex
-    );
-
-    RETURN hex_color;
-
+    -- Convert the RGB values to a hexadecimal color string
+    RETURN '#' || 
+           lpad(to_hex(interpolated_color[1]), 2, '0') ||
+           lpad(to_hex(interpolated_color[2]), 2, '0') ||
+           lpad(to_hex(interpolated_color[3]), 2, '0');
 END;
-$$;
+$$ LANGUAGE plpgsql;
 
 -- 
 -- -------------------------------------------------------------------

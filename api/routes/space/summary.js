@@ -29,12 +29,12 @@ function summaryRouter(cache, cacheTTL) {
       historicalFlag = returnOrErrorFlag(isHistoricalIncluded);
       predictionFlag = returnOrErrorFlag(isMeasurementPrediction);
     } catch (error) {
-      console.log(errorMessage);
+      console.log(error.message);
 
       return res.json({
         data,
         status: "bad",
-        message: errorMessage,
+        message: error.message,
       });
     }
 
