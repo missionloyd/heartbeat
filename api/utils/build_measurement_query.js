@@ -92,6 +92,8 @@ function buildMeasurementQuery(
 
   const finalPresentMeasurementTableQuery = `
     SELECT
+    ${pivotedPresentMeasurementAlias}.id,
+    ${pivotedPresentMeasurementAlias}.name,
     ${pivotedPresentMeasurementAlias}.timestamp,
     ${finalColumns}
     FROM 
