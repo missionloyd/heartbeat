@@ -9,9 +9,9 @@ base_url = f"http://localhost:{HOST_PORT}/api/space"
 
 # Define a common payload for testing
 payload = {
-    # "assetName": "%",
-    "assetName": "East",
-    "commodityName": "electricity",
+    "assetName": "%",
+    # "assetName": "Arts and Sciences",
+    # "commodityName": "electricity",
     "dateLevel": "MONTH",
     "startDate": "2019-09-19",
     "endDate": "2025-01-01",
