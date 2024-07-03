@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const rateLimiter = require("express-rate-limit");
-const rateSpeedLimiter = require("express-slow-down");
+// const rateLimiter = require("express-rate-limit");
+// const rateSpeedLimiter = require("express-slow-down");
 // -------------------------------------------------------------
 const tablesRouter = require("./routes/tables");
 const { assetsRouter } = require("./routes/assets");
@@ -28,16 +28,16 @@ app.use(cors());
 app.use(morgan("tiny"));
 
 // Rate limit middleware
-const rateLimit = rateLimiter({
-  max: 50,
-  windowMs: 1 * 60 * 1000,
-});
+// const rateLimit = rateLimiter({
+//   max: 50,
+//   windowMs: 1 * 60 * 1000,
+// });
 
-const rateSpeedLimit = rateSpeedLimiter({
-  delayAfter: 15,
-  windowMs: 1 * 60 * 1000,
-  delayMs: 5000,
-});
+// const rateSpeedLimit = rateSpeedLimiter({
+//   delayAfter: 15,
+//   windowMs: 1 * 60 * 1000,
+//   delayMs: 5000,
+// });
 
 const requestLogger = (request, response, next) => {
   console.log(`${request.method} url:: ${request.url}`);
