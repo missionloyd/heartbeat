@@ -3,9 +3,9 @@ RETURNS TEXT AS $$
 DECLARE
     norm_score DOUBLE PRECISION;
     interpolated_color INTEGER[];
-    low_color CONSTANT INTEGER[] := ARRAY[5, 113, 176];     -- RGB for #0571B0
-    mid_color CONSTANT INTEGER[] := ARRAY[204, 204, 204];   -- RGB for #CCCCCC
-    high_color CONSTANT INTEGER[] := ARRAY[202, 0, 32];     -- RGB for #CA0020
+    low_color CONSTANT INTEGER[] := ARRAY[94, 60, 153];
+    mid_color CONSTANT INTEGER[] := ARRAY[204, 204, 204];
+    high_color CONSTANT INTEGER[] := ARRAY[230, 97, 1];
 BEGIN
     -- Normalize the score using a sigmoid function
     norm_score := 2 / (1 + exp(-score)) - 1;
