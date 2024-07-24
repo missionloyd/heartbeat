@@ -3,7 +3,7 @@ const { getTree } = require("../get_routes/get_tree");
 
 const router = Router();
 
-function treeRouter(cache, cacheTTL) {
+function treeRouter() {
   router.post("/", async (req, res) => {
     const { parentId } = req.body;
 

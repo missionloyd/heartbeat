@@ -3,7 +3,7 @@ const { getAssets } = require("../get_routes/get_assets");
 
 const router = Router();
 
-function assetsRouter(cache, cacheTTL) {
+function assetsRouter() {
   router.post("/", async (req, res) => {
     const { parentAssetName } = req.body;
 

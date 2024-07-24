@@ -8,7 +8,6 @@ COPY constants /usr/src/app/constants
 COPY get_routes /usr/src/app/get_routes
 COPY index.js /usr/src/app/index.js
 COPY lib /usr/src/app/lib
-COPY middleware /usr/src/app/middleware
 COPY routes /usr/src/app/routes
 COPY utils /usr/src/app/utils
 

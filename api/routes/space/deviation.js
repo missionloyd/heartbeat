@@ -3,7 +3,7 @@ const { getDeviation } = require("../../get_routes/get_deviation");
 
 const router = Router();
 
-function deviationRouter(cache, cacheTTL) {
+function deviationRouter() {
   router.post("/", async (req, res) => {
     const { assetName, commodityName, startDate, endDate, dateLevel } =
       req.body;

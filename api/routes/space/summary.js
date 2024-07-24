@@ -7,7 +7,7 @@ const {
 
 const router = Router();
 
-function summaryRouter(cache, cacheTTL) {
+function summaryRouter() {
   router.post("/", async (req, res) => {
     const { assetName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
 

@@ -6,7 +6,7 @@ const {
 const router = Router();
 
 // Get data, queried by an input user query, from a normalized measurement table.
-function recordsRouter(cache, cacheTTL) {
+function recordsRouter() {
   router.post("/", async (req, res) => {
     const { parentAssetName, userQuery } = req.body;
 

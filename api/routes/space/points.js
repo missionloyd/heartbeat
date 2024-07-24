@@ -5,7 +5,7 @@ const { returnOrErrorFlag } = require("../../utils/return_or_error_flag");
 const router = Router();
 
 // Get Data points for an asset (default in days)
-function pointsRouter(cache, cacheTTL) {
+function pointsRouter() {
   router.post("/", async (req, res) => {
     const { assetName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
 

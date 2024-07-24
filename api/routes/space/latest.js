@@ -4,7 +4,7 @@ const { returnOrErrorFlag } = require("../../utils/return_or_error_flag");
 const router = Router();
 
 // Get the latest data in the past 24 hours
-function latestRouter(cache, cacheTTL) {
+function latestRouter() {
   router.post("/", async (req, res) => {
     const { assetName, isHistoricalIncluded, isMeasurementPrediction } = req.body;
 
