@@ -2,23 +2,11 @@ const {
   commodityTranslations,
 } = require("../constants/commodity_translations");
 const db = require("../lib/db");
-const { buildMeasurementQuery } = require("../utils/build_measurement_query");
-
-// Inputs :
-//  - Name of Asset (STRING)
-//  - Starting Date (STRING)
-//  - Ending Date (STRING)
-//  - Date Level (STRING) such as hour, day, month
-//  - sqlAggregateFunction (STRING) such as "sum", "avg", "stddev"
-//  - measurementQueryType (ENUM VALUE)
-//  - isHistoricalIncluded (BOOLEAN)
-//  - isMeasurementPrediction (BOOLEAN)
-// ~~~~~~~~~~~~~~~~
-// Outputs (Table Columns) :
-//  - Aggregate, of some input SQL aggregate function, of all commodity type columns.
+const { buildSummaryCteQuery } = require("../utils/build_summary_cte_query");
 
 async function getSummary(
   assetName,
+  commodityName,
   startDate,
   endDate,
   dateLevel,
@@ -27,22 +15,17 @@ async function getSummary(
   isHistoricalIncluded,
   isMeasurementPrediction
 ) {
-  // $1 : dateLevel
-  // $2 : assetName
-  // $3 : startDate
-  // $4 : endDate
-  // $5 : isMeasurementPrediction
 
-  const commoditiesQuery = `
-      SELECT type FROM commodity;
-    `;
+  let commodities;
+  if (commodityName == "%") {
+    const commodityQuery = await db.query("SELECT type FROM commodity");
+    commodities = commodityQuery.rows.map((row) => row["type"]);
+  } else {
+    commodities = [commodityName];
+  }
 
-  const commodotiesQueryResult = await db.query(commoditiesQuery);
-
-  const commoditiesRows = commodotiesQueryResult.rows;
-
-  const measurementQuery = buildMeasurementQuery(
-    commoditiesRows,
+  const { cteTableName, cteQuery } = buildSummaryCteQuery(
+    commodities,
     measurementQueryType,
     isHistoricalIncluded
   );
@@ -57,12 +40,10 @@ async function getSummary(
 
   let aggregateColumns = "";
   for (let prefix of commodityColumnPrefixes) {
-    for (let i = 0; i < commoditiesRows.length; i++) {
-      const commodityType = commoditiesRows[i]["type"];
+    for (commodity of commodities) {
+      const commodityName = commodityTranslations[commodity];
 
-      const commodity = commodityTranslations[commodityType];
-
-      const aggregateColumnString = `${sqlAggregateFunction}(${prefix}${commodity}) AS ${prefix}${commodity},`;
+      const aggregateColumnString = `${sqlAggregateFunction}(${prefix}${commodity}) AS ${prefix}${commodityName},`;
 
       aggregateColumns += aggregateColumnString;
     }
@@ -74,18 +55,17 @@ async function getSummary(
   // ------------------------------------------------------
 
   const aggregateSummaryQuery = `
-        SELECT
-        ${aggregateColumns}
-        FROM
-        (
-            ${measurementQuery}
-        )
-        AS pivoted_aggregate_measurement_table
-    `;
+    ${cteQuery}
+    SELECT
+      ${aggregateColumns}
+    FROM
+      ${cteTableName}
+  `;
 
   const queryResult = await db.query(aggregateSummaryQuery, [
     dateLevel,
     assetName,
+    commodityName,
     startDate,
     endDate,
     isMeasurementPrediction

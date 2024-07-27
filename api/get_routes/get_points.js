@@ -2,47 +2,46 @@ const {
   measurementQueryTypes,
 } = require("../constants/measurement_query_types");
 const db = require("../lib/db");
-const { buildMeasurementQuery } = require("../utils/build_measurement_query");
+const { buildPointsCteQuery } = require("../utils/build_points_cte_query");
 
-// Inputs :
-//  - Name of Asset (STRING)
-//  - Starting Date (STRING)
-//  - Ending Date (STRING)
-//  - Date Level (STRING) such as hour, day, month
-//  - isHistoricalIncluded (BOOLEAN)
-// ~~~~~~~~~~~~~~~~
-// Outputs (Table Columns) :
-//  - timestamp (of specified datelevel) of when measurement of commodity was taken.
-//  - type of commodity
-//  - sum of commodity measurement during that timestamp datelevel.
+async function getPoints(
+  assetName,
+  commodityName,
+  startDate,
+  endDate,
+  dateLevel,
+  isHistoricalIncluded,
+  isMeasurementPrediction
+) {
+  let commodities;
+  if (commodityName == "%") {
+    const commodityQuery = await db.query("SELECT type FROM commodity");
+    commodities = commodityQuery.rows.map((row) => row["type"]);
+  } else {
+    commodities = [commodityName];
+  }
 
-async function getPoints(assetName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction) {
-  // $1 : dateLevel
-  // $2 : assetName
-  // $3 : startDate
-  // $4 : endDate
-  // $5 : isMeasurementPrediction
-
-  const commoditiesQuery = `
-        SELECT type FROM commodity
-    `;
-
-  const commodotiesQueryResult = await db.query(commoditiesQuery);
-
-  const commoditiesRows = commodotiesQueryResult.rows;
-
-  const measurementQuery = buildMeasurementQuery(
-    commoditiesRows,
-    measurementQueryTypes.Asset.value,
+  const { cteTableName, cteQuery } = buildPointsCteQuery(
+    commodities,
+    measurementQueryTypes.Points.value,
     isHistoricalIncluded
   );
 
-  const queryResult = await db.query(measurementQuery, [
-    dateLevel,
-    assetName,
+  const pointsQuery = `
+    ${cteQuery}
+    SELECT
+      *
+    FROM
+      ${cteTableName}
+  `;
+
+  const queryResult = await db.query(pointsQuery, [
     startDate,
     endDate,
-    isMeasurementPrediction
+    assetName,
+    commodityName,
+    isMeasurementPrediction,
+    dateLevel
   ]);
 
   const points = queryResult.rows;

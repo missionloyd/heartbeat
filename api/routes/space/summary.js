@@ -9,11 +9,11 @@ const router = Router();
 
 function summaryRouter(cache, cacheTTL) {
   router.post("/", async (req, res) => {
-    const { assetName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
+    const { assetName, commodityName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
 
     let data = [];
 
-    if (!assetName || !startDate || !endDate || !dateLevel) {
+    if (!assetName || !commodityName || !startDate || !endDate || !dateLevel) {
       console.log("*** Missing Data (/summary) ***");
       return res.json({
         data,
@@ -39,74 +39,94 @@ function summaryRouter(cache, cacheTTL) {
     }
 
     try {
+
+      // Promise.all() fetches all asynchronous queries concurrently...
+      // (FUTURE CONSIDERATION) -> multithreading?
+      const [avgSpace, avgCampus, sumSpace, sumCampus, stdSpace, stdCampus] =
+        await Promise.all([
+          getSummary(
+            assetName,
+            commodityName,
+            startDate,
+            endDate,
+            dateLevel,
+            "AVG",
+            measurementQueryTypes.Summary.value,
+            historicalFlag,
+            predictionFlag
+          ),
+          getSummary(
+            assetName,
+            commodityName,
+            startDate,
+            endDate,
+            dateLevel,
+            "AVG",
+            measurementQueryTypes.SummaryComplementary.value,
+            historicalFlag,
+            predictionFlag
+          ),
+          getSummary(
+            assetName,
+            commodityName,
+            startDate,
+            endDate,
+            dateLevel,
+            "SUM",
+            measurementQueryTypes.Summary.value,
+            historicalFlag,
+            predictionFlag
+          ),
+          getSummary(
+            assetName,
+            commodityName,
+            startDate,
+            endDate,
+            dateLevel,
+            "SUM",
+            measurementQueryTypes.SummaryComplementary.value,
+            historicalFlag,
+            predictionFlag
+          ),
+          getSummary(
+            assetName,
+            commodityName,
+            startDate,
+            endDate,
+            dateLevel,
+            "STDDEV",
+            measurementQueryTypes.Summary.value,
+            historicalFlag,
+            predictionFlag
+          ),
+          getSummary(
+            assetName,
+            commodityName,
+            startDate,
+            endDate,
+            dateLevel,
+            "STDDEV",
+            measurementQueryTypes.SummaryComplementary.value,
+            historicalFlag,
+            predictionFlag
+          ),
+        ]);
+
       data = {
         averages: {
-          space: await getSummary(
-            assetName,
-            startDate,
-            endDate,
-            dateLevel,
-            "AVG",
-            measurementQueryTypes.Asset.value,
-            historicalFlag,
-            predictionFlag
-          ),
-          campus: await getSummary(
-            assetName,
-            startDate,
-            endDate,
-            dateLevel,
-            "AVG",
-            measurementQueryTypes.AssetComplementary.value,
-            historicalFlag,
-            predictionFlag
-          ),
+          space: avgSpace,
+          campus: avgCampus,
         },
         sums: {
-          space: await getSummary(
-            assetName,
-            startDate,
-            endDate,
-            dateLevel,
-            "SUM",
-            measurementQueryTypes.Asset.value,
-            historicalFlag,
-            predictionFlag
-          ),
-          campus: await getSummary(
-            assetName,
-            startDate,
-            endDate,
-            dateLevel,
-            "SUM",
-            measurementQueryTypes.AssetComplementary.value,
-            historicalFlag,
-            predictionFlag
-          ),
+          space: sumSpace,
+          campus: sumCampus,
         },
         stddevs: {
-          space: await getSummary(
-            assetName,
-            startDate,
-            endDate,
-            dateLevel,
-            "STDDEV",
-            measurementQueryTypes.Asset.value,
-            historicalFlag,
-            predictionFlag
-          ),
-          campus: await getSummary(
-            assetName,
-            startDate,
-            endDate,
-            dateLevel,
-            "STDDEV",
-            measurementQueryTypes.AssetComplementary.value,
-            historicalFlag,
-            predictionFlag
-          ),
+          space: stdSpace,
+          campus: stdCampus,
         },
       };
+
     } catch (error) {
       console.log(error);
       return res.json({
