@@ -123,12 +123,15 @@ const summaryComplementary = `
 // *****************************************************
 // *****************************************************
 
-const records = `
+const records = (caseStatements) => `
     SELECT
         asset.name,
-        DATE_TRUNC('HOUR', measurement.ts) as timestamp,
-        commodity.type,
-        SUM(measurement.value)
+        measurement.ts AS timestamp,
+        EXTRACT(YEAR FROM measurement.ts) AS year,
+        EXTRACT(MONTH FROM measurement.ts) AS month,
+        EXTRACT(DAY FROM measurement.ts) AS day,
+        EXTRACT(HOUR FROM measurement.ts) AS hour,
+        ${caseStatements}
     FROM 
         measurement
     JOIN 
@@ -137,10 +140,11 @@ const records = `
         commodity ON commodity.id = measurement.commodity_id
     WHERE
         asset.tree_id = (SELECT tree_id FROM asset WHERE name = %L)
-    GROUP BY 
-        asset.name, 
-        commodity.type, 
-        timestamp
+        AND
+        measurement.is_prediction = FALSE
+    ORDER BY
+        measurement.ts
+        ASC
 `;
 
 // *****************************************************

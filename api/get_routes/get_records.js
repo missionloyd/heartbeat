@@ -12,8 +12,6 @@ async function getRecords(userQuery, recordsViewAlias) {
 
   const whereClause = processSQL(sql);
 
-  // const whereClause = userQuery;
-
   const recordsQuery = `
     SELECT
     *
@@ -24,7 +22,6 @@ async function getRecords(userQuery, recordsViewAlias) {
   `;
 
   const queryResult = await db.query(recordsQuery, params);
-  // const queryResult = await pool.query(recordsQuery);
 
   const records = queryResult.rows;
 
