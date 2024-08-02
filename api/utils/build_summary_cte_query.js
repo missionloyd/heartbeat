@@ -14,7 +14,7 @@ function buildSummaryCteQuery(
 
   let caseStatements = "";
   for (commodity of commodities) {
-    const caseStatement = `SUM(CASE WHEN type = '${commodity}' THEN value END) AS ${commodity},`;
+    const caseStatement = `CASE WHEN type = '${commodity}' THEN value END AS ${commodity},`;
 
     caseStatements += caseStatement;
   }

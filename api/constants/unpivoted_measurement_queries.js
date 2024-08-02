@@ -34,7 +34,7 @@ const summary = `
     SELECT
       DATE_TRUNC($1, measurement.ts) as timestamp,
       commodity.type,
-      measurement.value
+      SUM(measurement.value) AS value
     FROM 
       measurement
     JOIN 
@@ -55,6 +55,9 @@ const summary = `
       measurement.ts <= $5
       AND
       measurement.is_prediction = $6
+    GROUP BY
+      timestamp,
+      commodity.type
 `;
 
 const assetTableWithDepth = `
@@ -77,7 +80,7 @@ const summaryComplementary = `
     SELECT
       DATE_TRUNC($1, measurement.ts) as timestamp,
       commodity.type,
-      measurement.value
+      SUM(measurement.value) AS value
     FROM
       measurement
     JOIN
@@ -118,6 +121,58 @@ const summaryComplementary = `
       measurement.ts <= $5
       AND
       measurement.is_prediction = $6
+    GROUP BY
+      timestamp,
+      commodity.type
+`;
+
+// USED FOR TESTING PURPOSES
+const totalSummary = `
+    SELECT
+      DATE_TRUNC($1, measurement.ts) as timestamp,
+      commodity.type,
+      SUM(measurement.value) AS value
+    FROM
+      measurement
+    JOIN
+    (
+      ${assetTableWithDepth}
+    )
+    AS asset
+    ON asset.id = measurement.asset_id
+    JOIN
+      commodity ON commodity.id = measurement.commodity_id
+    WHERE
+      asset.tree_id = (SELECT tree_id FROM asset WHERE name = $2)
+      AND
+      asset.depth =
+      (
+        SELECT
+          depth
+        FROM
+        (
+          ${assetTableWithDepth}
+        )
+        AS
+          asset_depth_table
+        WHERE
+          asset_depth_table.name = $2
+      )
+      AND
+      (
+        commodity.type = $3
+        OR
+        $3 = '%' 
+      )
+      AND
+      measurement.ts >= $4
+      AND
+      measurement.ts <= $5
+      AND
+      measurement.is_prediction = $6
+    GROUP BY
+      timestamp,
+      commodity.type
 `;
 
 // *****************************************************
@@ -155,6 +210,7 @@ const unpivotedMeasurementQueries = {
   2: summary,
   3: summaryComplementary,
   4: records,
+  5: totalSummary
 };
 
 module.exports = { unpivotedMeasurementQueries };
