@@ -24,6 +24,19 @@ function buildSummaryCteQuery(
 
   // ---------------------------------------------------
 
+  // const pivotedMeasurementQuery = `
+  //         SELECT
+  //         timestamp,
+  //         ${caseStatements}
+  //         FROM
+  //         (
+  //             ${unpivotedMeasurementQuery}
+  //         )
+  //         AS unpivoted_measurement
+  //         GROUP BY
+  //           timestamp
+  //   `;
+
   const pivotedMeasurementQuery = `
           SELECT
           timestamp,
@@ -33,8 +46,6 @@ function buildSummaryCteQuery(
               ${unpivotedMeasurementQuery}
           )
           AS unpivoted_measurement
-          GROUP BY
-            timestamp
     `;
 
   // ------------------------------------------------------

@@ -9,14 +9,14 @@ base_url = f"http://localhost:{HOST_PORT}/api/space"
 
 # Define a common payload for testing
 payload = {
-    "assetName": "%",
-    # "assetName": "Arts and Sciences",
-    # "commodityName": "electricity",
+    # "assetName": "%",
+    "assetName": "Arts and Sciences",
+    "commodityName": "elec_kwh",
     "dateLevel": "MONTH",
-    "startDate": "2019-09-19",
-    "endDate": "2025-01-01",
+    "startDate": "2019-10-01",
+    "endDate": "2023-01-31",
     # "isHistoricalIncluded": "tRuE",  # comment out to get default behavior (default = false),
-    "isMeasurementPrediction": "true",  # comment out to get default behavior (default = false)
+    # "isMeasurementPrediction": "true",  # comment out to get default behavior (default = false)
 }
 
 # # 32 -> UWYO (asset)
