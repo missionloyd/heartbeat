@@ -1,9 +1,12 @@
 const { campusHeartbeatAssets } = require("./resources");
 const { getSummary } = require("../get_routes/get_summary");
-const pool = require("../database/database");
+const db = require("../lib/db");
 const {
   unpivotedMeasurementQueries,
 } = require("../constants/unpivoted_measurement_queries");
+const {
+  commodityTranslations,
+} = require("../constants/commodity_translations");
 
 async function calculateStddevOfAsset(
   startDate,
@@ -14,7 +17,7 @@ async function calculateStddevOfAsset(
 ) {
   const pointsQuery = unpivotedMeasurementQueries[2];
 
-  const data = await pool.query(pointsQuery, [
+  const data = await db.query(pointsQuery, [
     startDate,
     endDate,
     assetName,
@@ -71,7 +74,7 @@ async function calculateStddevOfOtherAssets(
 ) {
   const pointsQuery = unpivotedMeasurementQueries[3];
 
-  const data = await pool.query(pointsQuery, [
+  const data = await db.query(pointsQuery, [
     startDate,
     endDate,
     assetName,
@@ -119,11 +122,11 @@ async function calculateStddevOfOtherAssets(
   return standardDeviation;
 }
 
-async function testSummaryStddev() {
-  const commodityName = "elec_kwh";
+async function testSummaryStddev(commodity, truncatedDateLevel) {
+  const commodityName = commodity;
   const startDate = "2019-10-01";
   const endDate = "2023-01-31";
-  const dateLevel = "MONTH";
+  const dateLevel = truncatedDateLevel;
   const sqlAggregateFunction = "STDDEV";
   const isHistoricalIncluded = false;
 
@@ -170,14 +173,17 @@ async function testSummaryStddev() {
 
     // -------------------------------------------
 
-    let buildingStddev = buildingStddevSummary[0]["electricity"];
+    let translatedCommodity = commodityTranslations[commodityName];
+
+    let buildingStddev = buildingStddevSummary[0][translatedCommodity];
+
     if (buildingStddev == null) {
       buildingStddev = 0.0;
     } else {
       buildingStddev = parseFloat(buildingStddev);
     }
 
-    let campusStddev = campusStddevSummary[0]["electricity"];
+    let campusStddev = campusStddevSummary[0][translatedCommodity];
     if (campusStddev == null) {
       campusStddev = 0.0;
     } else {
@@ -187,10 +193,10 @@ async function testSummaryStddev() {
     // -------------------------------------------
 
     console.log(
-      `API returns : ${Math.round(campusStddev)} <-> Calculated : ${Math.round(calculatedCampusStddev)}`
+      `Campus API ${truncatedDateLevel}-ly ${commodity} value : ${Math.round(campusStddev)} <-> Campus Calculated ${truncatedDateLevel}-ly ${commodity} value : ${Math.round(calculatedCampusStddev)}`
     );
     console.log(
-      `API returns : ${Math.round(buildingStddev)} <-> Calculated : ${Math.round(calculatedBuildingStddev)}`
+      `Campus API ${truncatedDateLevel}-ly ${commodity} value : ${Math.round(buildingStddev)} <-> Campus Calculated ${truncatedDateLevel}-ly ${commodity} value : ${Math.round(calculatedBuildingStddev)}`
     );
 
     // -------------------------------------------
@@ -202,21 +208,23 @@ async function testSummaryStddev() {
 
     if (!buildingCheck && !campusCheck) {
       console.log(
-        `Building and Campus standard deviations for ${assetName} may not be correct.`
+        `Building and Campus ${truncatedDateLevel}-ly ${commodity} standard deviations for ${assetName} may not be correct.`
       );
       return false;
     } else if (!campusCheck) {
       console.log(
-        `Campus standard deviations for ${assetName} may not be correct.`
+        `Campus ${truncatedDateLevel}-ly ${commodity} standard deviations for ${assetName} may not be correct.`
       );
       return false;
     } else if (!buildingCheck) {
       console.log(
-        `Building standard deviations for ${assetName} may not be correct.`
+        `Building ${truncatedDateLevel}-ly ${commodity} standard deviations for ${assetName} may not be correct.`
       );
       return false;
     } else {
-      console.log(`${assetName} passed the test.`);
+      console.log(
+        `${assetName} passed the ${truncatedDateLevel}-ly ${commodity} STDDEV test.`
+      );
     }
 
     console.log("********************************");

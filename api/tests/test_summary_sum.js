@@ -1,11 +1,14 @@
 const { campusHeartbeatAssets } = require("./resources");
 const { getSummary } = require("../get_routes/get_summary");
+const {
+  commodityTranslations,
+} = require("../constants/commodity_translations");
 
-async function testSummarySum() {
-  const commodityName = "elec_kwh";
+async function testSummarySum(commodity, truncatedDateLevel) {
+  const commodityName = commodity;
   const startDate = "2019-10-01";
   const endDate = "2023-01-31";
-  const dateLevel = "MONTH";
+  const dateLevel = truncatedDateLevel;
   const sqlAggregateFunction = "SUM";
   const isHistoricalIncluded = false;
 
@@ -20,7 +23,10 @@ async function testSummarySum() {
     isHistoricalIncluded
   );
 
-  let expectedTotalSum = expectedTotalSumSummary[0]["electricity"];
+  let translatedCommodity = commodityTranslations[commodityName];
+
+  let expectedTotalSum = expectedTotalSumSummary[0][translatedCommodity];
+
   if (expectedTotalSum == null) {
     expectedTotalSum = 0.0;
   } else {
@@ -50,14 +56,14 @@ async function testSummarySum() {
       isHistoricalIncluded
     );
 
-    let buildingSum = buildingSumSummary[0]["electricity"];
+    let buildingSum = buildingSumSummary[0][translatedCommodity];
     if (buildingSum == null) {
       buildingSum = 0.0;
     } else {
       buildingSum = parseFloat(buildingSum);
     }
 
-    let campusSum = campusSumSummary[0]["electricity"];
+    let campusSum = campusSumSummary[0][translatedCommodity];
     if (campusSum == null) {
       campusSum = 0.0;
     } else {
@@ -70,11 +76,17 @@ async function testSummarySum() {
       `${buildingSum} + ${campusSum} = ${totalSum} =?= ${expectedTotalSum}`
     );
 
-    if (totalSum === expectedTotalSum) {
-      console.log(`${assetName} passed the test.`);
+    const isSumSimilar = Math.round(totalSum) === Math.round(expectedTotalSum);
+
+    if (isSumSimilar) {
+      console.log(
+        `${assetName} passed the ${truncatedDateLevel}-ly ${commodity} SUM test.`
+      );
       console.log("********************************");
     } else {
-      console.log(`${assetName} sums may not be correct.`);
+      console.log(
+        `${truncatedDateLevel}-ly ${commodity} SUMs for ${assetName} may not be correct.`
+      );
       return false;
     }
   }

@@ -1,9 +1,12 @@
 const { campusHeartbeatAssets } = require("./resources");
 const { getSummary } = require("../get_routes/get_summary");
-const pool = require("../database/database");
+const db = require("../lib/db");
 const {
   unpivotedMeasurementQueries,
 } = require("../constants/unpivoted_measurement_queries");
+const {
+  commodityTranslations,
+} = require("../constants/commodity_translations");
 
 async function calculateAvgOfAsset(
   startDate,
@@ -14,7 +17,7 @@ async function calculateAvgOfAsset(
 ) {
   const pointsQuery = unpivotedMeasurementQueries[2];
 
-  const data = await pool.query(pointsQuery, [
+  const data = await db.query(pointsQuery, [
     startDate,
     endDate,
     assetName,
@@ -50,7 +53,7 @@ async function calculateAvgOfOtherAssets(
 ) {
   const complementaryPointsQuery = unpivotedMeasurementQueries[3];
 
-  const data = await pool.query(complementaryPointsQuery, [
+  const data = await db.query(complementaryPointsQuery, [
     startDate,
     endDate,
     assetName,
@@ -72,11 +75,11 @@ async function calculateAvgOfOtherAssets(
   return avg;
 }
 
-async function testSummaryAvg() {
-  const commodityName = "elec_kwh";
+async function testSummaryAvg(commodity, truncatedDateLevel) {
+  const commodityName = commodity;
   const startDate = "2019-10-01";
   const endDate = "2023-01-31";
-  const dateLevel = "MONTH";
+  const dateLevel = truncatedDateLevel;
   const sqlAggregateFunction = "AVG";
   const isHistoricalIncluded = false;
 
@@ -123,14 +126,17 @@ async function testSummaryAvg() {
 
     // -------------------------------------------
 
-    let buildingAvg = buildingAvgSummary[0]["electricity"];
+    let translatedCommodity = commodityTranslations[commodityName];
+
+    let buildingAvg = buildingAvgSummary[0][translatedCommodity];
+
     if (buildingAvg == null) {
       buildingAvg = 0.0;
     } else {
       buildingAvg = parseFloat(buildingAvg);
     }
 
-    let campusAvg = campusAvgSummary[0]["electricity"];
+    let campusAvg = campusAvgSummary[0][translatedCommodity];
     if (campusAvg == null) {
       campusAvg = 0.0;
     } else {
@@ -140,10 +146,10 @@ async function testSummaryAvg() {
     // -------------------------------------------
 
     console.log(
-      `API returns : ${Math.round(campusAvg)} <-> Calculated : ${Math.round(calculatedCampusAvg)}`
+      `Campus API ${truncatedDateLevel}-ly ${commodity} value : ${Math.round(campusAvg)} <-> Campus Calculated ${truncatedDateLevel}-ly ${commodity} value : ${Math.round(calculatedCampusAvg)}`
     );
     console.log(
-      `API returns : ${Math.round(buildingAvg)} <-> Calculated : ${Math.round(calculatedBuildingAvg)}`
+      `Campus API ${truncatedDateLevel}-ly ${commodity} value : ${Math.round(buildingAvg)} <-> Campus Calculated ${truncatedDateLevel}-ly ${commodity} value : ${Math.round(calculatedBuildingAvg)}`
     );
 
     // -------------------------------------------
@@ -155,17 +161,23 @@ async function testSummaryAvg() {
 
     if (!buildingCheck && !campusCheck) {
       console.log(
-        `Building and Campus averages for ${assetName} may not be correct.`
+        `Building and Campus ${truncatedDateLevel}-ly ${commodity} averages for ${assetName} may not be correct.`
       );
       return false;
     } else if (!campusCheck) {
-      console.log(`Campus averages for ${assetName} may not be correct.`);
+      console.log(
+        `Campus ${truncatedDateLevel}-ly ${commodity} averages for ${assetName} may not be correct.`
+      );
       return false;
     } else if (!buildingCheck) {
-      console.log(`Building averages for ${assetName} may not be correct.`);
+      console.log(
+        `Building ${truncatedDateLevel}-ly ${commodity} averages for ${assetName} may not be correct.`
+      );
       return false;
     } else {
-      console.log(`${assetName} passed the test.`);
+      console.log(
+        `${assetName} passed the ${truncatedDateLevel}-ly ${commodity} AVG test.`
+      );
     }
 
     console.log("********************************");

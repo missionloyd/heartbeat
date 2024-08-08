@@ -14,7 +14,7 @@ def test_summary(asset_name):
     payload = {
         "assetName": asset_name,
         "commodityName": "%",
-        "dateLevel": "MONTH",
+        "dateLevel": "YEAR",
         "startDate": "2019-10-01",
         "endDate": "2023-01-31",
         "isHistoricalIncluded": "false",
@@ -31,7 +31,7 @@ def test_summary(asset_name):
     # Parse the JSON response
     data = response.json()["data"]
 
-    file_name = "tests/summary_results.json"
+    file_name = "tests/third_year_summary_results.json"
 
     if asset_name == "Animal Science":
         with open(file_name, "w") as file:
