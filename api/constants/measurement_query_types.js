@@ -1,9 +1,10 @@
 const Enum = require("enum");
 
 const measurementQueryTypes = new Enum({
-  Asset: 1,
-  AssetComplementary: 2,
-  Latest: 3,
+  Points: 1,
+  Summary: 2,
+  SummaryComplementary: 3,
+  Records: 4,
 });
 
 module.exports = { measurementQueryTypes };

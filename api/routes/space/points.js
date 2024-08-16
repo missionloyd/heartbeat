@@ -4,14 +4,13 @@ const { returnOrErrorFlag } = require("../../utils/return_or_error_flag");
 
 const router = Router();
 
-// Get Data points for an asset (default in days)
 function pointsRouter(cache, cacheTTL) {
   router.post("/", async (req, res) => {
-    const { assetName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
+    const { assetName, commodityName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
 
     let data = [];
 
-    if (!assetName || !startDate || !endDate || !dateLevel) {
+    if (!assetName || !commodityName || !startDate || !endDate || !dateLevel) {
       console.log("*** Missing Data (/points) ***");
       return res.json({
         data,
@@ -38,7 +37,7 @@ function pointsRouter(cache, cacheTTL) {
 
     try {
       data = {
-        points: await getPoints(assetName, startDate, endDate, dateLevel, historicalFlag, predictionFlag),
+        points: await getPoints(assetName, commodityName, startDate, endDate, dateLevel, historicalFlag, predictionFlag),
       };
     } catch (error) {
       console.log(error);

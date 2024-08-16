@@ -1,38 +1,21 @@
-const {
-  measurementQueryTypes,
-} = require("../constants/measurement_query_types");
-const db = require("../lib/db");
-const { buildMeasurementQuery } = require("../utils/build_measurement_query");
+const { getPoints } = require("./get_points");
 
-// Inputs :
-//  - Name of Asset (STRING)
-//  - isHistoricalIncluded (BOOLEAN)
-// ~~~~~~~~~~~~~~~~
-// Outputs (Measurement Data from the last 24 hours) :
+async function getLatest(assetName, commodityName) {
+  const endDate = new Date(); // HOUR 24
+  const startDate = new Date(endDate.getTime() - 24 * 60 * 60 * 1000); // HOUR 0
+  const dateLevel = "HOUR";
+  const isHistoricalIncluded = false;
 
-async function getLatest(assetName, isHistoricalIncluded, isMeasurementPrediction) {
-  // $1 : assetName
-  // $2 : isMeasurementPrediction
-
-  const commoditiesQuery = `
-        SELECT type FROM commodity
-    `;
-
-  const commodotiesQueryResult = await db.query(commoditiesQuery);
-
-  const commoditiesRows = commodotiesQueryResult.rows;
-
-  const latestMeasurementQuery = buildMeasurementQuery(
-    commoditiesRows,
-    measurementQueryTypes.Latest.value,
+  const latestPoints = getPoints(
+    assetName,
+    commodityName,
+    startDate,
+    endDate,
+    dateLevel,
     isHistoricalIncluded
   );
 
-  const queryResult = await db.query(latestMeasurementQuery, [assetName, isMeasurementPrediction]);
-
-  const latestData = queryResult.rows;
-
-  return latestData;
+  return latestPoints;
 }
 
 module.exports = { getLatest };
