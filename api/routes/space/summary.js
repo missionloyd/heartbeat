@@ -1,45 +1,63 @@
 const { Router } = require("express");
 const { getSummary } = require("../../get_routes/get_summary");
+const memCached = require("memcached");
+const { promisify } = require("util");
 const { returnOrErrorFlag } = require("../../utils/return_or_error_flag");
 const {
   measurementQueryTypes,
 } = require("../../constants/measurement_query_types");
 
-const router = Router();
+const summaryRouter = Router();
 
-function summaryRouter(cache, cacheTTL) {
-  router.post("/", async (req, res) => {
-    const { assetName, commodityName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
+// ----------------------------------------------
+const cacheContainerHost = process.env.CACHE_CONTAINER;
+const cacheContainerPort = process.env.CACHE_PORT;
+const memCache = new memCached(`${cacheContainerHost}:${cacheContainerPort}`);
 
-    let data = [];
+// Allow the get method to be used asynchronously:
+memCache.get = promisify(memCache.get);
+// ----------------------------------------------
 
-    if (!assetName || !commodityName || !startDate || !endDate || !dateLevel) {
-      console.log("*** Missing Data (/summary) ***");
-      return res.json({
-        data,
-        status: "bad",
-        message: "missing data",
-      });
-    }
+summaryRouter.post("/", async (req, res) => {
+  const { assetName, commodityName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
 
-    let historicalFlag;
-    let predictionFlag;
+  let data = [];
 
-    try {
-      historicalFlag = returnOrErrorFlag(isHistoricalIncluded);
-      predictionFlag = returnOrErrorFlag(isMeasurementPrediction);
-    } catch (error) {
-      console.log(error.message);
+  if (!assetName || !commodityName || !startDate || !endDate || !dateLevel) {
+    console.log("*** Missing Data (/summary) ***");
+    return res.json({
+      data,
+      status: "bad",
+      message: "missing data",
+    });
+  }
 
-      return res.json({
-        data,
-        status: "bad",
-        message: error.message,
-      });
-    }
+  let historicalFlag;
+  let predictionFlag;
 
-    try {
+  try {
+    historicalFlag = returnOrErrorFlag(isHistoricalIncluded);
+    predictionFlag = returnOrErrorFlag(isMeasurementPrediction);
+  } catch (error) {
+    console.log(error.message);
 
+    return res.json({
+      data,
+      status: "bad",
+      message: error.message,
+    });
+  }
+
+  // Remove any white spaces, from assetName, so that a key can be created properly:
+  const unspacedAssetName = assetName.replace(/\s+/g, "");
+  const dataKey = `${unspacedAssetName}:${commodityName}:${startDate}:${endDate}:${dateLevel}:${historicalFlag}:${predictionFlag}`;
+
+  try {
+
+    const cacheData = await memCache.get(dataKey);
+
+    if (cacheData === undefined) {
+      
       // Promise.all() fetches all asynchronous queries concurrently...
       // (FUTURE CONSIDERATION) -> multithreading?
       const [avgSpace, avgCampus, sumSpace, sumCampus, stdSpace, stdCampus] =
@@ -127,21 +145,43 @@ function summaryRouter(cache, cacheTTL) {
         },
       };
 
-    } catch (error) {
-      console.log(error);
+    } else {
+      console.log("Cached...");
+
+      data = JSON.parse(cacheData);
+
       return res.json({
-        data: [],
-        status: 500,
-        message: error,
+        data,
+        status: "ok",
       });
     }
 
+  } catch (error) {
+    console.log(error);
     return res.json({
-      data,
-      status: "ok",
+      data: [],
+      status: 500,
+      message: error,
     });
+  }
+
+  // 1 Hour Cache TTL
+  const timeToLiveInSec = 60 * 60;
+  
+  const dataValue = JSON.stringify(data);
+  
+  memCache.set(dataKey, dataValue, timeToLiveInSec, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`Set key [${dataKey}]`);
+    }
   });
-  return router;
-}
+
+  return res.json({
+    data,
+    status: "ok",
+  });
+});
 
 module.exports = { summaryRouter };

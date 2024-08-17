@@ -71,8 +71,8 @@ def test_post_request(route, payload, fields="*"):
 
 # List of routes to test
 # routes = ["deviation"]
-routes = ["points"]
-# routes = ["summary"]
+# routes = ["points"]
+routes = ["summary"]
 
 # To use this route, modify the API path above.
 # routes = ["tree"]
