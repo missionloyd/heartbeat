@@ -1,4 +1,4 @@
-id|type|
+id|type
 1|elec_kwh
 2|co2_tonh
 3|htwt_mmbtuh
@@ -6,3 +6,8 @@ id|type|
 5|chll_tonh
 6|elec_kwh_heating
 7|elec_kwh_cooling
+8|humidity
+9|temperature
+10|pressure
+11|pm2.5
+12|pm10.0
