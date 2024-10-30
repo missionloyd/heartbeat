@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   hb-pg-db:
     container_name: hb-pg-db
@@ -31,9 +29,13 @@ services:
     links:
       - hb-pg-db
     tty: true
+  hb-cache:
+    image: memcached
+    ports:
+      - "11211:11211"
   hb-api:
     container_name: hb-api
-    build: 
+    build:
       context: ./api
       dockerfile: Dockerfile # Use a Dockerfile that sets up nodemon for development
       args:
@@ -50,9 +52,13 @@ services:
       - CLIENT_APP_URL=${API_CLIENT_APP_URL}
       - PORT=${API_PORT}
       - DEV_MODE=${API_DEV_MODE}
+      - CACHE_CONTAINER=hb-cache
+      - CACHE_PORT=11211
     # `depends_on` specifies the order in which services are started. `nycsc-api` must wait for `hb-pg-db` to fire up successfully before it starts.
     depends_on:
       - hb-pg-db
+      - hb-cache
     # Link to services running in other containers. The API code will be able to access the database via `hb-pg-db:5432`
     links:
       - hb-pg-db
+      - hb-cache

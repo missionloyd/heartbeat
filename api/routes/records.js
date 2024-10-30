@@ -3,47 +3,44 @@ const { getRecords } = require("../get_routes/get_records");
 const {
   createRecordsView,
 } = require("../utils/create_records_view");
-const router = Router();
+
+const recordsRouter = Router();
 
 // Get data, queried by an input user query, from a normalized measurement table.
-function recordsRouter(cache, cacheTTL) {
-  router.post("/", async (req, res) => {
-    const { parentAssetName, userQuery } = req.body;
+recordsRouter.post("/", async (req, res) => {
+  const { parentAssetName, userQuery } = req.body;
 
-    let data = [];
+  let data = [];
 
-    if (!parentAssetName || !userQuery) {
-      console.log("*** Missing Data (/records) ***");
-      return res.json({
-        data,
-        status: "bad",
-        message: "missing data",
-      });
-    }
-
-    try {
-      const recordsViewAlias = "records";
-
-      await createRecordsView(parentAssetName, recordsViewAlias);
-
-      data = await getRecords(userQuery, recordsViewAlias);
-    } catch (error) {
-      console.log(error);
-
-      return res.json({
-        data: [],
-        status: 500,
-        message: error,
-      });
-    }
-
+  if (!parentAssetName || !userQuery) {
+    console.log("*** Missing Data (/records) ***");
     return res.json({
       data,
-      status: "ok",
+      status: "bad",
+      message: "missing data",
     });
-  });
+  }
 
-  return router;
-}
+  try {
+    const recordsViewAlias = "records";
+
+    await createRecordsView(parentAssetName, recordsViewAlias);
+
+    data = await getRecords(userQuery, recordsViewAlias);
+  } catch (error) {
+    console.log(error);
+
+    return res.json({
+      data: [],
+      status: 500,
+      message: error,
+    });
+  }
+
+  return res.json({
+    data,
+    status: "ok",
+  });
+});
 
 module.exports = { recordsRouter };
