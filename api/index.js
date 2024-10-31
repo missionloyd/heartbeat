@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 });
 
 // check if api is running
-app.get("/tables", async (_req, res) => {
+app.get("/", async (_req, res) => {
   const data = await db.getAllTables();
 
   res.writeHead(200, { "Content-Type": "application/json" });
@@ -45,7 +45,7 @@ app.get("/tables", async (_req, res) => {
   return res.end(JSON.stringify({ data }));
 });
 
-app.use("/tables", tablesRouter);
+app.use("/", tablesRouter);
 app.use("/api/records", recordsRouter());
 app.use("/api/assets", assetsRouter());
 app.use("/api/tree", treeRouter());
