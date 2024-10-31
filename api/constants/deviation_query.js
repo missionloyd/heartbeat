@@ -49,6 +49,7 @@ const tableWithStats = `
             commodity,
             AVG(sum_value) AS average,
             STDDEV_POP(sum_value) AS standard_deviation,
+            MAX(timestamp) AS last_seen,
             (
                 SELECT
                     sum_value
@@ -100,6 +101,7 @@ const deviationQuery = `
         table_with_color.commodity,
         table_with_color.average,
         table_with_color.latest,
+        table_with_color.last_seen,
         table_with_color.color,
         JSON_BUILD_OBJECT(
             'geometry', JSON_AGG(ST_AsGeoJSON(asset_geometry.polygons)),
@@ -117,6 +119,7 @@ const deviationQuery = `
         table_with_color.commodity,
         table_with_color.average,
         table_with_color.latest,
+        table_with_color.last_seen,
         table_with_color.color,
         metadata.data
 `;

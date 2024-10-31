@@ -74,7 +74,7 @@ function buildMeasurementQuery(
 
       const commodity = commodityTranslations[commodityType];
 
-      const finalColumnString = `${prefix}${commodityType} AS ${prefix}${commodity},`;
+      const finalColumnString = `"${prefix}${commodityType}" AS "${prefix}${commodity}",`;
 
       finalColumns += finalColumnString;
     }

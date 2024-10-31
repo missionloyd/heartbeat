@@ -12,7 +12,7 @@ function buildHistoricalMeasurementTableQuery(
   for (let i = 0; i < commoditiesRows.length; i++) {
     const commodityType = commoditiesRows[i]["type"];
 
-    const historicalCaseString = `CASE WHEN type = '${commodityType}' THEN sum END AS historical_${commodityType},`;
+    const historicalCaseString = `CASE WHEN type = '${commodityType}' THEN sum END AS "historical_${commodityType}",`;
 
     historicalCaseStatements += historicalCaseString;
   }
@@ -47,7 +47,7 @@ function buildHistoricalMeasurementTableQuery(
   for (let i = 0; i < commoditiesRows.length; i++) {
     const commodityType = commoditiesRows[i]["type"];
 
-    const historicalSumString = `SUM(historical_${commodityType}) AS historical_${commodityType},`;
+    const historicalSumString = `SUM("historical_${commodityType}") AS "historical_${commodityType}",`;
 
     historicalSumStatements += historicalSumString;
   }

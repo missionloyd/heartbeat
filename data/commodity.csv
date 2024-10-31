@@ -6,8 +6,8 @@ id|type
 5|chll_tonh
 6|elec_kwh_heating
 7|elec_kwh_cooling
-8|humidity
-9|temperature
-10|pressure
-11|pm2.5
-12|pm10.0
+8|humidity_%
+9|temperature_f
+10|pressure_mbar
+11|pm2.5_µg/m3
+12|pm10.0_µg/m3

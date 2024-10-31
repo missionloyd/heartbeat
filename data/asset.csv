@@ -65,7 +65,7 @@ id|active|name|tree_id|lft|rght|
 253|f|Armory Building|32|119|120
 36|t|Visual Arts|32|279|280
 47|t|Information Technology|32|275|276
-48|t|Indoor Practice Facility|32|273|274
+48|t|Indoor Practice|32|273|274
 50|t|High Bay|32|271|272
 52|f|HAPC and RAC|32|269|270
 56|t|General Storage|32|267|268
@@ -170,7 +170,7 @@ id|active|name|tree_id|lft|rght|
 342|f|West Campus Satellite Energy Plant (WCSEP)|32|291|292
 567|f|Ivinson Parking Garage/Police Facility|32|289|290
 572|t|Education Annex|32|287|288
-37|t|Student Union|32|379|380
+37|t|Wyoming Union|32|379|380
 64|t|EERB|32|345|346
 34|t|WRI and Bureau of Mines|32|383|384
 35|t|Williams Conservatory|32|381|382
@@ -188,7 +188,7 @@ id|active|name|tree_id|lft|rght|
 54|t|Geology|32|355|356
 55|t|Geological Survey|32|353|354
 61|t|Enzi-STEM|32|351|352
-62|t|Engineering|32|349|350
+62|t|College of Engineering|32|349|350
 65|t|Earth Sciences|32|343|344
 574|t|Wyoming Hall|32|285|286
 11|t|San Antonio|11|1|4

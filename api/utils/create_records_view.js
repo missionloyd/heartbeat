@@ -19,7 +19,7 @@ async function createRecordsView(parentAssetName, recordsViewAlias) {
   for (let i = 0; i < commoditiesRows.length; i++) {
     const commodityType = commoditiesRows[i]["type"];
 
-    const caseString = `CASE WHEN type = '${commodityType}' THEN sum END AS ${commodityType},`;
+    const caseString = `CASE WHEN type = '${commodityType}' THEN sum END AS "${commodityType}",`;
 
     caseStatements += caseString;
   }
@@ -64,7 +64,7 @@ async function createRecordsView(parentAssetName, recordsViewAlias) {
   for (let i = 0; i < commoditiesRows.length; i++) {
     const commodityType = commoditiesRows[i]["type"];
 
-    const sumString = `SUM(${commodityType}) AS ${commodityType},`;
+    const sumString = `SUM("${commodityType}") AS "${commodityType}",`;
 
     sumStatements += sumString;
   }
@@ -96,7 +96,7 @@ async function createRecordsView(parentAssetName, recordsViewAlias) {
 
     const commodity = commodityTranslations[commodityType];
 
-    const finalColumnString = `${commodityType} AS ${commodity},`;
+    const finalColumnString = `"${commodityType}" AS "${commodity}",`;
 
     finalColumns += finalColumnString;
   }

@@ -12,7 +12,7 @@ function buildPresentMeasurementTableQuery(
   for (let i = 0; i < commoditiesRows.length; i++) {
     const commodityType = commoditiesRows[i]["type"];
 
-    const presentCaseString = `CASE WHEN type = '${commodityType}' THEN sum END AS ${commodityType},`;
+    const presentCaseString = `CASE WHEN type = '${commodityType}' THEN sum END AS "${commodityType}",`;
 
     presentCaseStatements += presentCaseString;
   }
@@ -46,7 +46,7 @@ function buildPresentMeasurementTableQuery(
   for (let i = 0; i < commoditiesRows.length; i++) {
     const commodityType = commoditiesRows[i]["type"];
 
-    const presentSumString = `SUM(${commodityType}) AS ${commodityType},`;
+    const presentSumString = `SUM("${commodityType}") AS "${commodityType}",`;
 
     presentSumStatements += presentSumString;
   }

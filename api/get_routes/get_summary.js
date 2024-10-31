@@ -62,7 +62,7 @@ async function getSummary(
 
       const commodity = commodityTranslations[commodityType];
 
-      const aggregateColumnString = `${sqlAggregateFunction}(${prefix}${commodity}) AS ${prefix}${commodity},`;
+      const aggregateColumnString = `${sqlAggregateFunction}("${prefix}${commodity}") AS "${prefix}${commodity}",`;
 
       aggregateColumns += aggregateColumnString;
     }
