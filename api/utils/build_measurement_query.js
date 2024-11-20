@@ -20,7 +20,8 @@ const {
 function buildMeasurementQuery(
   commoditiesRows,
   measurementQueryType,
-  isHistoricalIncluded
+  isHistoricalIncluded,
+  aggregation,
 ) {
   const pivotedPresentMeasurementAlias = "pivoted_present_measurement_table";
 
@@ -38,7 +39,8 @@ function buildMeasurementQuery(
     const historicalMeasurementTableQuery =
       buildHistoricalMeasurementTableQuery(
         commoditiesRows,
-        measurementQueryType
+        measurementQueryType,
+        aggregation,
       );
 
     const pivotedPresentHistoricalAlias =
@@ -87,7 +89,8 @@ function buildMeasurementQuery(
 
   const presentMeasurementTableQuery = buildPresentMeasurementTableQuery(
     commoditiesRows,
-    measurementQueryType
+    measurementQueryType,
+    aggregation,
   );
 
   const finalPresentMeasurementTableQuery = `

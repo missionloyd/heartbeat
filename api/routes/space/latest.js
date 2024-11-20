@@ -6,11 +6,11 @@ const router = Router();
 // Get the latest data in the past 24 hours
 function latestRouter() {
   router.post("/", async (req, res) => {
-    const { assetName, isHistoricalIncluded, isMeasurementPrediction } = req.body;
+    const { assetName, isHistoricalIncluded, isMeasurementPrediction, aggregation } = req.body;
 
     let data = [];
 
-    if (!assetName) {
+    if (!assetName || !aggregation) {
       console.log("*** Missing Data (/latest) ***");
       return res.json({
         data,
@@ -36,7 +36,7 @@ function latestRouter() {
     }
 
     try {
-      data = await getLatest(assetName, historicalFlag, predictionFlag);
+      data = await getLatest(assetName, historicalFlag, predictionFlag, aggregation);
     } catch (error) {
       console.log(error);
 

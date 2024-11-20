@@ -1,11 +1,11 @@
-const unpivotedMeasurementQuery = `
+const unpivotedMeasurementQuery = (aggregation) => `
     unpivoted_measurement AS (
         SELECT
             asset.id,
             asset.name,
             DATE_TRUNC($1, measurement.ts) AS timestamp,
             commodity.type AS commodity,
-            SUM(measurement.value) AS sum_value
+            ${aggregation}(measurement.value) AS value
         FROM
             measurement
         JOIN
@@ -47,12 +47,12 @@ const tableWithStats = `
             id,
             name,
             commodity,
-            AVG(sum_value) AS average,
-            STDDEV_POP(sum_value) AS standard_deviation,
+            AVG(value) AS average,
+            STDDEV_POP(value) AS standard_deviation,
             MAX(timestamp) AS last_seen,
             (
                 SELECT
-                    sum_value
+                    value
                 FROM
                     unpivoted_measurement AS t2
                 WHERE timestamp = (
@@ -91,9 +91,9 @@ const tableWithColor = `
     )
 `;
 
-const deviationQuery = `
+const deviationQuery = (aggregation) => `
     WITH
-        ${unpivotedMeasurementQuery},
+        ${unpivotedMeasurementQuery(aggregation)},
         ${tableWithStats},
         ${tableWithColor}
     SELECT

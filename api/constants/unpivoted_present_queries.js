@@ -1,10 +1,10 @@
-const asset = `
+const asset = (aggregation) => `
     SELECT
       asset.id,
       asset.name,
       DATE_TRUNC($1, measurement.ts) as timestamp,
       commodity.type,
-      SUM(measurement.value) 
+      ${aggregation}(measurement.value) 
     FROM 
       measurement
     JOIN 
@@ -51,13 +51,13 @@ const assetTableWithDepth = `
     depth
 `;
 
-const assetComplementary = `
+const assetComplementary = (aggregation) => `
     SELECT
       asset.id,
       asset.name,
       DATE_TRUNC($1, measurement.ts) as timestamp,
       commodity.type,
-      SUM(measurement.value)
+      ${aggregation}(measurement.value)
     FROM
       measurement
     JOIN
@@ -102,11 +102,11 @@ const assetComplementary = `
 // *****************************************************
 // *****************************************************
 
-const latest = `
+const latest = (aggregation) => `
     SELECT
       DATE_TRUNC('HOUR', measurement.ts) as timestamp,
       commodity.type,
-      SUM(measurement.value) 
+      ${aggregation}(measurement.value) 
     FROM 
       measurement
     JOIN 

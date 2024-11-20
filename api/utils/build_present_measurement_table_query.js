@@ -4,7 +4,8 @@ const {
 
 function buildPresentMeasurementTableQuery(
   commoditiesRows,
-  measurementQueryType
+  measurementQueryType,
+  aggregation,
 ) {
   // ---------------------------------------------------
 
@@ -12,7 +13,7 @@ function buildPresentMeasurementTableQuery(
   for (let i = 0; i < commoditiesRows.length; i++) {
     const commodityType = commoditiesRows[i]["type"];
 
-    const presentCaseString = `CASE WHEN type = '${commodityType}' THEN sum END AS "${commodityType}",`;
+    const presentCaseString = `CASE WHEN type = '${commodityType}' THEN ${aggregation} END AS "${commodityType}",`;
 
     presentCaseStatements += presentCaseString;
   }
@@ -25,7 +26,7 @@ function buildPresentMeasurementTableQuery(
 
   // ---------------------------------------------------
 
-  const unpivotedPresentQuery = unpivotedPresentQueries[measurementQueryType];
+  const unpivotedPresentQuery = unpivotedPresentQueries[measurementQueryType](aggregation);
 
   const pivotedPresentQuery = `
         SELECT
@@ -45,8 +46,7 @@ function buildPresentMeasurementTableQuery(
   let presentSumStatements = "";
   for (let i = 0; i < commoditiesRows.length; i++) {
     const commodityType = commoditiesRows[i]["type"];
-
-    const presentSumString = `SUM("${commodityType}") AS "${commodityType}",`;
+    const presentSumString = `${aggregation}("${commodityType}") AS "${commodityType}",`;
 
     presentSumStatements += presentSumString;
   }

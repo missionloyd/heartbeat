@@ -9,11 +9,11 @@ const router = Router();
 
 function summaryRouter() {
   router.post("/", async (req, res) => {
-    const { assetName, startDate, endDate, dateLevel, isHistoricalIncluded, isMeasurementPrediction } = req.body;
+    const { assetName, startDate, endDate, dateLevel, aggregation, isHistoricalIncluded, isMeasurementPrediction } = req.body;
 
     let data = [];
 
-    if (!assetName || !startDate || !endDate || !dateLevel) {
+    if (!assetName || !startDate || !endDate || !dateLevel || !aggregation) {
       console.log("*** Missing Data (/summary) ***");
       return res.json({
         data,
@@ -49,7 +49,8 @@ function summaryRouter() {
             "AVG",
             measurementQueryTypes.Asset.value,
             historicalFlag,
-            predictionFlag
+            predictionFlag,
+            aggregation
           ),
           campus: await getSummary(
             assetName,
@@ -59,7 +60,8 @@ function summaryRouter() {
             "AVG",
             measurementQueryTypes.AssetComplementary.value,
             historicalFlag,
-            predictionFlag
+            predictionFlag,
+            aggregation
           ),
         },
         sums: {
@@ -71,7 +73,8 @@ function summaryRouter() {
             "SUM",
             measurementQueryTypes.Asset.value,
             historicalFlag,
-            predictionFlag
+            predictionFlag,
+            aggregation
           ),
           campus: await getSummary(
             assetName,
@@ -81,7 +84,8 @@ function summaryRouter() {
             "SUM",
             measurementQueryTypes.AssetComplementary.value,
             historicalFlag,
-            predictionFlag
+            predictionFlag,
+            aggregation
           ),
         },
         stddevs: {
@@ -93,7 +97,8 @@ function summaryRouter() {
             "STDDEV",
             measurementQueryTypes.Asset.value,
             historicalFlag,
-            predictionFlag
+            predictionFlag,
+            aggregation
           ),
           campus: await getSummary(
             assetName,
@@ -103,7 +108,8 @@ function summaryRouter() {
             "STDDEV",
             measurementQueryTypes.AssetComplementary.value,
             historicalFlag,
-            predictionFlag
+            predictionFlag,
+            aggregation
           ),
         },
       };

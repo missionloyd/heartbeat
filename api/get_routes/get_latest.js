@@ -10,7 +10,7 @@ const { buildMeasurementQuery } = require("../utils/build_measurement_query");
 // ~~~~~~~~~~~~~~~~
 // Outputs (Measurement Data from the last 24 hours) :
 
-async function getLatest(assetName, isHistoricalIncluded, isMeasurementPrediction) {
+async function getLatest(assetName, isHistoricalIncluded, isMeasurementPrediction, aggregation) {
   // $1 : assetName
   // $2 : isMeasurementPrediction
 
@@ -25,7 +25,8 @@ async function getLatest(assetName, isHistoricalIncluded, isMeasurementPredictio
   const latestMeasurementQuery = buildMeasurementQuery(
     commoditiesRows,
     measurementQueryTypes.Latest.value,
-    isHistoricalIncluded
+    isHistoricalIncluded,
+    aggregation
   );
 
   const queryResult = await db.query(latestMeasurementQuery, [assetName, isMeasurementPrediction]);

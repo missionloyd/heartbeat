@@ -25,7 +25,8 @@ async function getSummary(
   sqlAggregateFunction,
   measurementQueryType,
   isHistoricalIncluded,
-  isMeasurementPrediction
+  isMeasurementPrediction,
+  aggregation
 ) {
   // $1 : dateLevel
   // $2 : assetName
@@ -44,7 +45,8 @@ async function getSummary(
   const measurementQuery = buildMeasurementQuery(
     commoditiesRows,
     measurementQueryType,
-    isHistoricalIncluded
+    isHistoricalIncluded,
+    aggregation
   );
 
   // ------------------------------------------------------

@@ -4,7 +4,8 @@ const {
 
 function buildHistoricalMeasurementTableQuery(
   commoditiesRows,
-  measurementQueryType
+  measurementQueryType,
+  aggregation
 ) {
   // ---------------------------------------------------
 
@@ -47,7 +48,7 @@ function buildHistoricalMeasurementTableQuery(
   for (let i = 0; i < commoditiesRows.length; i++) {
     const commodityType = commoditiesRows[i]["type"];
 
-    const historicalSumString = `SUM("historical_${commodityType}") AS "historical_${commodityType}",`;
+    const historicalSumString = `${aggregation}("historical_${commodityType}") AS "historical_${commodityType}",`;
 
     historicalSumStatements += historicalSumString;
   }
