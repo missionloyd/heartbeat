@@ -13,15 +13,6 @@ const unpivotedMeasurementQuery = (aggregation) => `
         JOIN
             commodity ON commodity.id = measurement.commodity_id
         WHERE
-            EXISTS (
-                SELECT 
-                    asset_id
-                FROM 
-                    asset_geometry 
-                WHERE
-                    asset.id = asset_geometry.asset_id
-            )
-            AND
             (
                 asset.name = $4 OR $4 = '%'
             )
@@ -33,6 +24,14 @@ const unpivotedMeasurementQuery = (aggregation) => `
             measurement.ts >= $2
             AND
             measurement.ts <= $3
+            -- AND EXISTS (
+            --     SELECT 
+            --         asset_id
+            --     FROM 
+            --         asset_geometry 
+            --     WHERE
+            --         asset.id = asset_geometry.asset_id
+            -- )
         GROUP BY
             asset.id,
             asset.name,
@@ -111,9 +110,9 @@ const deviationQuery = (aggregation) => `
     FROM
         table_with_color
     JOIN
+        metadata ON metadata.asset_id = table_with_color.id  
+    LEFT JOIN
         asset_geometry ON asset_geometry.asset_id = table_with_color.id
-    JOIN
-        metadata ON metadata.asset_id = table_with_color.id
     GROUP BY
         table_with_color.name,
         table_with_color.commodity,
@@ -122,6 +121,7 @@ const deviationQuery = (aggregation) => `
         table_with_color.last_seen,
         table_with_color.color,
         metadata.data
+    ORDER BY table_with_color.name
 `;
 
 module.exports = { deviationQuery };
