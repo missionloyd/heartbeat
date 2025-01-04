@@ -14,7 +14,9 @@ async function getDeviation(
   isMeasurementPrediction,
   aggregation,
 ) {
-  const queryResult = await db.query(deviationQuery(aggregation), [
+  const geometryCommodityIdList = [1, 2, 3, 4, 5];
+
+  const queryResult = await db.query(deviationQuery(aggregation, geometryCommodityIdList), [
     dateLevel,
     startDate,
     endDate,

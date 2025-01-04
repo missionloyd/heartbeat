@@ -1,4 +1,4 @@
-const unpivotedMeasurementQuery = (aggregation) => `
+const unpivotedMeasurementQuery = (aggregation, geometryCommodityIdList) => `
     unpivoted_measurement AS (
         SELECT
             asset.id,
@@ -24,14 +24,18 @@ const unpivotedMeasurementQuery = (aggregation) => `
             measurement.ts >= $2
             AND
             measurement.ts <= $3
-            -- AND EXISTS (
-            --     SELECT 
-            --         asset_id
-            --     FROM 
-            --         asset_geometry 
-            --     WHERE
-            --         asset.id = asset_geometry.asset_id
-            -- )
+            AND (
+                commodity.id NOT IN (${geometryCommodityIdList.join(",")})
+                OR
+                    EXISTS (
+                        SELECT 
+                            asset_id
+                        FROM 
+                            asset_geometry 
+                        WHERE
+                            asset.id = asset_geometry.asset_id
+                    )
+            )
         GROUP BY
             asset.id,
             asset.name,
@@ -90,9 +94,9 @@ const tableWithColor = `
     )
 `;
 
-const deviationQuery = (aggregation) => `
+const deviationQuery = (aggregation, geometryCommodityIdList) => `
     WITH
-        ${unpivotedMeasurementQuery(aggregation)},
+        ${unpivotedMeasurementQuery(aggregation, geometryCommodityIdList)},
         ${tableWithStats},
         ${tableWithColor}
     SELECT
