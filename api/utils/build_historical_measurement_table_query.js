@@ -3,17 +3,17 @@ const {
 } = require("../constants/unpivoted_historical_queries");
 
 function buildHistoricalMeasurementTableQuery(
-  commoditiesRows,
+  measurementTypeRows,
   measurementQueryType,
   aggregation
 ) {
   // ---------------------------------------------------
 
   let historicalCaseStatements = "";
-  for (let i = 0; i < commoditiesRows.length; i++) {
-    const commodityType = commoditiesRows[i]["type"];
+  for (let i = 0; i < measurementTypeRows.length; i++) {
+    const measurementTypeName = measurementTypeRows[i]["type"];
 
-    const historicalCaseString = `CASE WHEN type = '${commodityType}' THEN sum END AS "historical_${commodityType}",`;
+    const historicalCaseString = `CASE WHEN type = '${measurementTypeName}' THEN sum END AS "historical_${measurementTypeName}",`;
 
     historicalCaseStatements += historicalCaseString;
   }
@@ -45,10 +45,10 @@ function buildHistoricalMeasurementTableQuery(
   // ------------------------------------
 
   let historicalSumStatements = "";
-  for (let i = 0; i < commoditiesRows.length; i++) {
-    const commodityType = commoditiesRows[i]["type"];
+  for (let i = 0; i < measurementTypeRows.length; i++) {
+    const measurementTypeName = measurementTypeRows[i]["type"];
 
-    const historicalSumString = `${aggregation}("historical_${commodityType}") AS "historical_${commodityType}",`;
+    const historicalSumString = `${aggregation}("historical_${measurementTypeName}") AS "historical_${measurementTypeName}",`;
 
     historicalSumStatements += historicalSumString;
   }

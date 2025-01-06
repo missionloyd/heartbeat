@@ -11,7 +11,7 @@ base_url = f"http://localhost:{HOST_PORT}/api/space"
 payload = {
     "assetName": "%",
     # "assetName": "Arts and Sciences",
-    # "commodityName": "electricity",
+    # "measurementTypeName": "electricity",
     "dateLevel": "MONTH",
     "startDate": "2019-09-19",
     "endDate": "2025-01-01",

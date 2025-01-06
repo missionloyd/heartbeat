@@ -1,6 +1,6 @@
 const {
-  commodityTranslations,
-} = require("../constants/commodity_translations");
+  measurementTypeTranslations,
+} = require("../constants/measurement_type_translations");
 const db = require("../lib/db");
 const { buildMeasurementQuery } = require("../utils/build_measurement_query");
 
@@ -15,7 +15,7 @@ const { buildMeasurementQuery } = require("../utils/build_measurement_query");
 //  - isMeasurementPrediction (BOOLEAN)
 // ~~~~~~~~~~~~~~~~
 // Outputs (Table Columns) :
-//  - Aggregate, of some input SQL aggregate function, of all commodity type columns.
+//  - Aggregate, of some input SQL aggregate function, of all measurement_type name columns.
 
 async function getSummary(
   assetName,
@@ -34,37 +34,37 @@ async function getSummary(
   // $4 : endDate
   // $5 : isMeasurementPrediction
 
-  const commoditiesQuery = `
-      SELECT type FROM commodity;
+  const measurementTypeQuery = `
+      SELECT name AS type FROM measurement_type;
     `;
 
-  const commodotiesQueryResult = await db.query(commoditiesQuery);
+  const commodotiesQueryResult = await db.query(measurementTypeQuery);
 
-  const commoditiesRows = commodotiesQueryResult.rows;
+  const measurementTypeRows = commodotiesQueryResult.rows;
 
   const measurementQuery = buildMeasurementQuery(
-    commoditiesRows,
+    measurementTypeRows,
     measurementQueryType,
     isHistoricalIncluded,
     aggregation
   );
 
   // ------------------------------------------------------
-  let commodityColumnPrefixes;
+  let measurementTypeColumnPrefixes;
   if (isHistoricalIncluded) {
-    commodityColumnPrefixes = ["", "historical_"];
+    measurementTypeColumnPrefixes = ["", "historical_"];
   } else {
-    commodityColumnPrefixes = [""];
+    measurementTypeColumnPrefixes = [""];
   }
 
   let aggregateColumns = "";
-  for (let prefix of commodityColumnPrefixes) {
-    for (let i = 0; i < commoditiesRows.length; i++) {
-      const commodityType = commoditiesRows[i]["type"];
+  for (let prefix of measurementTypeColumnPrefixes) {
+    for (let i = 0; i < measurementTypeRows.length; i++) {
+      const measurementTypeName = measurementTypeRows[i]["type"];
 
-      const commodity = commodityTranslations[commodityType];
+      const measurement_type = measurementTypeTranslations[measurementTypeName];
 
-      const aggregateColumnString = `${sqlAggregateFunction}("${prefix}${commodity}") AS "${prefix}${commodity}",`;
+      const aggregateColumnString = `${sqlAggregateFunction}("${prefix}${measurement_type}") AS "${prefix}${measurement_type}",`;
 
       aggregateColumns += aggregateColumnString;
     }

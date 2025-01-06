@@ -5,12 +5,12 @@ const router = Router();
 
 function deviationRouter() {
   router.post("/", async (req, res) => {
-    const { assetName, commodityName, startDate, endDate, dateLevel, aggregation } =
+    const { assetName, measurementTypeName, startDate, endDate, dateLevel, aggregation } =
       req.body;
 
     let data = [];
 
-    if (!assetName || !commodityName || !startDate || !endDate || !dateLevel || !aggregation) {
+    if (!assetName || !measurementTypeName || !startDate || !endDate || !dateLevel || !aggregation) {
       console.log("*** Missing Data (/deviation) ***");
       return res.json({
         data,
@@ -25,7 +25,7 @@ function deviationRouter() {
 
       const deviation = await getDeviation(
         assetName,
-        commodityName,
+        measurementTypeName,
         startDate,
         endDate,
         dateLevel,

@@ -1,25 +1,25 @@
 const db = require("../lib/db");
 const format = require("pg-format");
 const {
-  commodityTranslations,
-} = require("../constants/commodity_translations");
+  measurementTypeTranslations,
+} = require("../constants/measurement_type_translations");
 
 async function createRecordsView(parentAssetName, recordsViewAlias) {
-  const commoditiesQuery = `
-        SELECT type FROM commodity
+  const measurementTypeQuery = `
+        SELECT name AS type FROM measurement_type
     `;
 
-  const commodotiesQueryResult = await db.query(commoditiesQuery);
+  const commodotiesQueryResult = await db.query(measurementTypeQuery);
 
-  const commoditiesRows = commodotiesQueryResult.rows;
+  const measurementTypeRows = commodotiesQueryResult.rows;
 
   // ---------------------------------------------------
 
   let caseStatements = "";
-  for (let i = 0; i < commoditiesRows.length; i++) {
-    const commodityType = commoditiesRows[i]["type"];
+  for (let i = 0; i < measurementTypeRows.length; i++) {
+    const measurementTypeName = measurementTypeRows[i]["type"];
 
-    const caseString = `CASE WHEN type = '${commodityType}' THEN sum END AS "${commodityType}",`;
+    const caseString = `CASE WHEN type = '${measurementTypeName}' THEN sum END AS "${measurementTypeName}",`;
 
     caseStatements += caseString;
   }
@@ -34,14 +34,14 @@ async function createRecordsView(parentAssetName, recordsViewAlias) {
     SELECT
     asset.name,
     DATE_TRUNC('HOUR', measurement.ts) as timestamp,
-    commodity.type,
+    measurement_type.name AS type,
     SUM(measurement.value)
     FROM measurement
     JOIN asset ON asset.id = measurement.asset_id
-    JOIN commodity ON commodity.id = measurement.commodity_id
+    JOIN measurement_type ON measurement_type.id = measurement.measurement_type_id
     WHERE
     asset.tree_id = (SELECT tree_id FROM asset WHERE name = %L)
-    GROUP BY asset.name, commodity.type, timestamp
+    GROUP BY asset.name, measurement_type.name, timestamp
   `,
     parentAssetName
   );
@@ -61,10 +61,10 @@ async function createRecordsView(parentAssetName, recordsViewAlias) {
   // -----------------------------------------------
 
   let sumStatements = "";
-  for (let i = 0; i < commoditiesRows.length; i++) {
-    const commodityType = commoditiesRows[i]["type"];
+  for (let i = 0; i < measurementTypeRows.length; i++) {
+    const measurementTypeName = measurementTypeRows[i]["type"];
 
-    const sumString = `SUM("${commodityType}") AS "${commodityType}",`;
+    const sumString = `SUM("${measurementTypeName}") AS "${measurementTypeName}",`;
 
     sumStatements += sumString;
   }
@@ -91,12 +91,12 @@ async function createRecordsView(parentAssetName, recordsViewAlias) {
 
   let finalColumns = "";
 
-  for (let i = 0; i < commoditiesRows.length; i++) {
-    const commodityType = commoditiesRows[i]["type"];
+  for (let i = 0; i < measurementTypeRows.length; i++) {
+    const measurementTypeName = measurementTypeRows[i]["type"];
 
-    const commodity = commodityTranslations[commodityType];
+    const measurement_type = measurementTypeTranslations[measurementTypeName];
 
-    const finalColumnString = `"${commodityType}" AS "${commodity}",`;
+    const finalColumnString = `"${measurementTypeName}" AS "${measurement_type}",`;
 
     finalColumns += finalColumnString;
   }

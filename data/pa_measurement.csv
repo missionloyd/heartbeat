@@ -1,4 +1,4 @@
-asset_id,commodity_id,ts,is_prediction,value
+asset_id,measurement_type_id,ts,is_prediction,value
 38,11,2024-10-10T00:00:00,False,5.283
 38,11,2024-10-10T01:00:00,False,6.206
 38,11,2024-10-10T02:00:00,False,8.488

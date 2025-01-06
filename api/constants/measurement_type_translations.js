@@ -1,4 +1,4 @@
-const commodityTranslations = {
+const measurementTypeTranslations = {
     "elec_kwh" : "electricity",
     "htwt_mmbtuh" : "hot_water",
     "wtr_usgal" : "water",
@@ -13,9 +13,9 @@ const commodityTranslations = {
     "pm10.0_µg/m3": "pm10.0"
 };
 
-const reversedCommodityTranslations = Object.entries(commodityTranslations).reduce((acc, [key, value]) => {
+const reversedMeasurementTypeTranslations = Object.entries(measurementTypeTranslations).reduce((acc, [key, value]) => {
     acc[value] = key;
     return acc;
 }, {});
 
-module.exports = {commodityTranslations, reversedCommodityTranslations};
+module.exports = {measurementTypeTranslations, reversedMeasurementTypeTranslations};

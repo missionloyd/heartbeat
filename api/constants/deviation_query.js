@@ -1,23 +1,23 @@
-const unpivotedMeasurementQuery = (aggregation, geometryCommodityIdList) => `
+const unpivotedMeasurementQuery = (aggregation, geometryMeasurementTypeIdList) => `
     unpivoted_measurement AS (
         SELECT
             asset.id,
             asset.name,
             DATE_TRUNC($1, measurement.ts) AS timestamp,
-            commodity.type AS commodity,
+            measurement_type.name AS measurement_type,
             ${aggregation}(measurement.value) AS value
         FROM
             measurement
         JOIN
             asset ON asset.id = measurement.asset_id
         JOIN
-            commodity ON commodity.id = measurement.commodity_id
+            measurement_type ON measurement_type.id = measurement.measurement_type_id
         WHERE
             (
                 asset.name = $4 OR $4 = '%'
             )
             AND
-            commodity.type = $5
+            measurement_type.name = $5
             AND
             measurement.is_prediction = $6
             AND
@@ -25,7 +25,7 @@ const unpivotedMeasurementQuery = (aggregation, geometryCommodityIdList) => `
             AND
             measurement.ts <= $3
             AND (
-                commodity.id NOT IN (${geometryCommodityIdList.join(",")})
+                measurement_type.id NOT IN (${geometryMeasurementTypeIdList.join(",")})
                 OR
                     EXISTS (
                         SELECT 
@@ -40,7 +40,7 @@ const unpivotedMeasurementQuery = (aggregation, geometryCommodityIdList) => `
             asset.id,
             asset.name,
             timestamp,
-            commodity
+            measurement_type
     )
 `;
 
@@ -49,7 +49,7 @@ const tableWithStats = `
         SELECT
             id,
             name,
-            commodity,
+            measurement_type,
             AVG(value) AS average,
             STDDEV_POP(value) AS standard_deviation,
             MAX(timestamp) AS last_seen,
@@ -66,19 +66,19 @@ const tableWithStats = `
                     WHERE
                         t3.name = t1.name
                         AND
-                        t3.commodity = t1.commodity
+                        t3.measurement_type = t1.measurement_type
                 )
                 AND
                 t2.name = t1.name
                 AND
-                t2.commodity = t1.commodity
+                t2.measurement_type = t1.measurement_type
             ) AS latest
         FROM
             unpivoted_measurement AS t1
         GROUP BY
             id,
             name,
-            commodity
+            measurement_type
     )
 `;
 
@@ -94,14 +94,14 @@ const tableWithColor = `
     )
 `;
 
-const deviationQuery = (aggregation, geometryCommodityIdList) => `
+const deviationQuery = (aggregation, geometryMeasurementTypeIdList) => `
     WITH
-        ${unpivotedMeasurementQuery(aggregation, geometryCommodityIdList)},
+        ${unpivotedMeasurementQuery(aggregation, geometryMeasurementTypeIdList)},
         ${tableWithStats},
         ${tableWithColor}
     SELECT
         table_with_color.name,
-        table_with_color.commodity,
+        table_with_color.measurement_type,
         table_with_color.average,
         table_with_color.latest,
         table_with_color.last_seen,
@@ -119,7 +119,7 @@ const deviationQuery = (aggregation, geometryCommodityIdList) => `
         asset_geometry ON asset_geometry.asset_id = table_with_color.id
     GROUP BY
         table_with_color.name,
-        table_with_color.commodity,
+        table_with_color.measurement_type,
         table_with_color.average,
         table_with_color.latest,
         table_with_color.last_seen,

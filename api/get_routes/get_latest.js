@@ -14,16 +14,16 @@ async function getLatest(assetName, isHistoricalIncluded, isMeasurementPredictio
   // $1 : assetName
   // $2 : isMeasurementPrediction
 
-  const commoditiesQuery = `
-        SELECT type FROM commodity
+  const measurementTypeQuery = `
+        SELECT name AS type FROM measurement_type
     `;
 
-  const commodotiesQueryResult = await db.query(commoditiesQuery);
+  const commodotiesQueryResult = await db.query(measurementTypeQuery);
 
-  const commoditiesRows = commodotiesQueryResult.rows;
+  const measurementTypeRows = commodotiesQueryResult.rows;
 
   const latestMeasurementQuery = buildMeasurementQuery(
-    commoditiesRows,
+    measurementTypeRows,
     measurementQueryTypes.Latest.value,
     isHistoricalIncluded,
     aggregation

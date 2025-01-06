@@ -1,34 +1,34 @@
 const {
-  commodityTranslations,
-  reversedCommodityTranslations,
-} = require("../constants/commodity_translations");
+  measurementTypeTranslations,
+  reversedMeasurementTypeTranslations,
+} = require("../constants/measurement_type_translations");
 const db = require("../lib/db");
 const { deviationQuery } = require("../constants/deviation_query");
 
 async function getDeviation(
   assetName,
-  commodityName,
+  measurementTypeName,
   startDate,
   endDate,
   dateLevel,
   isMeasurementPrediction,
   aggregation,
 ) {
-  const geometryCommodityIdList = [1, 2, 3, 4, 5];
+  const geometryMeasurementTypeIdList = [1, 2, 3, 4, 5];
 
-  const queryResult = await db.query(deviationQuery(aggregation, geometryCommodityIdList), [
+  const queryResult = await db.query(deviationQuery(aggregation, geometryMeasurementTypeIdList), [
     dateLevel,
     startDate,
     endDate,
     assetName,
-    reversedCommodityTranslations[commodityName],
+    reversedMeasurementTypeTranslations[measurementTypeName],
     isMeasurementPrediction
   ]);
 
   const rows = [];
   
   for (const row of queryResult.rows) {
-    row['commodity'] = commodityTranslations[row['commodity']]
+    row['measurement_type'] = measurementTypeTranslations[row['measurement_type']]
     rows.push(row);
   }
 

@@ -12,9 +12,9 @@ const { buildMeasurementQuery } = require("../utils/build_measurement_query");
 //  - isHistoricalIncluded (BOOLEAN)
 // ~~~~~~~~~~~~~~~~
 // Outputs (Table Columns) :
-//  - timestamp (of specified datelevel) of when measurement of commodity was taken.
-//  - type of commodity
-//  - sum of commodity measurement during that timestamp datelevel.
+//  - timestamp (of specified datelevel) of when measurement of measurement_type was taken.
+//  - name of measurement_type
+//  - sum of measurement_type measurement during that timestamp datelevel.
 
 async function getPoints(assetName, startDate, endDate, dateLevel, aggregation, isHistoricalIncluded, isMeasurementPrediction) {
   // $1 : dateLevel
@@ -23,16 +23,16 @@ async function getPoints(assetName, startDate, endDate, dateLevel, aggregation, 
   // $4 : endDate
   // $5 : isMeasurementPrediction
 
-  const commoditiesQuery = `
-        SELECT type FROM commodity
+  const measurementTypeQuery = `
+        SELECT name AS type FROM measurement_type
     `;
 
-  const commodotiesQueryResult = await db.query(commoditiesQuery);
+  const commodotiesQueryResult = await db.query(measurementTypeQuery);
 
-  const commoditiesRows = commodotiesQueryResult.rows;
+  const measurementTypeRows = commodotiesQueryResult.rows;
 
   const measurementQuery = buildMeasurementQuery(
-    commoditiesRows,
+    measurementTypeRows,
     measurementQueryTypes.Asset.value,
     isHistoricalIncluded,
     aggregation,

@@ -112,11 +112,11 @@ BEGIN
     -- ON CONFLICT would upsert the latest insertion.
 
     INSERT INTO measurement
-    (asset_id, commodity_id, ts, is_prediction, value)
-    SELECT DISTINCT ON (asset_id, commodity_id, ts, is_prediction)
-    asset_id, commodity_id, ts, is_prediction, value
+    (asset_id, measurement_type_id, ts, is_prediction, value)
+    SELECT DISTINCT ON (asset_id, measurement_type_id, ts, is_prediction)
+    asset_id, measurement_type_id, ts, is_prediction, value
     FROM measurement_copy
-    ON CONFLICT (asset_id, commodity_id, ts, is_prediction)
+    ON CONFLICT (asset_id, measurement_type_id, ts, is_prediction)
     DO UPDATE
     SET value = EXCLUDED.value;
 
@@ -168,7 +168,7 @@ BEGIN
     SET is_prediction = FALSE;
 
     UPDATE measurement_copy
-    SET commodity_id = (SELECT id FROM commodity WHERE type = commodity_type);
+    SET measurement_type_id = (SELECT id FROM measurement_type WHERE name = measurement_type_name);
 
     UPDATE measurement_copy
     SET asset_id = (SELECT id FROM asset WHERE name = bldgname);

@@ -3,14 +3,14 @@ const asset = (aggregation) => `
       asset.id,
       asset.name,
       DATE_TRUNC($1, measurement.ts) as timestamp,
-      commodity.type,
+      measurement_type.name AS type,
       ${aggregation}(measurement.value) 
     FROM 
       measurement
     JOIN 
       asset ON asset.id = measurement.asset_id
     JOIN 
-      commodity ON commodity.id = measurement.commodity_id
+      measurement_type ON measurement_type.id = measurement.measurement_type_id
     WHERE 
       (
           asset.name = $2 
@@ -26,7 +26,7 @@ const asset = (aggregation) => `
     GROUP BY
       asset.id,
       asset.name,
-      commodity.type, 
+      measurement_type.name, 
       timestamp
 `;
 
@@ -56,7 +56,7 @@ const assetComplementary = (aggregation) => `
       asset.id,
       asset.name,
       DATE_TRUNC($1, measurement.ts) as timestamp,
-      commodity.type,
+      measurement_type.name AS type,
       ${aggregation}(measurement.value)
     FROM
       measurement
@@ -67,11 +67,11 @@ const assetComplementary = (aggregation) => `
     AS asset
     ON asset.id = measurement.asset_id
     JOIN
-      commodity ON commodity.id = measurement.commodity_id
+      measurement_type ON measurement_type.id = measurement.measurement_type_id
     WHERE
       asset.name != $2
       AND
-      asset.tree_id = (SELECT tree_id FROM asset WHERE name = $2)
+      asset.tree_id = (SELECT tree_id FROM asset WHERE asset.name = $2)
       AND
       asset.depth =
       (
@@ -95,7 +95,7 @@ const assetComplementary = (aggregation) => `
     GROUP BY
       asset.id,
       asset.name,
-      commodity.type,
+      measurement_type.name,
       timestamp
 `;
 
@@ -105,14 +105,14 @@ const assetComplementary = (aggregation) => `
 const latest = (aggregation) => `
     SELECT
       DATE_TRUNC('HOUR', measurement.ts) as timestamp,
-      commodity.type,
+      measurement_type.name AS type,
       ${aggregation}(measurement.value) 
     FROM 
       measurement
     JOIN 
       asset ON asset.id = measurement.asset_id
     JOIN 
-      commodity ON commodity.id = measurement.commodity_id
+      measurement_type ON measurement_type.id = measurement.measurement_type_id
     WHERE 
       asset.name = $1
       AND
@@ -120,7 +120,7 @@ const latest = (aggregation) => `
       AND
       AGE( NOW(), measurement.ts ) < INTERVAL '24 HOURS'
     GROUP BY
-      commodity.type, 
+      measurement_type.name, 
       timestamp
 `;
 

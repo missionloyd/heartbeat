@@ -1,6 +1,6 @@
 const {
-  commodityTranslations,
-} = require("../constants/commodity_translations");
+  measurementTypeTranslations,
+} = require("../constants/measurement_type_translations");
 const {
   buildHistoricalMeasurementTableQuery,
 } = require("./build_historical_measurement_table_query");
@@ -9,7 +9,7 @@ const {
 } = require("./build_present_measurement_table_query");
 
 // Inputs :
-//  - commodityRows (ARRAY): array with all commodities
+//  - measurementTypeRows (ARRAY): array with all measurementTypes
 //  - measurementQueryType (INTEGER)
 //  - isHistoricalIncluded (BOOLEAN)
 // ~~~~~~~~~~~~~~~~
@@ -18,7 +18,7 @@ const {
 //  - an SQL query for the normalized measurement table.
 
 function buildMeasurementQuery(
-  commoditiesRows,
+  measurementTypeRows,
   measurementQueryType,
   isHistoricalIncluded,
   aggregation,
@@ -29,16 +29,16 @@ function buildMeasurementQuery(
   // Create the duplicate "historical" measurement table...
   // -----------------------------------------------
 
-  let commodityColumnPrefixes;
+  let measurementTypeColumnPrefixes;
   let finalHistoricalMeasurementTableQuery;
 
   if (isHistoricalIncluded) {
     // Empty string is for the "present" columns:
-    commodityColumnPrefixes = ["", "historical_"];
+    measurementTypeColumnPrefixes = ["", "historical_"];
 
     const historicalMeasurementTableQuery =
       buildHistoricalMeasurementTableQuery(
-        commoditiesRows,
+        measurementTypeRows,
         measurementQueryType,
         aggregation,
       );
@@ -55,7 +55,7 @@ function buildMeasurementQuery(
       ON ${pivotedPresentHistoricalAlias}.timestamp = ${pivotedPresentMeasurementAlias}.timestamp - INTERVAL '1 YEAR'
   `;
   } else {
-    commodityColumnPrefixes = [""];
+    measurementTypeColumnPrefixes = [""];
     finalHistoricalMeasurementTableQuery = "";
   }
 
@@ -70,13 +70,13 @@ function buildMeasurementQuery(
   // ------------------------------------------------------
 
   let finalColumns = "";
-  for (let prefix of commodityColumnPrefixes) {
-    for (let i = 0; i < commoditiesRows.length; i++) {
-      const commodityType = commoditiesRows[i]["type"];
+  for (let prefix of measurementTypeColumnPrefixes) {
+    for (let i = 0; i < measurementTypeRows.length; i++) {
+      const measurementTypeName = measurementTypeRows[i]["type"];
 
-      const commodity = commodityTranslations[commodityType];
+      const measurement_type = measurementTypeTranslations[measurementTypeName];
 
-      const finalColumnString = `"${prefix}${commodityType}" AS "${prefix}${commodity}",`;
+      const finalColumnString = `"${prefix}${measurementTypeName}" AS "${prefix}${measurement_type}",`;
 
       finalColumns += finalColumnString;
     }
@@ -88,7 +88,7 @@ function buildMeasurementQuery(
   // ------------------------------------------------------
 
   const presentMeasurementTableQuery = buildPresentMeasurementTableQuery(
-    commoditiesRows,
+    measurementTypeRows,
     measurementQueryType,
     aggregation,
   );
