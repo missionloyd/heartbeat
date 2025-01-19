@@ -12,7 +12,7 @@ const { buildMeasurementQuery } = require("../utils/build_measurement_query");
 //  - sqlAggregateFunction (STRING) such as "sum", "avg", "stddev"
 //  - measurementQueryType (ENUM VALUE)
 //  - isHistoricalIncluded (BOOLEAN)
-//  - isMeasurementPrediction (BOOLEAN)
+//  - measurementPredictionTypeId (INTEGER)
 // ~~~~~~~~~~~~~~~~
 // Outputs (Table Columns) :
 //  - Aggregate, of some input SQL aggregate function, of all measurement_type name columns.
@@ -25,14 +25,14 @@ async function getSummary(
   sqlAggregateFunction,
   measurementQueryType,
   isHistoricalIncluded,
-  isMeasurementPrediction,
+  measurementPredictionTypeId,
   aggregation
 ) {
   // $1 : dateLevel
   // $2 : assetName
   // $3 : startDate
   // $4 : endDate
-  // $5 : isMeasurementPrediction
+  // $5 : measurementPredictionTypeId
 
   const measurementTypeQuery = `
       SELECT name AS type FROM measurement_type;
@@ -90,7 +90,7 @@ async function getSummary(
     assetName,
     startDate,
     endDate,
-    isMeasurementPrediction
+    measurementPredictionTypeId
   ]);
 
   const summary = queryResult.rows;

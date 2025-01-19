@@ -18,7 +18,7 @@ const asset = (aggregation) => `
         $2 = '%'
     )
     AND
-    measurement.is_prediction = $5
+    measurement.measurement_prediction_type_id = $5
   GROUP BY
     asset.id,
     asset.name,
@@ -81,7 +81,7 @@ const assetComplementary = (aggregation) => `
         asset_depth_table.name = $2
     )
     AND
-    measurement.is_prediction = $5
+    measurement.measurement_prediction_type_id = $5
   GROUP BY
     asset.id,
     asset.name,
@@ -106,7 +106,7 @@ const latest = (aggregation) => `
   WHERE 
     asset.name = $1
     AND
-    measurement.is_prediction = $2
+    measurement.measurement_prediction_type_id = $2
   GROUP BY
     measurement_type.name, 
     timestamp

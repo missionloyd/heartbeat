@@ -9,7 +9,7 @@ const router = Router();
 
 function summaryRouter() {
   router.post("/", async (req, res) => {
-    const { assetName, startDate, endDate, dateLevel, aggregation, isHistoricalIncluded, isMeasurementPrediction } = req.body;
+    const { assetName, startDate, endDate, dateLevel, aggregation, isHistoricalIncluded, measurementPredictionTypeId = 0 } = req.body;
 
     let data = [];
 
@@ -23,11 +23,9 @@ function summaryRouter() {
     }
 
     let historicalFlag;
-    let predictionFlag;
 
     try {
       historicalFlag = returnOrErrorFlag(isHistoricalIncluded);
-      predictionFlag = returnOrErrorFlag(isMeasurementPrediction);
     } catch (error) {
       console.log(error.message);
 
@@ -49,7 +47,7 @@ function summaryRouter() {
             "AVG",
             measurementQueryTypes.Asset.value,
             historicalFlag,
-            predictionFlag,
+            measurementPredictionTypeId,
             aggregation
           ),
           campus: await getSummary(
@@ -60,7 +58,7 @@ function summaryRouter() {
             "AVG",
             measurementQueryTypes.AssetComplementary.value,
             historicalFlag,
-            predictionFlag,
+            measurementPredictionTypeId,
             aggregation
           ),
         },
@@ -73,7 +71,7 @@ function summaryRouter() {
             "SUM",
             measurementQueryTypes.Asset.value,
             historicalFlag,
-            predictionFlag,
+            measurementPredictionTypeId,
             aggregation
           ),
           campus: await getSummary(
@@ -84,7 +82,7 @@ function summaryRouter() {
             "SUM",
             measurementQueryTypes.AssetComplementary.value,
             historicalFlag,
-            predictionFlag,
+            measurementPredictionTypeId,
             aggregation
           ),
         },
@@ -97,7 +95,7 @@ function summaryRouter() {
             "STDDEV",
             measurementQueryTypes.Asset.value,
             historicalFlag,
-            predictionFlag,
+            measurementPredictionTypeId,
             aggregation
           ),
           campus: await getSummary(
@@ -108,7 +106,7 @@ function summaryRouter() {
             "STDDEV",
             measurementQueryTypes.AssetComplementary.value,
             historicalFlag,
-            predictionFlag,
+            measurementPredictionTypeId,
             aggregation
           ),
         },

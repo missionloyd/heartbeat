@@ -5,8 +5,7 @@ const router = Router();
 
 function deviationRouter() {
   router.post("/", async (req, res) => {
-    const { assetName, measurementTypeName, startDate, endDate, dateLevel, aggregation } =
-      req.body;
+    const { assetName, measurementTypeName, startDate, endDate, dateLevel, aggregation, measurementPredictionTypeId = 0 } = req.body;
 
     let data = [];
 
@@ -20,16 +19,13 @@ function deviationRouter() {
     }
 
     try {
-
-      const isMeasurementPrediction = false;
-
       const deviation = await getDeviation(
         assetName,
         measurementTypeName,
         startDate,
         endDate,
         dateLevel,
-        isMeasurementPrediction,
+        measurementPredictionTypeId,
         aggregation
       );
 

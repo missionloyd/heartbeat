@@ -19,7 +19,7 @@ const unpivotedMeasurementQuery = (aggregation, geometryMeasurementTypeIdList) =
             AND
             measurement_type.name = $5
             AND
-            measurement.is_prediction = $6
+            measurement.measurement_prediction_type_id = $6
             AND
             measurement.ts >= $2
             AND

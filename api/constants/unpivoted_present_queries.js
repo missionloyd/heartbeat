@@ -22,7 +22,7 @@ const asset = (aggregation) => `
       AND 
       measurement.ts <= $4
       AND
-      measurement.is_prediction = $5
+      measurement.measurement_prediction_type_id = $5
     GROUP BY
       asset.id,
       asset.name,
@@ -91,7 +91,7 @@ const assetComplementary = (aggregation) => `
       AND
       measurement.ts <= $4
       AND
-      measurement.is_prediction = $5
+      measurement.measurement_prediction_type_id = $5
     GROUP BY
       asset.id,
       asset.name,
@@ -116,7 +116,7 @@ const latest = (aggregation) => `
     WHERE 
       asset.name = $1
       AND
-      measurement.is_prediction = $2
+      measurement.measurement_prediction_type_id = $2
       AND
       AGE( NOW(), measurement.ts ) < INTERVAL '24 HOURS'
     GROUP BY

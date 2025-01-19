@@ -7,7 +7,7 @@ const router = Router();
 // Get Data points for an asset (default in days)
 function pointsRouter() {
   router.post("/", async (req, res) => {
-    const { assetName, startDate, endDate, dateLevel, aggregation, isHistoricalIncluded, isMeasurementPrediction } = req.body;
+    const { assetName, startDate, endDate, dateLevel, aggregation, isHistoricalIncluded, measurementPredictionTypeId = 0 } = req.body;
 
     let data = [];
 
@@ -21,11 +21,9 @@ function pointsRouter() {
     }
 
     let historicalFlag;
-    let predictionFlag;
 
     try {
       historicalFlag = returnOrErrorFlag(isHistoricalIncluded);
-      predictionFlag = returnOrErrorFlag(isMeasurementPrediction);
     } catch (error) {
       console.log(error.message);
 
@@ -38,7 +36,7 @@ function pointsRouter() {
 
     try {
       data = {
-        points: await getPoints(assetName, startDate, endDate, dateLevel, aggregation, historicalFlag, predictionFlag),
+        points: await getPoints(assetName, startDate, endDate, dateLevel, aggregation, historicalFlag, measurementPredictionTypeId),
       };
     } catch (error) {
       console.log(error);

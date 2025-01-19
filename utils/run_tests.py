@@ -16,7 +16,7 @@ payload = {
     "startDate": "2019-09-19",
     "endDate": "2025-01-01",
     # "isHistoricalIncluded": "tRuE",  # comment out to get default behavior (default = false),
-    "isMeasurementPrediction": "true",  # comment out to get default behavior (default = false)
+    "measurementPredictionTypeId": None,  # comment out to get default behavior (default = null)
 }
 
 # # 32 -> UWYO (asset)

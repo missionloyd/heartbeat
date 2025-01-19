@@ -6,7 +6,7 @@ const router = Router();
 // Get the latest data in the past 24 hours
 function latestRouter() {
   router.post("/", async (req, res) => {
-    const { assetName, isHistoricalIncluded, isMeasurementPrediction, aggregation } = req.body;
+    const { assetName, isHistoricalIncluded, aggregation, measurementPredictionTypeId = 0 } = req.body;
 
     let data = [];
 
@@ -20,11 +20,9 @@ function latestRouter() {
     }
 
     let historicalFlag;
-    let predictionFlag;
 
     try {
       historicalFlag = returnOrErrorFlag(isHistoricalIncluded);
-      predictionFlag = returnOrErrorFlag(isMeasurementPrediction);
     } catch (error) {
       console.log(error.message);
 
@@ -36,7 +34,7 @@ function latestRouter() {
     }
 
     try {
-      data = await getLatest(assetName, historicalFlag, predictionFlag, aggregation);
+      data = await getLatest(assetName, historicalFlag, measurementPredictionTypeId, aggregation);
     } catch (error) {
       console.log(error);
 

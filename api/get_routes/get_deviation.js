@@ -11,7 +11,7 @@ async function getDeviation(
   startDate,
   endDate,
   dateLevel,
-  isMeasurementPrediction,
+  measurementPredictionTypeId,
   aggregation,
 ) {
   const geometryMeasurementTypeIdList = [1, 2, 3, 4, 5];
@@ -22,7 +22,7 @@ async function getDeviation(
     endDate,
     assetName,
     reversedMeasurementTypeTranslations[measurementTypeName],
-    isMeasurementPrediction
+    measurementPredictionTypeId
   ]);
 
   const rows = [];
