@@ -10,7 +10,8 @@ const measurementTypeTranslations = {
     "temperature_f": "temperature",
     "pressure_mbar": "pressure",
     "pm2.5_µg/m3": "pm2.5",
-    "pm10.0_µg/m3": "pm10.0"
+    "pm10.0_µg/m3": "pm10.0",
+    "gas_kwh": "gas",
 };
 
 const reversedMeasurementTypeTranslations = Object.entries(measurementTypeTranslations).reduce((acc, [key, value]) => {
