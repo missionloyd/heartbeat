@@ -24,11 +24,11 @@ CREATE INDEX name_index ON public.asset USING btree (name);
 -- -----------------------------------------------------------------------------------------------------
 
 \copy public.measurement (asset_id, measurement_type_id, measurement_prediction_type_id, ts, value) FROM 'data/measurement.csv' DELIMITER '|' CSV HEADER NULL AS '';
--- \copy public.measurement (asset_id, measurement_type_id, measurement_prediction_type_id, ts, value) FROM 'data/pa_measurement.csv' DELIMITER ',' CSV HEADER NULL AS '';
+\copy public.measurement (asset_id, measurement_type_id, measurement_prediction_type_id, ts, value) FROM 'data/pa_measurement.csv' DELIMITER ',' CSV HEADER NULL AS '';
 
 -- -----------------------------------------------------------------------------------------------------
 
--- \copy public.measurement (asset_id, measurement_type_id, measurement_prediction_type_id, ts, value) FROM 'data/citysim_prediction_measurement.csv' DELIMITER '|' CSV HEADER NULL AS '';
--- \copy public.measurement (asset_id, measurement_type_id, measurement_prediction_type_id, ts, value) FROM 'data/xgboost_prediction_measurement.csv' DELIMITER '|' CSV HEADER NULL AS '';
+\copy public.measurement (asset_id, measurement_type_id, measurement_prediction_type_id, ts, value) FROM 'data/citysim_prediction_measurement.csv' DELIMITER '|' CSV HEADER NULL AS '';
+\copy public.measurement (asset_id, measurement_type_id, measurement_prediction_type_id, ts, value) FROM 'data/xgboost_prediction_measurement.csv' DELIMITER '|' CSV HEADER NULL AS '';
 
 -- -----------------------------------------------------------------------------------------------------
