@@ -8,4 +8,5 @@ RUN apt-get -y install postgresql-16-postgis-3
 RUN apt-get -y install postgis
 
 # The "docker-entrypoint-initdb.d" directory will automatically run these scripts:
-COPY index.sql /docker-entrypoint-initdb.d
+# COPY index.sql /docker-entrypoint-initdb.d
+COPY init.sh /docker-entrypoint-initdb.d
